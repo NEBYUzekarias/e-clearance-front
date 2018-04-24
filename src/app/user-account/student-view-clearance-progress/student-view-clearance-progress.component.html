@@ -1,0 +1,45 @@
+<div>
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="card">
+        <h2 class="flow-text custom-h2" >
+         <i class="material-icons left">update</i> Clearances in porgess
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="card custom-card">
+          <table>
+            <tr>
+            
+              <th>Requested office</th>
+              <th>Academic year</th>
+              <th>Semester</th>
+              <th>Student year</th>
+              <th>Status</th>
+              <td>Reason</td>
+              <th>Action</th>
+            </tr>
+
+            <tr *ngFor="let progress of progresses">
+              <td>{{progress.officeId}}</td>
+              <td>{{progress.academic_year}}</td>
+              <td>{{progress.semester}}</td>
+              <td>{{progress.student_year}}</td>
+              <td>Pending</td>
+              <td>{{progress.reason_for_clearance}}</td>
+              <td>
+                <button class="btn red white-text darken-2"> <i class="material-icons left">highlight_off</i>cancel</button>
+              </td>
+
+            </tr>
+
+           
+          </table>
+
+      </div>
+    </div>
+  </div>
+</div>

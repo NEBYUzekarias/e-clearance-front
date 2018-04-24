@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div class="card">
+      <h2 *ngIf="authService.userType('student')" class="flow-text custom-h2">
+        <i class="material-icons left">history</i> Your clearance history
+      </h2>
+      <h2 *ngIf="authService.userType('office_user')" class="flow-text custom-h2">
+        <i class="material-icons left">notifications</i> Clearance requests
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div  class="row">
+  <div class="col s12 m12 l12">
+    <div class="card custom-card">
+      <table>
+        <tr>
+          <th>
+            Student Id
+          </th>
+          <th>
+            Student full name
+          </th>
+          <th>
+            Department
+          </th>
+          <th>Year</th>
+          <th>
+            Requested for AC Year-Semester
+          </th>
+          <th>
+            Date of request
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+        <tr>
+          <td>
+            ATR/9023/09
+          </td>
+          <td>
+            Abebe Kebede Tolla
+          </td>
+          <td>
+            Electrical and computer Engineering
+          </td>
+          <td>
+            II
+          </td>
+          <td>
+            2018/19-II
+          </td>
+          <td>
+            12-05-2016
+          </td>
+          <td>
+            <div class="input-field">
+              <button class="btn">Review</button>
+              <button class="btn">Approve</button>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            ATR/4040/10
+          </td>
+          <td>
+            Cala Camba Shamba
+          </td>
+          <td>
+            Mechanical Engineering
+          </td>
+          <td>
+            I
+          </td>
+          <td>
+            2018/19-II
+          </td>
+          <td>
+            12-05-2016
+          </td>
+          <td>
+            <div class="input-field">
+              <button class="btn">Review</button>
+              <button class="btn">Approve</button>
+            </div>
+          </td>
+        </tr>
+
+
+      </table>
+    </div>
+  </div>
+</div>

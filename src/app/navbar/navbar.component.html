@@ -1,0 +1,32 @@
+<div class="navbar-fixed">
+    <nav class="nav-wrapper blue darken-1">
+        <ul class="left">
+          <li><a class="flow-text" >AAiT e-clearance</a></li>
+          <li *ngIf="authService.isLoggedIn()" >
+            <a (click)="toggleSideNav()" style="margin-left:0px;height: 100%">
+              <i style="margin-top: 5px" class="material-icons">menu</i>
+            </a>
+          </li>
+      
+        </ul>
+      
+        <div class="customdiv">
+            
+          
+          <ul *ngIf="!authService.isLoggedIn()" class="right">
+            
+            <li>
+              <a href="http://portal.aait.edu.et">ISIMS portal</a>
+            </li>
+            <li>
+              <a>User manual</a>
+            </li>
+          </ul>
+          <ul *ngIf="authService.isLoggedIn()" class="right">
+            <li><a href=""> <i class="material-icons left">person</i> {{authService.userName()}} </a></li>
+          </ul>
+        </div>
+      
+      
+      </nav>
+</div>

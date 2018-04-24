@@ -1,0 +1,26 @@
+<ul *ngIf="authService.userType('student')" class="collection with-header" style="margin-top:0%">
+  <li class="collection-item "><h4 class="flow-text">Navigation</h4></li>
+  <a class="collection-item blue-text" routerLink="/home"> <i class="material-icons left">home</i> Home</a>
+  <a class="collection-item blue-text" routerLink="/new_clearance"> <i class="material-icons left">edit</i> Request for clearance</a>
+  <a class="collection-item blue-text" routerLink="/clearance_progress"> <i class="material-icons left">pause</i> Clearance progress</a>
+  <a class="collection-item blue-text" routerLink="/clearance_history"> <i class="material-icons left">done_all</i> Clearance history</a>
+  <a class="collection-item blue-text" (click)="authService.logOut()"><i class="material-icons left">power_settings_new</i> Logout</a>
+</ul>
+
+<ul *ngIf="authService.userType('office_user')" class="collection with-header" style="margin-top: 0%">
+  <li class="collection-item"><h4 class="flow-text">Navigation</h4></li>
+  <a class="collection-item blue-text" routerLink="/home"><i class="material-icons left">home</i>Home</a>
+  <a class="collection-item blue-text" routerLink="/clearance_requests"><i class="material-icons left">notifications</i>Clearance requests</a>
+  <a class="collection-item blue-text" routerLink="/cleared_requests"><i class="material-icons left">done_all</i>Cleared requests</a>
+  <a class="collection-item blue-text" (click)="authService.logOut()"><i class="material-icons left">power_settings_new</i>Logout</a>
+</ul> 
+
+<ul *ngIf="authService.userType('admin')" class="collection with-header" style="margin-top: 0%">
+  <li class="collection-item"> <h4 class="flow-text">Navigation</h4> </li>
+  <a class="collection-item blue-text" routerLink="/home"><i class="material-icons left">home</i>Home</a>
+  <a class="collection-item blue-text" routerLink="/import_student_data"><i class="material-icons left">create</i>Import student data</a>
+  <a class="collection-item blue-text" routerLink="/register_office_user"><i class="material-icons left">create</i>Register office user</a>
+  <a class="collection-item blue-text" routerLink="/register_student"><i class="material-icons left">create</i>Register student</a>
+  <a class="collection-item blue-text" routerLink="/add_new_office"><i class="material-icons left">add</i>Add new office</a>
+  <a href="" class="collection-item blue-text" (click)="authService.logOut()"><i class="material-icons left">power_settings_new</i>Log out</a>
+</ul>
