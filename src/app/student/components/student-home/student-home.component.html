@@ -1,0 +1,21 @@
+<div class="row">
+  <div *ngFor="let office of officesList" class="col l6">
+    <div class="card custom-card hoverable">
+      <div class="card-image">
+        <img src="{{office.picture}}" alt="">
+        <span class="card-title" style="color: white">
+                <div class="custom-card-title">
+                  <b>{{office.name}}</b>
+                </div>
+              </span>
+      </div>
+      <div class="card-content">
+        {{office.description}}
+      </div>
+      <div class="card-action">
+        <a href="">{{office.name}}</a>
+      </div>
+
+    </div>
+  </div>
+</div>

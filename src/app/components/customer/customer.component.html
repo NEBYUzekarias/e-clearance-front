@@ -1,0 +1,12 @@
+<app-navbar [account]="account"></app-navbar>
+
+<div class="row">
+  <div class="col l2">
+    <div id="sideNav" class="custom-side-nav z-depth-4">
+      <app-side-nav [user_role]="account.user_role"></app-side-nav>
+    </div>
+  </div>
+  <div id="main" class="col l8 m12 s12" >
+    <router-outlet></router-outlet>
+  </div>
+</div>

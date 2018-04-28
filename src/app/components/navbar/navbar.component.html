@@ -7,14 +7,14 @@
               <i style="margin-top: 5px" class="material-icons">menu</i>
             </a>
           </li>
-      
+
         </ul>
-      
+
         <div class="customdiv">
-            
-          
+
+
           <ul *ngIf="!authService.isLoggedIn()" class="right">
-            
+
             <li>
               <a href="http://portal.aait.edu.et">ISIMS portal</a>
             </li>
@@ -23,10 +23,10 @@
             </li>
           </ul>
           <ul *ngIf="authService.isLoggedIn()" class="right">
-            <li><a href=""> <i class="material-icons left">person</i> {{authService.userName()}} </a></li>
+            <li><a href=""> <i class="material-icons left">person</i> {{account.username}} </a></li>
           </ul>
         </div>
-      
-      
+
+
       </nav>
 </div>

@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
-import { LoginComponent } from './guest/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { TestComponent } from './test/test.component';
 import { HomeComponent } from './user-account/home/home.component';
-import { SideNavComponent } from './user-account/side-nav/side-nav.component';
-import { StudentRequestClearanceComponent } from './user-account/student-request-clearance/student-request-clearance.component';
-import { StudentViewClearanceProgressComponent } from './user-account/student-view-clearance-progress/student-view-clearance-progress.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { StudentRequestClearanceComponent } from './student/components/student-request-clearance/student-request-clearance.component';
+import { StudentViewClearanceProgressComponent } from './student/components/student-view-clearance-progress/student-view-clearance-progress.component';
 import { ViewClearedRequestsComponent } from './user-account/view-cleared-requests/view-cleared-requests.component';
 import { ViewClearanceRequestsComponent } from './user-account/view-clearance-requests/view-clearance-requests.component';
 import { OfficeDetailsComponent } from './user-account/office-details/office-details.component';
@@ -22,6 +22,13 @@ import { AdminImportStudentDataComponent } from './user-account/admin-import-stu
 import { AdminRegisterOfficeUserComponent } from './user-account/admin-register-office-user/admin-register-office-user.component';
 import { AdminRegisterStudentComponent } from './user-account/admin-register-student/admin-register-student.component';
 import { AdminAddNewOfficeComponent } from './user-account/admin-add-new-office/admin-add-new-office.component';
+import {LoginGuard} from "./guards/login.guard";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AccessTokenAuthInterceptor} from "./interceptors/accessTokenAuth.interceptor";
+import {NotificationService} from "./services/notification.service";
+import { CustomerComponent } from './components/customer/customer.component';
+import {StudentModule} from "./student/student.module";
+import {AccountService} from "./services/account.service";
 
 
 @NgModule({
@@ -32,8 +39,6 @@ import { AdminAddNewOfficeComponent } from './user-account/admin-add-new-office/
     TestComponent,
     HomeComponent,
     SideNavComponent,
-    StudentRequestClearanceComponent,
-    StudentViewClearanceProgressComponent,
     ViewClearedRequestsComponent,
     ViewClearanceRequestsComponent,
     OfficeDetailsComponent,
@@ -41,15 +46,29 @@ import { AdminAddNewOfficeComponent } from './user-account/admin-add-new-office/
     AdminRegisterOfficeUserComponent,
     AdminRegisterStudentComponent,
     AdminAddNewOfficeComponent,
+    CustomerComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    HttpClientModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StudentModule,
+    AppRoutingModule,
   ],
-  providers: [AuthService, ApiService],
+  providers: [
+    LoginGuard,
+    AuthService,
+    NotificationService,
+    AccountService,
+    ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenAuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

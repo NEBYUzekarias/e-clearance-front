@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-student-view-clearance-progress',
@@ -16,7 +16,7 @@ export class StudentViewClearanceProgressComponent implements OnInit {
       console.log(resp.json());
     });
 
-    
+
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import {Component, Input, OnInit} from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 var isOpen = true;
 declare var $: any;
@@ -10,6 +10,7 @@ declare var $: any;
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @Input() account: Account;
 
   constructor(private authService: AuthService) { }
 
@@ -18,7 +19,7 @@ export class NavbarComponent implements OnInit {
             document.getElementById("main").style.marginLeft = '250px';
             document.getElementById("main").style.marginTop = '-1.6%';
             document.getElementById("main").style.width = '80%';
-    
+
     }
   }
    toggleSideNav(){

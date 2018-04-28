@@ -14,9 +14,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private api_service: ApiService) {
-    console.log(authService.getToken());
+    console.log(authService.access_token);
 
-    
+
    }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('refresh', "yes");
     }
     else{
-      
+
 
     }
 

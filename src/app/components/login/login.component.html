@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="row">
   <div class="col l2"></div>
   <div class="col l8 s12">
@@ -6,19 +8,16 @@
         <div class="input-field">
           <h2 class="flow-text"> <i class="material-icons left">lock_open</i> Login</h2>
         </div>
-        <div *ngIf="error" class="input-field">
-          <p class=" red-text">username or passowrd error</p>
-        </div>
         <div class="input-field">
-          <input formControlName = "username" type="text" id="username">
+          <input formControlName="username" type="text" id="username">
           <label for="username">Username</label>
         </div>
         <div class="input-field">
-          <input formControlName = "password" type="password" id="password">
+          <input formControlName="password" type="password" id="password">
           <label for="password">Password</label>
         </div>
         <div class="input-field">
-          <button class="btn blue" (click)="processLogin()" >Login</button>
+          <button class="btn blue" (click)="login()" >Login</button>
         </div>
       </form>
     </div>

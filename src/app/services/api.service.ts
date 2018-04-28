@@ -8,17 +8,17 @@ export class ApiService {
   private api_end_path = "http://localhost:3000/api/";
 
   constructor(private authService: AuthService,
-              private http: Http) { 
+              private http: Http) {
 
               }
-//for studnet user home              
+//for studnet user home
 getOfficesList(){
   return this.http.get(this.api_end_path+"offices");
 }
 
 //for each office user home
 getUserOffice(){
-  return this.http.get(this.api_end_path+"offices/"+this.authService.getToken().user.officeId);
+  return this.http.get(this.api_end_path+"offices/"+this.authService.access_token);
 }
 
 //for student user to send request to an office of their choice

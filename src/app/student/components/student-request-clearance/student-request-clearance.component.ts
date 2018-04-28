@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
+import { ApiService } from '../../../services/api.service';
 import { FormGroup, FormControl } from '@angular/forms';
 declare var $: any;
 declare var Materialize: any;
@@ -10,12 +10,12 @@ declare var Materialize: any;
   styleUrls: ['./student-request-clearance.component.css']
 })
 export class StudentRequestClearanceComponent implements OnInit {
-  
+
   ids: string[];
-  offices: any[]
+  offices: any[];
   constructor(private authService: AuthService,
-              private api_service: ApiService) { 
-    //console.log(authService.getToken());
+              private api_service: ApiService) {
+    //console.log(authService.getAccessToken());
     this.api_service.getOfficesList().subscribe(resp=>{
       this.offices = resp.json();
      // Materialize.toast("Got the items", 5000);
@@ -25,7 +25,7 @@ export class StudentRequestClearanceComponent implements OnInit {
 
   ngOnInit() {
     $('select').material_select();
-    
+
   }
 
   test(param){
