@@ -6,6 +6,7 @@ import {StudentRequestClearanceComponent} from "./components/student-request-cle
 import {StudentViewClearanceProgressComponent} from "./components/student-view-clearance-progress/student-view-clearance-progress.component";
 import {FormsModule} from "@angular/forms";
 import { StudentHomeComponent } from './components/student-home/student-home.component';
+import { StudentSideNavComponent } from './components/student-side-nav/student-side-nav.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,10 @@ import { StudentHomeComponent } from './components/student-home/student-home.com
     StudentRequestClearanceComponent,
     StudentViewClearanceProgressComponent,
     StudentHomeComponent,
+    StudentSideNavComponent,
+  ],
+  exports: [
+    StudentSideNavComponent
   ]
 })
 export class StudentModule { }

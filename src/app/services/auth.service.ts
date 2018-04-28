@@ -7,6 +7,7 @@ import {appConfig} from "../app.config";
 import "rxjs/add/operator/map";
 import {NotificationService} from "./notification.service";
 import {AccountService} from "./account.service";
+import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class AuthService {
@@ -62,6 +63,9 @@ export class AuthService {
               private accountService: AccountService) {  }
 
   login(account: Account): Observable<any> {
+    // logout user if there is someon logged in
+    this.logout();
+
     return this.http
       .post(appConfig.apiUrl + '/users/login', account)
       .map((resp) => {
@@ -85,10 +89,14 @@ export class AuthService {
             // remove everything from local storage including access token
             localStorage.clear();
 
+            // clear auth service properties
+            this._access_token = null;
+            this._account = null;
+
             this.router.navigate(['/login']);
           },
           err => {
-            this.notifService.error(err, null);
+            this.notifService.error(null, null, err);
           }
         );
     } else {
@@ -118,6 +126,34 @@ export class AuthService {
 
         return resp;
       });
+  }
+
+  isSelfRole(user_role: string): Observable<boolean> {
+    if (this.account) {
+      if (this.account.user_role === user_role) {
+        return Observable.of(true);
+      }
+
+      return Observable.of(false);
+    } else {
+      const subject = new Subject<boolean>();
+      this.getSelfAccount()
+        .subscribe(
+          resp => {
+            if (resp.user_role === user_role) {
+              subject.next(true);
+            } else {
+              subject.next(false);
+            }
+          },
+          err => {
+            subject.next(false);
+            this.notifService.error('could not get user info', null, err);
+          }
+        );
+
+      return subject.asObservable();
+    }
   }
 
   userName() {

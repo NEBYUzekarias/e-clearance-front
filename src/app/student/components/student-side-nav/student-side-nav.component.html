@@ -1,0 +1,23 @@
+<ul class="collection with-header" style="margin-top:0%">
+  <li class="collection-item "><h4 class="flow-text">Navigation</h4></li>
+  <a class="collection-item blue-text" routerLink="home">
+    <i class="material-icons left">home</i>
+    Home
+  </a>
+  <a class="collection-item blue-text" routerLink="request_clearance">
+    <i class="material-icons left">edit</i>
+    Request for clearance
+  </a>
+  <a class="collection-item blue-text" routerLink="view_progress">
+    <i class="material-icons left">pause</i>
+    Clearance progress
+  </a>
+  <a class="collection-item blue-text" routerLink="/clearance_history">
+    <i class="material-icons left">done_all</i>
+    Clearance history
+  </a>
+  <a class="collection-item blue-text" [routerLink]="" (click)="authService.logout()">
+    <i class="material-icons left">power_settings_new</i>
+    Logout
+  </a>
+</ul>

@@ -48,10 +48,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         resp => {
           if (this.nextUrl) {
-            console.log('found next url:', this.nextUrl);
             this.router.navigate([this.nextUrl]);
           } else {
-            console.log('no next url');
             if (this.authService.account) {
               console.log('auth account:', this.authService.account);
               // use if account is found on local storage

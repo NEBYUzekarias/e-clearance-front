@@ -12,9 +12,15 @@ export class NotificationService {
 
   // error level notification
   error(message: string, options?: object, err?): void {
-    console.log("error:", message);
     if (err) {
+      if (err.status === 0) {
+        console.log("Unable to connect");
+      }
       console.log("err object:", err);
+    }
+
+    if (message) {
+      console.log('message: ', message);
     }
   }
 

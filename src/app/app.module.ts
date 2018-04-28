@@ -12,8 +12,8 @@ import { HomeComponent } from './user-account/home/home.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { StudentRequestClearanceComponent } from './student/components/student-request-clearance/student-request-clearance.component';
 import { StudentViewClearanceProgressComponent } from './student/components/student-view-clearance-progress/student-view-clearance-progress.component';
-import { ViewClearedRequestsComponent } from './user-account/view-cleared-requests/view-cleared-requests.component';
-import { ViewClearanceRequestsComponent } from './user-account/view-clearance-requests/view-clearance-requests.component';
+import { ViewClearedRequestsComponent } from './office/components/view-cleared-requests/view-cleared-requests.component';
+import { ViewClearanceRequestsComponent } from './office/components/view-clearance-requests/view-clearance-requests.component';
 import { OfficeDetailsComponent } from './user-account/office-details/office-details.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,24 +29,25 @@ import {NotificationService} from "./services/notification.service";
 import { CustomerComponent } from './components/customer/customer.component';
 import {StudentModule} from "./student/student.module";
 import {AccountService} from "./services/account.service";
+import {StudentGuard} from "./guards/student.guard";
+import {OfficeModule} from "./office/office.module";
+import {OfficeGuard} from "./guards/office.guard";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     LoginComponent,
+    CustomerComponent,
+    NavbarComponent,
     TestComponent,
     HomeComponent,
     SideNavComponent,
-    ViewClearedRequestsComponent,
-    ViewClearanceRequestsComponent,
     OfficeDetailsComponent,
     AdminImportStudentDataComponent,
     AdminRegisterOfficeUserComponent,
     AdminRegisterStudentComponent,
     AdminAddNewOfficeComponent,
-    CustomerComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,11 +55,14 @@ import {AccountService} from "./services/account.service";
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    OfficeModule,
     StudentModule,
     AppRoutingModule,
   ],
   providers: [
     LoginGuard,
+    StudentGuard,
+    OfficeGuard,
     AuthService,
     NotificationService,
     AccountService,
