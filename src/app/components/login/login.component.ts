@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
               // use if account is found on local storage
               this.redirectToHome(this.authService.account);
             } else {
-              console.log('fetch account');
               // fetch account info from api
               this.authService.getSelfAccount()
                 .subscribe(

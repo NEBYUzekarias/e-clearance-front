@@ -43,7 +43,7 @@ export class StudentRequestClearanceComponent implements OnInit {
     var dormitory = $('#Dormitory').is(':checked');
     var registrar = $('#Registrar').is(':checked');
 
-    var userId = this.authService.getUserId();
+    var userId = '1';
 
     var url = "http://localhost:3000/api/requests";
     var common_data = {

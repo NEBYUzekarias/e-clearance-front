@@ -1,5 +1,7 @@
 // users account model
 export class Account {
+  id: string;
+
   // basic student and office user details
   username: string;
   password: string;

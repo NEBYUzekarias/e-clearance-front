@@ -30,13 +30,13 @@ export class AuthService {
     // store user details and jwt access token in local storage to keep user logged in
     localStorage.setItem(appConfig.local_keys.token, new_token);
 
-    this.getSelfAccount()
-      .subscribe(
-        null,
-        err => {
-          this.notifService.error('could not get account info', null, err);
-        }
-      );
+    // this.getSelfAccount()
+    //   .subscribe(
+    //     null,
+    //     err => {
+    //       this.notifService.error('could not get account info', null, err);
+    //     }
+    //   );
 
     this._access_token = new_token;
   }
@@ -67,7 +67,7 @@ export class AuthService {
     this.logout();
 
     return this.http
-      .post(appConfig.apiUrl + '/users/login', account)
+      .post(appConfig.apiUrl + '/accounts/login', account)
       .map((resp) => {
         // login successful if there's a jwt access token in the response
         if (resp && resp['id']) {  // res['id'] is awkwardly the access token
@@ -83,7 +83,7 @@ export class AuthService {
 
     // if there is access token, logout from the server
     if (access_token) {
-      this.http.post(appConfig.apiUrl + '/users/logout', null)
+      this.http.post(appConfig.apiUrl + '/accounts/logout', null)
         .subscribe(
           resp => {
             // remove everything from local storage including access token
@@ -111,20 +111,14 @@ export class AuthService {
   }
 
   getSelfAccount(): Observable<Account> {
-    let account = new Account();
-    account.username = "atr/0593/07";
-    account.first_name = "yared";
-    account.last_name = "tadde";
-    account.user_role = "student";
-
-    return Observable
-      .of(account)
+    return this.http
+      .get(appConfig.apiUrl + '/accounts/self')
       .map((resp) => {
         // store account on local storage
         localStorage.setItem(appConfig.local_keys.account, JSON.stringify(resp));
-        this._account = resp as Account;
+        this._account = resp.self as Account;
 
-        return resp;
+        return resp.self as Account;
       });
   }
 
@@ -141,8 +135,10 @@ export class AuthService {
         .subscribe(
           resp => {
             if (resp.user_role === user_role) {
+              console.log('emiting true for role:', user_role);
               subject.next(true);
             } else {
+              console.log('emiting false for role:', user_role);
               subject.next(false);
             }
           },
@@ -156,27 +152,8 @@ export class AuthService {
     }
   }
 
-  userName() {
-    return 'yared';
-  }
-  getUserId(){
-    return '1';
-  }
-  getUserAccessToken(){
-    return '1';
-  }
-
-  userType(userType: string): boolean{
-    return true;
-  }
-
-  isLoggedIn() {
-    return true;
-  }
-  getOfficeType(userId){
+  userType(){
 
   }
-
-
 
 }

@@ -9,19 +9,11 @@ declare var $: any;
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   @Input() account: Account;
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit() {
-    if(this.authService.isLoggedIn()){
-            document.getElementById("main").style.marginLeft = '250px';
-            document.getElementById("main").style.marginTop = '-1.6%';
-            document.getElementById("main").style.width = '80%';
-
-    }
-  }
    toggleSideNav(){
         if(isOpen){
             this.closeSideNav();

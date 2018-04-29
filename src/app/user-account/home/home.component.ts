@@ -31,12 +31,12 @@ export class HomeComponent implements OnInit {
 
     }
 
-    if(this.authService.userType("student")){
+    if(this.authService.account.user_role == "student"){
       this.api_service.getOfficesList().subscribe(resp => {
         this.officesList = resp.json();
       });
     }
-    else if(this.authService.userType("office_user")){
+    else if(this.authService.account.user_role == "office"){
       this.api_service.getUserOffice().subscribe(resp =>{
         this.office_of_user = resp.json();
 

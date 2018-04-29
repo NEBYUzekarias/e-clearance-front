@@ -23,7 +23,7 @@ getUserOffice(){
 
 //for student user to send request to an office of their choice
 sendClearanceRequest(){
-  return this.http.get(this.api_end_path+"requests?filter[where][userId]="+this.authService.getUserId());
+  return this.http.get(this.api_end_path+"requests?filter[where][userId]="+this.authService.account.id);
 }
 
 getOfficeRequest(officeId){
@@ -33,7 +33,7 @@ getOfficeRequest(officeId){
 //for student user to see requst progress
 
 getRequestsInProgress(){
-  return this.http.get(this.api_end_path+"requests?filter[where][userId]="+this.authService.getUserId());
+  return this.http.get(this.api_end_path+"requests?filter[where][userId]="+this.authService.account.id);
 }
 
 //for student user to see cleared requests

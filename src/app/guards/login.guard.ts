@@ -12,7 +12,6 @@ export class LoginGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-
     if (this.authService.access_token) {
       return true;
     }
