@@ -32,6 +32,7 @@ import {AccountService} from "./services/account.service";
 import {StudentGuard} from "./guards/student.guard";
 import {OfficeModule} from "./office/office.module";
 import {OfficeGuard} from "./guards/office.guard";
+import { ClearanceService } from './services/clearance.service';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import {OfficeGuard} from "./guards/office.guard";
     AuthService,
     NotificationService,
     AccountService,
+    ClearanceService,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,

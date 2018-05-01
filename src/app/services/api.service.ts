@@ -30,7 +30,7 @@ getOfficeRequest(officeId){
   return this.http.get(this.api_end_path+"requests?filter[where][officeId]="+officeId);
 }
 
-//for student user to see requst progress
+//for student user to see requst clearance
 
 getRequestsInProgress(){
   return this.http.get(this.api_end_path+"requests?filter[where][userId]="+this.authService.account.id);

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {Clearance} from "../models/clearance";
+import {HttpClient} from '@angular/common/http';
+import {appConfig} from '../app.config';
 
 @Injectable()
 export class ClearanceService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   /**
    * submit a clearance request on behalf of student
@@ -21,11 +23,17 @@ export class ClearanceService {
 
   /**
    * get active clearance requests of a student
-   * @returns {Observable<Clearance[][]>}: clearances grouped in common case
+   * @returns {Observable<Clearance[]>}: clearances
    */
-  getActiveClearances(): Observable<Clearance[][]> {
-
-    return null;
+  getActiveClearances(): Observable<Clearance[]> {
+    return this.httpClient.get(
+      appConfig.apiUrl +
+       '/clearances?filter={"where": {"state":"pending"},"include": "student"}')
+            .map(
+              (resp: any) =>{
+                return resp as Clearance[];
+              } 
+          );
   }
 
   /**
