@@ -16,27 +16,28 @@
 
             <th>Academic year</th>
             <th>Semester</th>
-            <th>Student year</th>
+
             <th>Status</th>
             <td>Reason</td>
-            <th>Action</th>
+            <td>Requested offices</td>
           </tr>
 
           <tr *ngFor="let clearance of clearances">
             <td>{{clearance.academic_year}}</td>
             <td>{{clearance.semester}}</td>
-           
+
             <td>{{clearance.state}}</td>
             <td>{{clearance.reason}}</td>
             <td>
-              <button class="btn red white-text darken-2">
-                <i class="material-icons left">highlight_off</i>cancel</button>
+              <ul>
+                <li *ngFor="let request of clearance.requests"> {{request.departmentId}}  {{request.state}} </li>
+              </ul>
             </td>
-
           </tr>
 
 
         </table>
+
 
       </div>
     </div>

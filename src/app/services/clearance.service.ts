@@ -28,7 +28,7 @@ export class ClearanceService {
   getActiveClearances(): Observable<Clearance[]> {
     return this.httpClient.get(
       appConfig.apiUrl +
-       '/clearances?filter={"where": {"state":"pending"},"include": "student"}')
+       '/clearances?filter={"where": {"state":"pending"},"include": ["student", "requests"]}')
             .map(
               (resp: any) =>{
                 return resp as Clearance[];
