@@ -6,6 +6,7 @@ import {StudentRequestClearanceComponent} from "./components/student-request-cle
 import {StudentViewClearanceProgressComponent} from "./components/student-view-clearance-progress/student-view-clearance-progress.component";
 import {StudentHomeComponent} from "./components/student-home/student-home.component";
 import {StudentGuard} from "../guards/student.guard";
+import {StudentClearanceHistoryComponent} from "./components/student-clearance-history/student-clearance-history.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'view_progress',
         component: StudentViewClearanceProgressComponent,
+      },
+      {
+        path: 'history',
+        component: StudentClearanceHistoryComponent,
       }
     ]
   }

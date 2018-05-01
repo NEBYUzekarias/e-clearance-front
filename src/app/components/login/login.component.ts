@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           }
         },
         err => {
-          this.notifService.error(err, null);
+          this.notifService.error(null, null, err);
         }
       );
 

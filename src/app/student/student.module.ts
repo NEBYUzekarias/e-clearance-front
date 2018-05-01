@@ -7,6 +7,8 @@ import {StudentViewClearanceProgressComponent} from "./components/student-view-c
 import {FormsModule} from "@angular/forms";
 import { StudentHomeComponent } from './components/student-home/student-home.component';
 import { StudentSideNavComponent } from './components/student-side-nav/student-side-nav.component';
+import { ClearanceHistoryComponent } from './components/clearance-history/clearance-history.component';
+import { StudentClearanceHistoryComponent } from './components/student-clearance-history/student-clearance-history.component';
 
 @NgModule({
   imports: [
@@ -19,6 +21,7 @@ import { StudentSideNavComponent } from './components/student-side-nav/student-s
     StudentViewClearanceProgressComponent,
     StudentHomeComponent,
     StudentSideNavComponent,
+    StudentClearanceHistoryComponent,
   ],
   exports: [
     StudentSideNavComponent

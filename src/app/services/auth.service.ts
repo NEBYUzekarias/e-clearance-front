@@ -113,9 +113,9 @@ export class AuthService {
   getSelfAccount(): Observable<Account> {
     return this.http
       .get(appConfig.apiUrl + '/accounts/self')
-      .map((resp) => {
+      .map((resp: any) => {
         // store account on local storage
-        localStorage.setItem(appConfig.local_keys.account, JSON.stringify(resp));
+        localStorage.setItem(appConfig.local_keys.account, JSON.stringify(resp.self));
         this._account = resp.self as Account;
 
         return resp.self as Account;
