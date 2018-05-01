@@ -22,4 +22,4 @@ import {ViewClearedRequestsComponent} from "./components/view-cleared-requests/v
     OfficeSideNavComponent
   ]
 })
-export class OfficeModule { }
+export class OfficeModule {}

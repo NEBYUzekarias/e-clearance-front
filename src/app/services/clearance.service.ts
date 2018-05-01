@@ -22,11 +22,17 @@ export class ClearanceService {
 
   /**
    * get active clearance requests of a student
-   * @returns {Observable<Clearance[][]>}: clearances grouped in common case
+   * @returns {Observable<Clearance[]>}: clearances
    */
-  getActiveClearances(): Observable<Clearance[][]> {
-
-    return null;
+  getActiveClearances(): Observable<Clearance[]> {
+    return this.httpClient.get(
+      appConfig.apiUrl +
+       '/clearances?filter={"where": {"state":"pending"},"include": ["student", "requests"]}')
+            .map(
+              (resp: any) =>{
+                return resp as Clearance[];
+              }
+          );
   }
 
   /**
