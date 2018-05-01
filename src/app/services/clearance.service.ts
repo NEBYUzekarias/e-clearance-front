@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {Clearance} from "../models/clearance";
+import {HttpClient} from "@angular/common/http";
+import {appConfig} from "../app.config";
 
 @Injectable()
 export class ClearanceService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   /**
    * submit a clearance request on behalf of student
    * clearance request maybe brand new or to retry a sending same clearance
    * to some of offices where clearance had not arrived somehow
    * @param {string} reason: reason for clearance
-   * @returns {Observable<string[]>}: office ids or names where successful clearance sent
+   * @returns {Observable<any>}: don't know what is yet(created clearace most probably)
    */
-  submitClearanceRequest(reason: string): Observable<string[]> {
-
-    return Observable.of(['sport', 'libraray']);
+  submitClearanceRequest(reason: string): Observable<any> {
+    return this.httpClient.post(appConfig.apiUrl + '/clearances', {reason: reason});
   }
 
   /**

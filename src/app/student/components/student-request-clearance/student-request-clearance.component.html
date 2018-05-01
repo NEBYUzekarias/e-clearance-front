@@ -16,51 +16,32 @@
         <form #f="ngForm" (ngSubmit)="processSubmit(f)">
 
           <div class="row">
-            <h6>Select office</h6>
-            <div class="col l2">
-              <input type="checkbox" ngModel name="Library" id="Library" />
-              <label for="Library">AAiT Library</label>
-            </div>
-            <div class="col 12">
-              <input type="checkbox" ngModel name="Dormitory" id="Dormitory" />
-              <label for="Dormitory">AAiT Dormitory</label>
-            </div>
-            <div class="col 12">
-              <input type="checkbox" ngModel name="Registrar" id="Registrar" />
-              <label for="Registrar">AAiT Registrar</label>
+            <h6>Offices to be sent</h6>
+
+            <div *ngFor="let office of offices" class="col l2">
+              <input type="checkbox" checked/>
+              <label>{{office.name}}</label>
             </div>
           </div>
 
           <div class="input-field">
-            <select ngModel name="ac_year" id="ac_year">
-              <option value="2016/17" selected>2016/17</option>
-              <option value="2017/18">2017/18</option>
-              <option value="2018/19">2018/19</option>
+            <select id="ac_year">
+              <option value="2016/17" selected>2018/19</option>
             </select>
             <label for="ac_year">Academic year</label>
           </div>
+
           <div class="input-field">
-            <select ngModel name="semester" id="semester">
-              <option value="I" selected>I</option>
-              <option value="II">II</option>
-              <option value="III">III</option>
+            <select id="semester">
+              <option value="" selected>II</option>
             </select>
             <label for="semester">Semester</label>
           </div>
 
           <div class="input-field">
-            <select ngModel name="year" id="year">
-              <option value="I" selected>I</option>
-              <option value="II">II</option>
-              <option value="III">III</option>
-              <option value="IV">IV</option>
-              <option value="V">V</option>
-            </select>
-            <label for="year">Year</label>
-          </div>
+            <textarea ngModel name="reason" id="reason" cols="30" rows="40" class="materialize-textarea">
 
-          <div class="input-field">
-            <textarea ngModel name="description" id="reason" cols="30" rows="40" class="materialize-textarea"></textarea>
+            </textarea>
             <label for="reason">Reason for clearance</label>
           </div>
 

@@ -1,5 +1,8 @@
 // clearance request model
 
+import {Office} from "./office";
+import {Request} from "./request";
+
 export class Clearance {
   id: string;
 
@@ -9,6 +12,7 @@ export class Clearance {
 
   state: string;
 
-  student_id: string;
-  office_id: string;
+  student: Account;
+  requests: Request[];
+  departments: Office[];
 }

@@ -1,4 +1,6 @@
 // users account model
+import {Office} from "./office";
+
 export class Account {
   id: string;
 
@@ -6,7 +8,7 @@ export class Account {
   username: string;
   password: string;
   user_role: string;
-  department: string;
+  department: Office;
   first_name: string;
   last_name: string;
 
