@@ -6,6 +6,7 @@ import {Office} from "../../../models/office";
 import {OfficeService} from "../../../services/office.service";
 import {ClearanceService} from "../../../services/clearance.service";
 import {NotificationService} from "../../../services/notification.service";
+import {Info} from "../../../models/Info";
 declare var $: any;
 declare var Materialize: any;
 @Component({
@@ -16,6 +17,7 @@ declare var Materialize: any;
 export class StudentRequestClearanceComponent implements OnInit {
 
   offices: Office[];
+  infos: object = {academic_year: 'Fetching...', semester: 'Fetching...'};
 
   constructor(private authService: AuthService,
               private officeService: OfficeService,
@@ -24,8 +26,6 @@ export class StudentRequestClearanceComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('select').material_select();
-
     // set offices
     this.officeService.getOffices().subscribe(
       resp => {
@@ -37,6 +37,18 @@ export class StudentRequestClearanceComponent implements OnInit {
         this.notifService.error('couldnt fetch offices', null, err);
       }
     );
+
+    // set current infos like academic year and semester
+    this.clearanceService.getCurrentInfos().subscribe(
+      resp => {
+        this.infos = resp;
+        console.log('fetched infos:', this.infos);
+      }, err => {
+        this.notifService.error('couldnt fetch current infos', null, err);
+      }
+    );
+
+    // $('select').material_select();
   }
 
   processSubmit(form_data) {

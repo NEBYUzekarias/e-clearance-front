@@ -1,58 +1,55 @@
-<div>
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <div class="card">
-        <h2 class="flow-text custom-h2">
-          <i class="material-icons left">add</i> New clearance request
-        </h2>
-      </div>
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel">
+        <span class="card-title flow-text">
+          <i class="material-icons">add</i> New clearance request
+        </span>
     </div>
-
   </div>
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <div class="card custom-card">
 
-        <form #f="ngForm" (ngSubmit)="processSubmit(f)">
-
+  <div class="col s12">
+    <div class="card">
+      <form #f="ngForm" (ngSubmit)="processSubmit(f)">
+        <div class="card-content">
           <div class="row">
-            <h6>Offices to be sent</h6>
-
-            <div *ngFor="let office of offices" class="col l2">
-              <input type="checkbox" checked/>
-              <label>{{office.name}}</label>
+            <div class="col s12">
+              <h6>Offices to be sent</h6>
+            </div>
+            <div *ngFor="let office of offices;let i = index;" class="col m2">
+              <label for="{{i}}">
+                <input id="{{i}}" type="checkbox" checked="checked">
+                <span>{{office.name}}</span>
+              </label>
             </div>
           </div>
 
-          <div class="input-field">
-            <select id="ac_year">
-              <option value="2016/17" selected>2018/19</option>
-            </select>
-            <label for="ac_year">Academic year</label>
-          </div>
+          <div class="row">
+            <div class="col s12 m6">
+              <h6>Academic Year</h6>
+              <p>{{infos.academic_year}}</p>
+            </div>
 
-          <div class="input-field">
-            <select id="semester">
-              <option value="" selected>II</option>
-            </select>
-            <label for="semester">Semester</label>
+            <div class="col s12 m6">
+              <h6>Semester</h6>
+              <p>{{infos.semester}}</p>
+            </div>
           </div>
-
-          <div class="input-field">
+          <div class="row">
+            <div class="input-field col m6 s12">
             <textarea ngModel name="reason" id="reason" cols="30" rows="40" class="materialize-textarea">
 
             </textarea>
-            <label for="reason">Reason for clearance</label>
-          </div>
+              <label for="reason">Reason for clearance</label>
+            </div>
 
-          <div class="input-field">
-            <button class="btn" type="submit">
-              <i class="material-icons right">send</i>Submit
-            </button>
+            <div class="input-field col s12">
+              <button class="btn" type="submit">
+                <i class="material-icons right">send</i>Submit
+              </button>
+            </div>
           </div>
-
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

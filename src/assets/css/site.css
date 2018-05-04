@@ -1,3 +1,38 @@
+/* push sidenav little down to accomodate space for navbar */
+.sidenav {
+  margin-top: 65px;
+}
+
+/* push contents little left to accomodate space for side nav */
+main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  main, footer {
+    padding-left: 0;
+  }
+}
+
+/* make btn block */
+.block-btn {
+  width: 100%;
+}
+
+/* override toast position */
+/*#toast-container {*/
+  /*top: auto !important;*/
+  /*right: auto !important;*/
+  /*bottom: 10%;*/
+  /*left: 7%;*/
+/*}*/
+
+/* give bottom border lines for side navigation links */
+/*.sidenav li {*/
+  /*border-bottom: 1px solid #e0e0e0;*/
+/*}*/
+
+/* custom css */
 .customdiv{
     padding-left: 1%;
     padding-right: 1%;

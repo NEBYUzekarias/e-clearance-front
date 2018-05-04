@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ClearanceService } from '../../../services/clearance.service';
 import { Clearance } from '../../../models/clearance';
+import {NotificationService} from "../../../services/notification.service";
+
 declare var Materialize: any;
+
 @Component({
   selector: 'app-student-view-clearance-progress',
   templateUrl: './student-view-clearance-progress.component.html',
@@ -11,24 +14,20 @@ declare var Materialize: any;
 export class StudentViewClearanceProgressComponent implements OnInit {
   clearances: Clearance[];
 
-  constructor(private clearanceService: ClearanceService) { }
+  constructor(private clearanceService: ClearanceService,
+              private notifService: NotificationService) { }
 
   ngOnInit() {
-
     this.clearanceService.getActiveClearances()
       .subscribe(
         resp => {
           this.clearances = resp;
-          console.log(resp);
-          
         },
         err => {
-          Materialize.toast("Error: while getting list of progresses", 4000);
+          this.notifService.error("Error: while getting list of progresses", null, err);
         }
 
       );
-
-
   }
 
 }

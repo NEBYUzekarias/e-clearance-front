@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import {ClearanceService} from "../../../services/clearance.service";
+import {Request} from "../../../models/request";
 
 @Component({
   selector: 'app-view-cleared-requests',
@@ -8,9 +10,17 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ViewClearedRequestsComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private clearanceService: ClearanceService) { }
+
+  requests: Request[];
 
   ngOnInit() {
+    this.clearanceService.getClearedRequests().subscribe(
+      resp => {
+        this.requests = resp;
+      }
+    );
   }
 
 }

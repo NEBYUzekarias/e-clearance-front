@@ -9,6 +9,13 @@ export const appConfig = {
 
     // key used to save logged in user account
     account: 'account',
-  }
+  },
 
+  // possible state values for clearance and request models
+  // N.B. these state values have to be the same with server side state values variable
+  states: {
+    APPROVED: 'approved',
+    PENDING: 'pending',
+    NEED_REVIEW: 'need_review',
+  }
 }

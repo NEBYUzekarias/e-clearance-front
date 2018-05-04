@@ -1,13 +1,10 @@
-<app-navbar [account]="account"></app-navbar>
+<app-student-side-nav *ngIf="account.user_role == 'student'"></app-student-side-nav>
+<app-office-side-nav *ngIf="account.user_role == 'office'"></app-office-side-nav>
 
-<div class="row">
-  <div class="col m2">
-    <div id="sideNav" class="custom-side-nav z-depth-4">
-      <app-student-side-nav *ngIf="account.user_role == 'student'"></app-student-side-nav>
-      <app-office-side-nav *ngIf="account.user_role == 'office'"></app-office-side-nav>
-    </div>
-  </div>
-  <div id="main" class="col m10 s12" >
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<header>
+  <app-navbar [account]="account"></app-navbar>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
