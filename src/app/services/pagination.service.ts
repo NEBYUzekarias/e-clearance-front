@@ -14,13 +14,18 @@ export class PaginationService {
 
     return this.httpClient.get(appConfig.apiUrl + request_url).map(
       resp => {
-        let total_items = resp['count'];
         let start_index: number;
         let end_index: number;
+        let total_pages: number;
         let pages: number[] = [];
+        let total_items = resp['count'];
 
         // get number of total pages from total items
-        let total_pages = Math.ceil( total_items / appConfig.items_per_page);
+        if (total_items === 0) {
+          total_pages = 1;
+        } else {
+          total_pages = Math.ceil( total_items / appConfig.items_per_page);
+        }
 
         // we need half of page_links_num in a number of places
         const page_links_num_half = Math.floor(appConfig.page_links_num / 2);

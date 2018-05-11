@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Clearance} from "../../../models/clearance";
 import {ClearanceService} from "../../../services/clearance.service";
 import {NotificationService} from "../../../services/notification.service";
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-student-clearance-history',
@@ -11,11 +12,16 @@ import {NotificationService} from "../../../services/notification.service";
 export class StudentClearanceHistoryComponent implements OnInit {
   clearances: Clearance[];
 
+  pagination_url = `/clearances/count?where={"state":"${appConfig.states.APPROVED}"}`;
+
   constructor(private clearanceService: ClearanceService,
               private notifService: NotificationService) {
   }
 
   ngOnInit() {
+  }
+
+  populateClearances() {
     this.clearanceService.getClearanceHistory()
       .subscribe(
         resp => {

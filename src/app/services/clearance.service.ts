@@ -33,7 +33,7 @@ export class ClearanceService {
    * @returns {Observable<Clearance[]>}: clearances
    */
   getActiveClearances(): Observable<Clearance[]> {
-    // get loopback REST filter json
+    // get loopback REST filter partial json string
     let rest_filter = this.paginationService.get_rest_filter();
 
     return this.httpClient.get(
@@ -56,10 +56,17 @@ export class ClearanceService {
    * @returns {Observable<Clearance[]>}: clearances
    */
   getClearanceHistory(): Observable<Clearance[]> {
+    // get loopback REST filter partial json string
+    let rest_filter = this.paginationService.get_rest_filter();
+
     return this.httpClient.get(
       appConfig.apiUrl +
       `/clearances?filter=` +
-      `{"where": {"state":"${this.states.APPROVED}"},"include": "requests"}`)
+      `{` +
+          `"where": {"state":"${this.states.APPROVED}"},` +
+          `"include": "requests",` +
+          `${rest_filter}` +
+      `}`)
       .map(resp => {
         return resp as Clearance[];
       });
@@ -70,11 +77,17 @@ export class ClearanceService {
    * @returns {Observable<Request[]>}
    */
   getPendingRequests(): Observable<Request[]> {
+    // get loopback REST filter partial json string
+    let rest_filter = this.paginationService.get_rest_filter();
+
     return this.httpClient.get(
       appConfig.apiUrl +
       `/requests?filter=` +
-      `{"where": {"or": [{"state":"${this.states.PENDING}"},{"state":"${this.states.NEED_REVIEW}"}]},` +
-      `"include": {"clearance": "student"}}`)
+      `{` +
+          `"where": {"or": [{"state":"${this.states.PENDING}"},{"state":"${this.states.NEED_REVIEW}"}]},` +
+          `"include": {"clearance": "student"},` +
+          `${rest_filter}` +
+      `}`)
       .map(resp => {
         return resp as Request[];
       });
@@ -85,10 +98,17 @@ export class ClearanceService {
    * @returns {Observable<Request[]>}
    */
   getClearedRequests(): Observable<Request[]> {
+    // get loopback REST filter partial json string
+    let rest_filter = this.paginationService.get_rest_filter();
+
     return this.httpClient.get(
       appConfig.apiUrl +
       `/requests?filter=` +
-      `{"where": {"state":"${this.states.APPROVED}"}, "include": {"clearance": "student"}}`)
+      `{` +
+          `"where": {"state":"${this.states.APPROVED}"},` +
+          `"include": {"clearance": "student"},` +
+          `${rest_filter}` +
+      `}`)
       .map(resp => {
         return resp as Request[];
       });

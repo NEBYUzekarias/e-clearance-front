@@ -18,7 +18,9 @@ export class PaginationComponent implements OnInit {
   @Output() reload = new EventEmitter();
 
   constructor(private route: ActivatedRoute,
-              private paginationService: PaginationService) {
+              private paginationService: PaginationService) {}
+
+  ngOnInit() {
     this.route.queryParams.subscribe(
       params => {
         if (params['page']) {
@@ -27,17 +29,12 @@ export class PaginationComponent implements OnInit {
           this.current_page = 1;
         }
 
-        this.paginationService.current_page = this.current_page;
         this.setPages();
       },
       err => {
         console.log('route params subscription error', err);
       }
     );
-  }
-
-  ngOnInit() {
-    this.setPages();
   }
 
   setPages(): void {

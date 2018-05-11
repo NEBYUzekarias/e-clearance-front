@@ -13,16 +13,15 @@ declare var Materialize: any;
   styleUrls: ['./student-view-clearance-progress.component.css']
 })
 export class StudentViewClearanceProgressComponent implements OnInit {
-  states: object;
   clearances: Clearance[];
 
+  states = appConfig.states;
+  pagination_url = `/clearances/count?where={"state":"${appConfig.states.PENDING}"}`;
+
   constructor(private clearanceService: ClearanceService,
-              private notifService: NotificationService) {
-    this.states = appConfig.states;
-  }
+              private notifService: NotificationService) {}
 
   ngOnInit() {
-    this.populateClearances();
   }
 
   populateClearances() {
