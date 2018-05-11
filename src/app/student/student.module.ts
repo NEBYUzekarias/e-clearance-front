@@ -8,12 +8,15 @@ import {FormsModule} from "@angular/forms";
 import { StudentHomeComponent } from './components/student-home/student-home.component';
 import { StudentSideNavComponent } from './components/student-side-nav/student-side-nav.component';
 import { StudentClearanceHistoryComponent } from './components/student-clearance-history/student-clearance-history.component';
+import {PaginationComponent} from "../shared/components/pagination/pagination.component";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    StudentRoutingModule,
     FormsModule,
+    StudentRoutingModule,
+    SharedModule,
   ],
   declarations: [
     StudentRequestClearanceComponent,

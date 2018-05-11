@@ -19,6 +19,14 @@ main, footer {
   width: 100%;
 }
 
+/* make some element always there, especially div,(collapsible body) */
+.show-always {
+  display: block;
+}
+
+/*****************************************************
+  Experimental css
+ *****************************************************/
 /* override toast position */
 /*#toast-container {*/
   /*top: auto !important;*/

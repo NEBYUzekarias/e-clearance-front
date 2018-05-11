@@ -30,9 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // reset login status
-    this.authService.logout();
-
     // get next url from route parameters or use default url
     this.nextUrl = this.route.snapshot.queryParams['nextUrl'];
   }
@@ -47,6 +44,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value)
       .subscribe(
         resp => {
+          this.waiting = false;
+
           if (this.nextUrl) {
             this.router.navigate([this.nextUrl]);
           } else {
@@ -66,15 +65,14 @@ export class LoginComponent implements OnInit {
                   }
                 );
             }
-
           }
         },
         err => {
+          this.waiting = false;
+
           this.notifService.error(null, null, err);
         }
       );
-
-    this.waiting = false;
   }
 
   redirectToHome(account: Account): void {

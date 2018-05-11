@@ -30,14 +30,6 @@ export class AuthService {
     // store user details and jwt access token in local storage to keep user logged in
     localStorage.setItem(appConfig.local_keys.token, new_token);
 
-    // this.getSelfAccount()
-    //   .subscribe(
-    //     null,
-    //     err => {
-    //       this.notifService.error('could not get account info', null, err);
-    //     }
-    //   );
-
     this._access_token = new_token;
   }
 

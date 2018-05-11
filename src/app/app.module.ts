@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
@@ -34,6 +34,9 @@ import {OfficeModule} from "./office/office.module";
 import {OfficeGuard} from "./guards/office.guard";
 import {ClearanceService} from "./services/clearance.service";
 import {OfficeService} from "./services/office.service";
+import { PaginationComponent } from './shared/components/pagination/pagination.component';
+import {SharedModule} from "./shared/shared.module";
+import {PaginationService} from "./services/pagination.service";
 
 
 @NgModule({
@@ -41,7 +44,6 @@ import {OfficeService} from "./services/office.service";
     AppComponent,
     LoginComponent,
     CustomerComponent,
-    NavbarComponent,
     TestComponent,
     HomeComponent,
     SideNavComponent,
@@ -59,6 +61,7 @@ import {OfficeService} from "./services/office.service";
     ReactiveFormsModule,
     OfficeModule,
     StudentModule,
+    SharedModule,
     AppRoutingModule,
   ],
   providers: [
@@ -70,6 +73,7 @@ import {OfficeService} from "./services/office.service";
     AccountService,
     ClearanceService,
     OfficeService,
+    PaginationService,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,

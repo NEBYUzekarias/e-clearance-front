@@ -17,5 +17,11 @@ export const appConfig = {
     APPROVED: 'approved',
     PENDING: 'pending',
     NEED_REVIEW: 'need_review',
-  }
+  },
+
+  // number of pagination links on a single page
+  page_links_num: 5,
+
+  // total items shown per page
+  items_per_page: 2,
 }

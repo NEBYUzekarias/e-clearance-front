@@ -5,13 +5,15 @@ import {HttpClient} from "@angular/common/http";
 import {appConfig} from "../app.config";
 import {Request} from "../models/request";
 import {Info} from "../models/Info";
+import {PaginationService} from "./pagination.service";
 
 @Injectable()
 export class ClearanceService {
 
   states = appConfig.states;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private paginationService: PaginationService) {
   }
 
   /**
@@ -31,10 +33,17 @@ export class ClearanceService {
    * @returns {Observable<Clearance[]>}: clearances
    */
   getActiveClearances(): Observable<Clearance[]> {
+    // get loopback REST filter json
+    let rest_filter = this.paginationService.get_rest_filter();
+
     return this.httpClient.get(
       appConfig.apiUrl +
       `/clearances?filter=` +
-      `{"where": {"state":"${this.states.PENDING}"},"include": ["student", "requests"]}`)
+      `{` +
+          `"where": {"state":"${this.states.PENDING}"},` +
+          `"include": ["student", "requests"],` +
+          `${rest_filter}` +
+      `}`)
       .map(
         (resp: any) => {
           return resp as Clearance[];

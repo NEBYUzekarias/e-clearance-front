@@ -56,7 +56,7 @@ export class StudentRequestClearanceComponent implements OnInit {
     this.clearanceService.submitClearanceRequest(form_data.value.reason)
       .subscribe(
         resp => {
-          Materialize.toast('Clearance submitted successfully', 5000);
+          this.notifService.success('Clearance submitted successfully', null);
         }
       );
   }
