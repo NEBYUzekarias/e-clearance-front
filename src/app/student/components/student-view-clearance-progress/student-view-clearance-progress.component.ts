@@ -16,10 +16,16 @@ export class StudentViewClearanceProgressComponent implements OnInit {
   clearances: Clearance[];
 
   states = appConfig.states;
-  pagination_url = `/clearances/count?where={"state":"${appConfig.states.PENDING}"}`;
+  pagination_url: string;
 
   constructor(private clearanceService: ClearanceService,
-              private notifService: NotificationService) {}
+              private notifService: NotificationService) {
+
+    const base_filter = this.clearanceService.getActiveClearancesBaseFilter();
+
+    this.pagination_url =
+      `/clearances/count?where=` + JSON.stringify(base_filter);
+  }
 
   ngOnInit() {
   }

@@ -55,6 +55,11 @@
           <td colspan="5">No Pending Requests Found</td>
         </tr>
       </table>
+
+      <app-pagination
+        [request_url]="pagination_url"
+        (reload)="populateClearances()" class="center">
+      </app-pagination>
     </div>
   </div>
 </div>

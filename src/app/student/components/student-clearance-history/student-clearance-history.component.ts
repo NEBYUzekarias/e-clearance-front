@@ -11,11 +11,15 @@ import {appConfig} from "../../../app.config";
 })
 export class StudentClearanceHistoryComponent implements OnInit {
   clearances: Clearance[];
-
-  pagination_url = `/clearances/count?where={"state":"${appConfig.states.APPROVED}"}`;
+  pagination_url: string;
 
   constructor(private clearanceService: ClearanceService,
               private notifService: NotificationService) {
+
+    const base_filter = this.clearanceService.getClearanceHistoryBaseFilter();
+
+    this.pagination_url =
+      `/clearances/count?where=` + JSON.stringify(base_filter);
   }
 
   ngOnInit() {

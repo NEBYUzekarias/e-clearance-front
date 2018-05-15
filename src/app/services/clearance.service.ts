@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs/Observable";
-import {Clearance} from "../models/clearance";
-import {HttpClient} from "@angular/common/http";
-import {appConfig} from "../app.config";
-import {Request} from "../models/request";
-import {Info} from "../models/Info";
-import {PaginationService} from "./pagination.service";
+import {Observable} from 'rxjs/Observable';
+import {Clearance} from '../models/clearance';
+import {HttpClient} from '@angular/common/http';
+import {appConfig} from '../app.config';
+import {Request} from '../models/request';
+import {Info} from '../models/Info';
+import {PaginationService} from './pagination.service';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class ClearanceService {
 
-  states = appConfig.states;
-
   constructor(private httpClient: HttpClient,
+              private authService: AuthService,
               private paginationService: PaginationService) {
   }
 
@@ -29,21 +29,34 @@ export class ClearanceService {
   }
 
   /**
+   *get the where loopback REST api filter object
+   * that have to be changed to json to use it directly
+   * in the REST api
+   * @returns {Object}: loopback filter object
+   */
+  getActiveClearancesBaseFilter(): object {
+    return {
+      state: appConfig.states.PENDING,
+    };
+  }
+
+  /**
    * get active clearances of a student
    * @returns {Observable<Clearance[]>}: clearances
    */
   getActiveClearances(): Observable<Clearance[]> {
     // get loopback REST filter partial json string
-    let rest_filter = this.paginationService.get_rest_filter();
+    const page_filter = this.paginationService.get_page_filter();
+    const base_filter = this.getActiveClearancesBaseFilter();
+    const include_filter = {
+      include: ['student', 'requests'],
+    };
+
+    const rest_filter = this.concat({where: base_filter}, page_filter, include_filter);
 
     return this.httpClient.get(
       appConfig.apiUrl +
-      `/clearances?filter=` +
-      `{` +
-          `"where": {"state":"${this.states.PENDING}"},` +
-          `"include": ["student", "requests"],` +
-          `${rest_filter}` +
-      `}`)
+      `/clearances?filter=` + JSON.stringify(rest_filter))
       .map(
         (resp: any) => {
           return resp as Clearance[];
@@ -52,24 +65,63 @@ export class ClearanceService {
   }
 
   /**
+   *get the where loopback REST api filter object
+   * that have to be changed to json to use it directly
+   * in the REST api
+   * @returns {Object}: loopback filter object
+   */
+  getClearanceHistoryBaseFilter(): object {
+    return {
+      state: appConfig.states.APPROVED,
+    };
+  }
+
+  /**
    * get clearance history of a student
    * @returns {Observable<Clearance[]>}: clearances
    */
   getClearanceHistory(): Observable<Clearance[]> {
     // get loopback REST filter partial json string
-    let rest_filter = this.paginationService.get_rest_filter();
+    const page_filter = this.paginationService.get_page_filter();
+    const base_filter = this.getClearanceHistoryBaseFilter();
+    const include_filter = {
+      include: 'requests',
+    };
+
+    const rest_filter = this.concat({where: base_filter}, page_filter, include_filter);
 
     return this.httpClient.get(
       appConfig.apiUrl +
-      `/clearances?filter=` +
-      `{` +
-          `"where": {"state":"${this.states.APPROVED}"},` +
-          `"include": "requests",` +
-          `${rest_filter}` +
-      `}`)
+      `/clearances?filter=` + JSON.stringify(rest_filter))
       .map(resp => {
         return resp as Clearance[];
       });
+  }
+
+  /**
+   * get the where loopback REST api filter object
+   * that have to be changed to json to use it directly
+   * in the REST api
+   * @returns {Object}: loopback filter object
+   */
+  getPendingRequestsBaseFilter(): object {
+    const departmentId = this.authService.account.department.name;
+
+    const where_filter = {
+      and: [
+        {
+          or: [
+            {state: appConfig.states.PENDING},
+            {state: appConfig.states.NEED_REVIEW},
+          ]
+        },
+        {
+          departmentId: departmentId,
+        },
+      ]
+    };
+
+    return where_filter;
   }
 
   /**
@@ -78,19 +130,44 @@ export class ClearanceService {
    */
   getPendingRequests(): Observable<Request[]> {
     // get loopback REST filter partial json string
-    let rest_filter = this.paginationService.get_rest_filter();
+    const page_filter = this.paginationService.get_page_filter();
+    const base_filter = this.getPendingRequestsBaseFilter();
+    const include_filter = {
+      include: {
+        clearance: 'student',
+      },
+    };
+
+    // concatenate all filter objects
+    const rest_filter = this.concat({where: base_filter}, page_filter, include_filter);
 
     return this.httpClient.get(
       appConfig.apiUrl +
-      `/requests?filter=` +
-      `{` +
-          `"where": {"or": [{"state":"${this.states.PENDING}"},{"state":"${this.states.NEED_REVIEW}"}]},` +
-          `"include": {"clearance": "student"},` +
-          `${rest_filter}` +
-      `}`)
+      `/requests?filter=` + JSON.stringify(rest_filter))
       .map(resp => {
         return resp as Request[];
       });
+  }
+
+  /**
+   * get the where loopback REST api filter object
+   * that have to be changed to json to use it directly
+   * in the REST api
+   * @returns {Object}: loopback filter object
+   */
+  getClearedRequestsBaseFilter(): object {
+    // get the department of the office user to filter requests
+    const departmentId = this.authService.account.department.name;
+
+    // create where filter object
+    const where_filter = {
+      and: [
+        {state: appConfig.states.APPROVED},
+        {departmentId: departmentId},
+      ]
+    };
+
+    return where_filter;
   }
 
   /**
@@ -98,17 +175,21 @@ export class ClearanceService {
    * @returns {Observable<Request[]>}
    */
   getClearedRequests(): Observable<Request[]> {
-    // get loopback REST filter partial json string
-    let rest_filter = this.paginationService.get_rest_filter();
+    // get loopback REST filter objects
+    const page_filter = this.paginationService.get_page_filter();
+    const base_filter = this.getClearedRequestsBaseFilter();
+    const include_filter = {
+      include: {
+        clearance: 'student',
+      },
+    };
+
+    // concatenate all filter objects
+    const rest_filter = this.concat({where: base_filter}, page_filter, include_filter);
 
     return this.httpClient.get(
       appConfig.apiUrl +
-      `/requests?filter=` +
-      `{` +
-          `"where": {"state":"${this.states.APPROVED}"},` +
-          `"include": {"clearance": "student"},` +
-          `${rest_filter}` +
-      `}`)
+      `/requests?filter=` + JSON.stringify(rest_filter))
       .map(resp => {
         return resp as Request[];
       });
@@ -121,7 +202,7 @@ export class ClearanceService {
    */
   approveRequest(request_id: string): Observable<Request> {
     return this.httpClient.patch(
-      appConfig.apiUrl + `/requests/${request_id}`, {state: this.states.APPROVED})
+      appConfig.apiUrl + `/requests/${request_id}`, {state: appConfig.states.APPROVED})
       .map(resp => {
         return resp as Request;
       });
@@ -136,7 +217,7 @@ export class ClearanceService {
   sendReview(request_id: string, reason: string): Observable<Request> {
     return this.httpClient.patch(
       appConfig.apiUrl + `/requests/${request_id}`,
-      {state: this.states.NEED_REVIEW, reason: reason}
+      {state: appConfig.states.NEED_REVIEW, reason: reason}
     ).map(resp => {
       return resp as Request;
     });
@@ -159,5 +240,23 @@ export class ClearanceService {
 
         return infos_object;
       });
+  }
+
+  /**
+   * concatenate given objects
+   * @param {Object} objects
+   * @returns {Object}
+   */
+  concat(...objects: object[]): object {
+    const new_object = {};
+
+    const length = objects.length;
+    for (let i = 0; i < length; i++) {
+      for (const prop in objects[i]) {
+        new_object[prop] = objects[i][prop];
+      }
+    }
+
+    return new_object;
   }
 }

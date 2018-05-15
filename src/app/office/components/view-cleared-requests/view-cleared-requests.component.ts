@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import {ClearanceService} from "../../../services/clearance.service";
 import {Request} from "../../../models/request";
+import {appConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-view-cleared-requests',
@@ -11,11 +12,23 @@ import {Request} from "../../../models/request";
 export class ViewClearedRequestsComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private clearanceService: ClearanceService) { }
+              private clearanceService: ClearanceService) {
+    // get where filter for loopback REST api
+    const base_filter = this.clearanceService.getClearedRequestsBaseFilter();
+
+    // create pagination url
+    this.pagination_url =
+      `/requests/count?where=` + JSON.stringify(base_filter);
+  }
 
   requests: Request[];
+  pagination_url: string;
 
   ngOnInit() {
+    this.populateClearances();
+  }
+
+  populateClearances(): void {
     this.clearanceService.getClearedRequests().subscribe(
       resp => {
         this.requests = resp;

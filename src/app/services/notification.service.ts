@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+declare var M;
+
 @Injectable()
 export class NotificationService {
 
@@ -14,9 +16,10 @@ export class NotificationService {
   error(message: string, options?: object, err?): void {
     if (err) {
       if (err.status === 0) {
-        console.log("Unable to connect");
+        M.toast('html', "Unable to connect");
+      } else {
+        console.log("err object:", err);
       }
-      console.log("err object:", err);
     }
 
     if (message) {

@@ -6,10 +6,12 @@ import { OfficeHomeComponent } from './components/office-home/office-home.compon
 import { OfficeSideNavComponent } from './components/office-side-nav/office-side-nav.component';
 import {ViewClearanceRequestsComponent} from "./components/view-clearance-requests/view-clearance-requests.component";
 import {ViewClearedRequestsComponent} from "./components/view-cleared-requests/view-cleared-requests.component";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     OfficeRoutingModule
   ],
   declarations: [
