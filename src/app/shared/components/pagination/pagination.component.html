@@ -1,0 +1,20 @@
+<ul class="pagination" >
+  <li [ngClass]="{'disabled': current_page === pages[0]}">
+    <a [routerLink]=""
+       [queryParams]="{'page': (current_page===1)? 1: current_page-1}">
+      <i class="material-icons">chevron_left</i>
+    </a>
+  </li>
+  <li *ngFor="let page of pages" [ngClass]="{'active': page===current_page}">
+    <a [routerLink]="" [queryParams]="{'page': page}">
+      {{page}}
+    </a>
+  </li> 
+
+  <li [ngClass]="{'disabled': current_page === total_pages}">
+    <a [routerLink]=""
+       [queryParams]="{'page': (current_page===total_pages)? total_pages: current_page+1}">
+      <i class="material-icons">chevron_right</i>
+    </a>
+  </li>
+</ul>

@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+        <span class="card-title flow-text">
+          <i class="material-icons">add</i> New clearance request
+        </span>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <div class="card z-depth-2">
+      <form #f="ngForm" (ngSubmit)="processSubmit(f)">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12">
+              <h6>Offices to be sent</h6>
+            </div>
+            <div *ngFor="let office of offices;let i = index;" class="col s2">
+              <label for="{{i}}">
+                <input id="{{i}}" type="checkbox" checked="checked">
+                <span>{{office.name}}</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 m6">
+              <h6>Academic Year</h6>
+              <p>{{infos.academic_year}}</p>
+            </div>
+
+            <div class="col s12 m6">
+              <h6>Semester</h6>
+              <p>{{infos.semester}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col m6 s12">
+            <textarea ngModel name="reason" id="reason" cols="30" rows="40" class="materialize-textarea">
+
+            </textarea>
+              <label for="reason">Reason for clearance</label>
+            </div>
+
+            <div class="input-field col s12">
+              <button class="btn blue darken-1" type="submit">
+                <i class="material-icons right">send</i>Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

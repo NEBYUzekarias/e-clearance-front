@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col l12 s12">
+    <div class="card">
+      <h2 class="flow-text custom-h2" *ngIf="authService.userType('student')">
+        <i class="material-icons left">home</i> Welcome to AAiT e - clearance system / offices
+      </h2>
+      <h2 class="flow-text custom-h2" *ngIf="authService.userType('office_user')" >
+        <i class="material-icons left">home</i> Welcome, you are logged as {{office_of_user.name}} user
+      </h2>
+      <h2 *ngIf="authService.userType('admin')" class="flow-text custom-h2"><i class="material-icons left">lock</i>e-clearance Admin</h2>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div *ngIf="authService.userType('student')">
+      <div *ngFor="let office of officesList" class="col l6">
+          <div class="card custom-card hoverable">
+            <div class="card-image">
+              <img src="{{office.picture}}" alt="">
+              <span class="card-title" style="color: white">
+                <div class="custom-card-title">
+                  <b>{{office.name}}</b>
+                </div>
+              </span>
+            </div>
+            <div class="card-content">
+              {{office.description}}
+            </div>
+            <div class="card-action">
+              <a href="">{{office.name}}</a>
+            </div>
+
+          </div>
+        </div>
+  </div>
+  <div *ngIf="authService.userType('office_user')">
+
+    <div class="col l12">
+      <div class="card custom-card hoverable">
+        <div class="card-image">
+          <img src="{{office_of_user.picture}}" height="500" alt="">
+          <span class="card-title" style="color: white">
+            <div class="custom-card-title">
+              <b>{{office_of_user.name}}</b>
+            </div>
+          </span>
+        </div>
+        <div class="card-content">
+          {{office_of_user.description}}
+        </div>
+        <div class="card-action">
+          <a href="">{{office_of_user.name}}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

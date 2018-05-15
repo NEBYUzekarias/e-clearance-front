@@ -1,0 +1,60 @@
+<div class="navbar-fixed">
+  <nav class="blue darken-1">
+    <div class="container nav-wrapper">
+      <a class="brand-logo">AAiT e-clearance</a>
+
+      <ul class="right">
+        <li>
+          <a href="http://portal.aait.edu.et">ISIMS portal</a>
+        </li>
+        <li>
+          <a href="#">User manual</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="row">
+  <div class="col m4 offset-m4 s12">
+    <div id="login-card" class="card">
+      <div class="card-content center-align">
+        <h4>Login</h4>
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">account_circle</i>
+              <input formControlName="username" type="text" id="username">
+              <label for="username">Username</label>
+            </div>
+
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock</i>
+              <input formControlName="password" type="password" id="password">
+              <label for="password">Password</label>
+            </div>
+
+            <div class="input-field col s12">
+              <button class="btn-large block-btn blue" (click)="login()">
+                Login
+              </button>
+            </div>
+            <div class="preloader-wrapper small active" [ngClass]="{'hide': !waiting}">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

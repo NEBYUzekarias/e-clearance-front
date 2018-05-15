@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+        <span class="card-title flow-text">
+          <i class="material-icons">update</i> Clearances in progress
+        </span>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <ul class="collapsible z-depth-2">
+      <li *ngFor="let clearance of clearances">
+        <div class="collapsible-header" style="display: block;">
+          <div class="row">
+            <div class="col s12 m6">{{clearance.academic_year}} semester {{clearance.semester}} clearance</div>
+            <div class="col s12 m6">Reason: {{clearance.reason}}</div>
+          </div>
+        </div>
+        <div class="collapsible-body show-always">
+          <div class="row">
+            <div class="col m2 center" *ngFor="let request of clearance.requests">
+              <div class="col s12">
+                {{request.departmentId | uppercase}}
+              </div>
+              <div *ngIf="request.state == states.APPROVED">
+                <i class="material-icons green-text">assignment_turned_in</i>
+              </div>
+              <div *ngIf="request.state == states.PENDING">
+                <i class="material-icons">autorenew</i>
+              </div>
+              <div *ngIf="request.state == states.NEED_REVIEW">
+                <i class="medium material-icons red-text">assignment_late</i>
+              </div>
+              <div class="col s12"
+                   [ngClass]="{'green-text': request.state === states.APPROVED,
+                               'red-text': request.state === states.NEED_REVIEW}">
+                {{request.state | uppercase}}
+              </div>
+            </div>
+          </div>
+        </div> 
+      </li>
+    </ul>
+
+    <app-pagination
+        [request_url]="pagination_url"
+        (reload)="populateClearances()" class="center">
+    </app-pagination>
+
+  </div>
+</div>

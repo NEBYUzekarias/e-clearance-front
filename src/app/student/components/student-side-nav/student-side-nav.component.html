@@ -1,0 +1,37 @@
+<ul id="nav-side" class="sidenav sidenav-fixed z-depth-3">
+  <li>
+    <div class="user-view">
+      <h4>Navigation</h4>
+    </div>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="home">
+      <i class="material-icons left">home</i>
+      Home
+    </a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="request_clearance">
+      <i class="material-icons left">edit</i>
+      Request for clearance
+    </a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="view_progress">
+      <i class="material-icons left">pause</i>
+      Clearance progress
+    </a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="history">
+      <i class="material-icons left">done_all</i>
+      Clearance history
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="" (click)="authService.logout()">
+      <i class="material-icons left">power_settings_new</i>
+      Logout
+    </a>
+  </li>
+</ul>

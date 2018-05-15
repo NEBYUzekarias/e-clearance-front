@@ -1,0 +1,10 @@
+<app-student-side-nav *ngIf="account.user_role == 'student'"></app-student-side-nav>
+<app-office-side-nav *ngIf="account.user_role == 'office'"></app-office-side-nav>
+
+<header>
+  <app-navbar [account]="account"></app-navbar>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

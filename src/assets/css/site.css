@@ -1,0 +1,89 @@
+/* push sidenav little down to accomodate space for navbar */
+.sidenav {
+  margin-top: 65px;
+}
+
+/* push contents little left to accomodate space for side nav */
+main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  main, footer {
+    padding-left: 0;
+  }
+}
+
+/* make btn block */
+.block-btn {
+  width: 100%;
+}
+
+/* make some element always there, especially div,(collapsible body) */
+.show-always {
+  display: block;
+}
+
+/*****************************************************
+  Experimental css
+ *****************************************************/
+/* override toast position */
+/*#toast-container {*/
+  /*top: auto !important;*/
+  /*right: auto !important;*/
+  /*bottom: 10%;*/
+  /*left: 7%;*/
+/*}*/
+
+/* give bottom border lines for side navigation links */
+/*.sidenav li {*/
+  /*border-bottom: 1px solid #e0e0e0;*/
+/*}*/
+
+/* custom css */
+.customdiv{
+    padding-left: 1%;
+    padding-right: 1%;
+}
+#main{
+    overflow-x: hidden;
+    margin-left: 0px;
+    transition: 0.5s;
+    /* padding: 1%; */
+    /* width: inherit; */
+}
+.custom-card{
+    padding: 2%;
+    /* height: 20%; */
+}
+.custom-h2{
+    padding: 2%;
+}
+
+.custom-side-nav{
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    /* top: 0; */
+    left: 0;
+     background-color: white;
+    /* opacity: 0.9; */
+    overflow-x: hidden;
+    /* padding-top: 60px; */
+    transition: 0.5s;
+}
+
+.rendered-in-router-outlet{
+    /* overflow-y: scroll; */
+    /* z-index: 4; */
+    /* why are they not I am a little  */
+}
+
+.custom-card-title{
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+body{
+    background-color: rgb(250, 250, 250);
+}

@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col l12 s12">
+      <div class="card">
+        <h2 class="flow-text custom-h2">
+          <i class="material-icons left">lock</i> Admin - register student
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col l12">
+      <div class="card custom-card">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div class="input-field">
+            <input type="text" id="student_id" ngModel name="username">
+            <label for="student_id">Student id</label>
+          </div>
+          <div class="input-field">
+              <select id="department">
+                <option value="">Electrical and Computer engineering</option>
+                <option value="">Civil engineering</option>
+                <option value="">Mechanical engineering</option>
+                <option value="">Software engineering</option>
+                <option value="">IT</option>
+              </select>
+              <label for="department">Department</label>
+            </div>
+            <div class="input-field">
+                <select id="year" ngModel name="dept">
+                  <option [value]="I">I</option>
+                  <option [value]="II">II</option>
+                  <option value="III">III</option> 
+                  <option value="IV">IV</option>
+                  <option value="V">V</option>
+                </select>
+                <label for="year">year</label>
+            </div>
+          <div class="input-field">
+            <input type="text" id="firstname" ngModel name="first_name">
+            <label for="firstname">First Name</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="lastname" ngModel name="last_name">
+            <label for="lastname">Last name</label>
+          </div>
+          <div class="input-field">
+            <input type="text"  id="email" ngModel name="email">
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field">
+            <button type="submit" class="btn"><i class="material-icons left">done</i>Register</button>
+          </div>
+          <div class="input-field">
+            <input type="hidden" ngModel name="test" value="test1">
+            <input type="hidden" ngModel name="test2" value="test2">
+            <input type="hidden">
+            <input type="hidden">
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>

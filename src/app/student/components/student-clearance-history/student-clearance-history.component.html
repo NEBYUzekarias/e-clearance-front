@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel">
+      <span class="card-title flow-text">
+        <i class="material-icons">update</i> Clearances History
+      </span>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <div class="card-panel">
+      <table>
+        <tr>
+          <th>Academic year</th>
+          <th>Semester</th>
+          <th>Status</th>
+          <th>Reason</th>
+          <th>Requested offices</th>
+        </tr>
+
+        <tr *ngFor="let clearance of clearances">
+          <td>{{clearance.academic_year}}</td>
+          <td>{{clearance.semester}}</td>
+
+          <td>{{clearance.state}}</td>
+          <td>{{clearance.reason}}</td>
+          <td>
+            <ul>
+              <li *ngFor="let request of clearance.requests"> {{request.departmentId}} {{request.state}}</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr *ngIf="clearances && clearances.length === 0">
+          <td colspan="5">No Clearance History Found</td>
+        </tr>
+
+      </table>
+
+      <app-pagination
+        [request_url]="pagination_url"
+        (reload)="populateClearances()" class="center">
+      </app-pagination>
+
+    </div>
+  </div>
+</div>
