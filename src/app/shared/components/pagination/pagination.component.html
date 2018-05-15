@@ -5,11 +5,12 @@
       <i class="material-icons">chevron_left</i>
     </a>
   </li>
+
   <li *ngFor="let page of pages" [ngClass]="{'active': page===current_page}">
     <a [routerLink]="" [queryParams]="{'page': page}">
       {{page}}
     </a>
-  </li> 
+  </li>
 
   <li [ngClass]="{'disabled': current_page === total_pages}">
     <a [routerLink]=""

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { PaginationService } from "../../../services/pagination.service";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {PaginationService} from "../../../services/pagination.service";
 
 @Component({
   selector: 'app-pagination',
@@ -8,6 +8,7 @@ import { PaginationService } from "../../../services/pagination.service";
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
+
   current_page = 1;
   pages = [1];
   total_pages = 1;
@@ -17,13 +18,13 @@ export class PaginationComponent implements OnInit {
   @Output() reload = new EventEmitter();
 
   constructor(private route: ActivatedRoute,
-    private paginationService: PaginationService) { }
+              private paginationService: PaginationService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(
       params => {
         if (params['page']) {
-          this.current_page = + params['page'];
+          this.current_page = +params['page'];
         } else {
           this.current_page = 1;
         }

@@ -5,7 +5,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class PaginationService {
-  current_page: number;
+  current_page: number = 1;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -55,15 +55,21 @@ export class PaginationService {
     );
   }
 
-  // get filter json string for pagination purpose
-  // that can be used on loopback REST as last filter
-  // in already created filter object
-  get_rest_filter(): string {
+  /**
+   * get filter object for pagination purpose
+   * that can be used on loopback REST as filter
+   * when changed to json
+   * @returns {Object}
+   */
+  get_page_filter(): object {
     // find skip index for the current page
     const skip_index = (this.current_page - 1) * appConfig.items_per_page;
 
-    // create loopback REST filter string for pagination
-    return `"skip": ${skip_index}, "limit": ${appConfig.items_per_page}`;
+    // create loopback REST filter object for pagination
+    return {
+      skip: skip_index,
+      limit: appConfig.items_per_page,
+    };
   }
 
 }

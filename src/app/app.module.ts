@@ -1,19 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { TestComponent } from './test/test.component';
 import { HomeComponent } from './user-account/home/home.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { StudentRequestClearanceComponent } from './student/components/student-request-clearance/student-request-clearance.component';
-import { StudentViewClearanceProgressComponent } from './student/components/student-view-clearance-progress/student-view-clearance-progress.component';
-import { ViewClearedRequestsComponent } from './office/components/view-cleared-requests/view-cleared-requests.component';
-import { ViewClearanceRequestsComponent } from './office/components/view-clearance-requests/view-clearance-requests.component';
 import { OfficeDetailsComponent } from './user-account/office-details/office-details.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
