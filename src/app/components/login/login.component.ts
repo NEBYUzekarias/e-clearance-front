@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
         err => {
           this.waiting = false;
 
-          this.notifService.error(null, null, err);
+          this.notifService.error('Username or password incorrect', null, err);
         }
       );
   }

@@ -37,6 +37,7 @@ export class ClearanceService {
   getActiveClearancesBaseFilter(): object {
     return {
       state: appConfig.states.PENDING,
+      studentId: this.authService.account.id,
     };
   }
 
@@ -73,6 +74,7 @@ export class ClearanceService {
   getClearanceHistoryBaseFilter(): object {
     return {
       state: appConfig.states.APPROVED,
+      studentId: this.authService.account.id,
     };
   }
 
