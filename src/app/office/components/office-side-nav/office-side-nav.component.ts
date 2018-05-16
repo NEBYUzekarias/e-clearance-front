@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
+import {Account} from '../../../models/account';
 declare var $: any;
 @Component({
   selector: 'app-office-side-nav',
@@ -8,7 +9,7 @@ declare var $: any;
 })
 export class OfficeSideNavComponent implements OnInit {
 
-  userAccount: Account;
+  userAccount: Account = new Account();
 
   constructor(private authService: AuthService) { }
 
