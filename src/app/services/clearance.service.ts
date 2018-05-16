@@ -7,6 +7,7 @@ import {Request} from '../models/request';
 import {Info} from '../models/Info';
 import {PaginationService} from './pagination.service';
 import {AuthService} from './auth.service';
+import {Account} from "../models/account";
 
 @Injectable()
 export class ClearanceService {
@@ -136,7 +137,7 @@ export class ClearanceService {
     const base_filter = this.getPendingRequestsBaseFilter();
     const include_filter = {
       include: {
-        clearance: 'student',
+        clearance: ['student', 'requests'],
       },
     };
 
@@ -147,7 +148,45 @@ export class ClearanceService {
       appConfig.apiUrl +
       `/requests?filter=` + JSON.stringify(rest_filter))
       .map(resp => {
-        return resp as Request[];
+        let requests = resp as object[];
+
+        const length = requests.length;
+        for (let i = 0; i < length; i++) {
+          let preconditions = {
+            departmentIds: [],
+            states: [],
+          };
+
+          // assume the request can be approved
+          requests[i]['can_approve'] = true;
+          const clearance = requests[i]['clearance'];
+          // set up department departmentIds requested to approve
+          const pre_departments = this.parsePreconditions(
+            this.authService.account.department.preconditions, clearance.student
+          );
+
+          const inner_length = clearance.requests.length;
+          for (let j = 0; j < inner_length; j++) {
+            // include it if the current request department is in required departments
+            let index = pre_departments.indexOf(clearance.requests[j].departmentId);
+            if (index > -1) {
+              preconditions.departmentIds.push(clearance.requests[j].departmentId);
+              preconditions.states.push(clearance.requests[j].state);
+
+              // preconditions[clearance.requests[j].departmentId] = clearance.requests[j].state;
+
+              if (clearance.requests[j].state !== appConfig.states.APPROVED) {
+                // set that the request can not be approved
+                requests[i]['can_approve'] = false;
+              }
+            }
+          }
+
+          // set the convenient data structured preconditions on request
+          requests[i]['preconditions'] = preconditions;
+        }
+
+        return requests as Request[];
       });
   }
 
@@ -260,5 +299,26 @@ export class ClearanceService {
     }
 
     return new_object;
+  }
+
+  /**
+   * parse preconditions to a list of department departmentIds
+   * @param {Object[]} preconditions: an array of preconditions from database
+   * @param student: a student account to set specific department in preconditions
+   * @returns {Array}
+   */
+  parsePreconditions(preconditions: object[], student: Account) {
+    let requested_departments = [];
+
+    const length = preconditions.length;
+    for (let i = 0; i < length; i++) {
+      if (preconditions[i]['conditionId'] === '$student_department') {
+        requested_departments.push(student.departmentId);
+      } else {
+        requested_departments.push(preconditions[i]['conditionId']);
+      }
+    }
+
+    return requested_departments;
   }
 }

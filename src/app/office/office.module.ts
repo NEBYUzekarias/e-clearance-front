@@ -7,10 +7,12 @@ import { OfficeSideNavComponent } from './components/office-side-nav/office-side
 import {ViewClearanceRequestsComponent} from "./components/view-clearance-requests/view-clearance-requests.component";
 import {ViewClearedRequestsComponent} from "./components/view-cleared-requests/view-cleared-requests.component";
 import { SharedModule } from '../shared/shared.module';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     OfficeRoutingModule
   ],

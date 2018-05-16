@@ -8,6 +8,7 @@ export class Account {
   username: string;
   password: string;
   user_role: string;
+  departmentId: string;
   department: Office;
   first_name: string;
   last_name: string;

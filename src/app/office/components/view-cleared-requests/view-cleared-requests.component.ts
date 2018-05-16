@@ -3,6 +3,7 @@ import { AuthService } from '../../../services/auth.service';
 import {ClearanceService} from "../../../services/clearance.service";
 import {Request} from "../../../models/request";
 import {appConfig} from "../../../app.config";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
   selector: 'app-view-cleared-requests',
@@ -12,7 +13,8 @@ import {appConfig} from "../../../app.config";
 export class ViewClearedRequestsComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private clearanceService: ClearanceService) {
+              private clearanceService: ClearanceService,
+              private notifService: NotificationService) {
     // get where filter for loopback REST api
     const base_filter = this.clearanceService.getClearedRequestsBaseFilter();
 
@@ -32,6 +34,9 @@ export class ViewClearedRequestsComponent implements OnInit {
     this.clearanceService.getClearedRequests().subscribe(
       resp => {
         this.requests = resp;
+      },
+      err => {
+        this.notifService.error(null, null, err);
       }
     );
   }
