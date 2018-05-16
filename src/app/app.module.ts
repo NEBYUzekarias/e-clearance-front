@@ -31,6 +31,9 @@ import {OfficeService} from "./services/office.service";
 import { PaginationComponent } from './shared/components/pagination/pagination.component';
 import {SharedModule} from "./shared/shared.module";
 import {PaginationService} from "./services/pagination.service";
+import { AdminHomeComponent } from './admin/components/admin-home/admin-home.component';
+import {AdminModule} from "./admin/admin.module";
+import {AdminGuard} from "./guards/admin.guard";
 
 
 @NgModule({
@@ -46,6 +49,7 @@ import {PaginationService} from "./services/pagination.service";
     AdminRegisterOfficeUserComponent,
     AdminRegisterStudentComponent,
     AdminAddNewOfficeComponent,
+    AdminHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,7 @@ import {PaginationService} from "./services/pagination.service";
     ReactiveFormsModule,
     OfficeModule,
     StudentModule,
+    AdminModule,
     SharedModule,
     AppRoutingModule,
   ],
@@ -62,6 +67,7 @@ import {PaginationService} from "./services/pagination.service";
     LoginGuard,
     StudentGuard,
     OfficeGuard,
+    AdminGuard,
     AuthService,
     NotificationService,
     AccountService,

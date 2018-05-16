@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
+
 declare var $: any;
+
 @Component({
   selector: 'app-office-side-nav',
   templateUrl: './office-side-nav.component.html',

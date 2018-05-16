@@ -1,0 +1,31 @@
+<ul id="nav-side" class="sidenav sidenav-fixed z-depth-3">
+  <li>
+    <div class="user-view">
+      <h4>Navigation</h4>
+    </div>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="home">
+      <i class="material-icons left">home</i>
+      Home
+    </a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="">
+      <i class="material-icons left">create</i>
+      Import Student Data
+    </a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="">
+      <i class="material-icons left">create</i>
+      Register Office User
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="" (click)="authService.logout()">
+      <i class="material-icons left">power_settings_new</i>
+      Logout
+    </a>
+  </li>
+</ul>
