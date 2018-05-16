@@ -70,129 +70,107 @@
               {{request.clearance.student.first_name}}
             </td>
             <td>
-              {{request.clearance.academic_year}}-{{request.clearance.semester}}
+              {{request.clearance.academic_year}} - {{request.clearance.semester}}
             </td>
             <td>
-              {{request.clearance.created_at}}
+              {{request.createdAt | date: 'MMM d, y'}}
             </td>
             <td>
               <div class="input-field">
-                <button class="btn" (click)="approveRequest(request.id, i)">
+                <button *ngIf="request.can_approve === true"
+                        class="btn" (click)="approveRequest(request.id, i)">
                   Approve
                 </button>
-                <button class="btn">Review</button>
+
+                <button *ngIf="request.can_approve === false"
+                        class="btn modal-trigger" [attr.data-target]="'approve-modal' + i">
+                  Approve
+                </button>
+
+                <button *ngIf="request.state == this.states.PENDING"
+                        class="btn modal-trigger" [attr.data-target]="'modal' + i">
+                  Review
+                </button>
+                <button *ngIf="request.state == this.states.NEED_REVIEW"
+                        class="btn modal-trigger" [attr.data-target]="'modal' + i">
+                  In Review
+                </button>
               </div>
             </td>
-          </tr>
-        <tr *ngFor="let request of requests;let i = index">
-          <td>
-            {{request.clearance.student.username}}
-          </td>
-          <td>
-            {{request.clearance.student.first_name}}
-          </td>
-          <td>
-            {{request.clearance.academic_year}} - {{request.clearance.semester}}
-          </td>
-          <td>
-            {{request.createdAt | date: 'MMM d, y'}}
-          </td>
-          <td>
-            <div class="input-field">
-              <button *ngIf="request.can_approve === true"
-                      class="btn" (click)="approveRequest(request.id, i)">
-                Approve
-              </button>
 
-              <button *ngIf="request.can_approve === false"
-                      class="btn modal-trigger" [attr.data-target]="'approve-modal' + i">
-                Approve
-              </button>
-
-              <button *ngIf="request.state == this.states.PENDING"
-                      class="btn modal-trigger" [attr.data-target]="'modal' + i">
-                Review
-              </button>
-              <button *ngIf="request.state == this.states.NEED_REVIEW"
-                      class="btn modal-trigger" [attr.data-target]="'modal' + i">
-                In Review
-              </button>
-            </div>
-          </td>
-
-          <!-- modal to show that student cannot be approved cos of prerequistes -->
-          <div *ngIf="request.can_approve === false"
-               id="approve-modal{{i}}" class="modal">
-            <div class="modal-content">
-              <div class="row">
-                <h4>
-                  Pre-required offices not addressed
-                </h4>
-                <ul>
-                  <li *ngFor="let departmentId of request.preconditions.departmentIds;let j = index">
-                    <span>{{departmentId | uppercase}}</span>:
-                    {{request.preconditions.states[j] | uppercase}}
-                  </li>
-                </ul>
+            <!-- modal to show that student cannot be approved cos of prerequistes -->
+            <div *ngIf="request.can_approve === false"
+                 id="approve-modal{{i}}" class="modal">
+              <div class="modal-content">
+                <div class="row">
+                  <h4>
+                    Pre-required offices not addressed
+                  </h4>
+                  <ul>
+                    <li *ngFor="let departmentId of request.preconditions.departmentIds;let j = index">
+                      <span>{{departmentId | uppercase}}</span>:
+                      {{request.preconditions.states[j] | uppercase}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="modal-close waves-effect waves-green btn-flat">
+                  OK
+                </button>
               </div>
             </div>
-            <div class="modal-footer">
-              <button class="modal-close waves-effect waves-green btn-flat">
-                OK
-              </button>
-            </div>
-          </div>
 
-          <!-- modal to show reason info for a request -->
-          <div *ngIf="request.state == this.states.NEED_REVIEW"
-               id="modal{{i}}" class="modal">
-            <div class="modal-content">
-              <div class="row">
-                <h4>
-                  Reason for review of
-                  {{request.clearance.student.first_name}} - {{request.clearance.student.username}}
-                </h4>
-                <p>{{request.reason}}</p>
+            <!-- modal to show reason info for a request -->
+            <div *ngIf="request.state == this.states.NEED_REVIEW"
+                 id="modal{{i}}" class="modal">
+              <div class="modal-content">
+                <div class="row">
+                  <h4>
+                    Reason for review of
+                    {{request.clearance.student.first_name}} - {{request.clearance.student.username}}
+                  </h4>
+                  <p>{{request.reason}}</p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="modal-close waves-effect waves-green btn-flat">
+                  OK
+                </button>
               </div>
             </div>
-            <div class="modal-footer">
-              <button class="modal-close waves-effect waves-green btn-flat">
-                OK
-              </button>
-            </div>
-          </div>
 
-          <!-- modal to send reason for a request -->
-          <form *ngIf="request.state == this.states.PENDING"
-                #f="ngForm" (ngSubmit)="f.valid && sendReview(f, i)">
-          <div id="modal{{i}}" class="modal">
-            <div class="modal-content">
-              <div class="row">
-                <h4>
-                  Review for
-                  {{request.clearance.student.first_name}} - {{request.clearance.student.username}}
-                </h4>
-                <div class="input-field col s12">
+            <!-- modal to send reason for a request -->
+            <form *ngIf="request.state == this.states.PENDING"
+                  #f="ngForm" (ngSubmit)="f.valid && sendReview(f, i)">
+              <div id="modal{{i}}" class="modal">
+                <div class="modal-content">
+                  <div class="row">
+                    <h4>
+                      Review for
+                      {{request.clearance.student.first_name}} - {{request.clearance.student.username}}
+                    </h4>
+                    <div class="input-field col s12">
                   <textarea ngModel name="reason" class="materialize-textarea"
                             id="textarea{{i}}" rows="5" required>
 
                   </textarea>
-                  <label for="textarea{{i}}">Reason for review</label>
+                      <label for="textarea{{i}}">Reason for review</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="modal-close waves-effect waves-green btn-flat">
+                    Cancel
+                  </button>
+                  <button type="submit" [disabled]="f.invalid"
+                          class="modal-close waves-effect waves-green btn-flat">
+                    Submit
+                  </button>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button class="modal-close waves-effect waves-green btn-flat">
-                Cancel
-              </button>
-              <button type="submit" [disabled]="f.invalid"
-                        class="modal-close waves-effect waves-green btn-flat">
-                Submit
-              </button>
-            </div>
-          </div>
-          </form>
-        </tr>
+            </form>
+          </tr>
 
           <tr *ngIf="requests && requests.length === 0">
             <td colspan="5">No Pending Requests Found</td>
@@ -205,8 +183,6 @@
         </app-loading>
 
       </div>
-
-      </table>
 
       <app-pagination
         [request_url]="pagination_url"

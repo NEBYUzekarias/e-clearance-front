@@ -10,16 +10,14 @@ declare var $: any;
 })
 export class OfficeSideNavComponent implements OnInit {
 
-  userAccount: Account = new Account();
+  account: Account;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.account = this.authService.account;
+  }
 
   ngOnInit() {
     $('.sidenav').sidenav();
-    this.authService.getSelfAccount()
-      .subscribe(resp => {
-        this.userAccount = resp;
-      });
   }
 
 }

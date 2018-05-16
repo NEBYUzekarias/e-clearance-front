@@ -1,16 +1,10 @@
 <div class="row">
   <div class="col s12">
-
     <div class="card-panel z-depth-2">
-
-      <div class="card-content">
-
-      <span class="card-title flow-text">
-        <i class="material-icons left">notifications</i> Cleared requests
-      </span>
-
-      </div>
-
+        <span class="card-title flow-text">
+          <i class="material-icons left">notifications</i> Cleared requests
+        </span>
+    </div>
   </div>
 
   <div class="col s12">
@@ -82,7 +76,7 @@
               {{request.clearance.semester}}
             </td>
             <td>
-              {{request.clearance.created_at}}
+              {{request.clearance.createdAt | date: 'MMM d, y'}}
             </td>
           </tr>
 
@@ -91,18 +85,19 @@
           </tr>
 
         </table>
+
+        <app-pagination
+          [request_url]="pagination_url"
+          (reload)="populateClearances()" class="center">
+        </app-pagination>
+
         <app-loading
           *ngIf="!requests"
           [loadMessage]="loadMessage">
         </app-loading>
+
       </div>
     </div>
-
-
-    <app-pagination
-      [request_url]="pagination_url"
-      (reload)="populateClearances()" class="center">
-    </app-pagination>
 
   </div>
 </div>

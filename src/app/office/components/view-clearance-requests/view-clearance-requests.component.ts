@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { ApiService } from '../../../services/api.service';
-import {Request} from "../../../models/request";
-import {ClearanceService} from "../../../services/clearance.service";
-import {NotificationService} from "../../../services/notification.service";
-import {appConfig} from "../../../app.config";
+import {Request} from '../../../models/request';
+import {ClearanceService} from '../../../services/clearance.service';
+import {NotificationService} from '../../../services/notification.service';
+import {appConfig} from '../../../app.config';
 
 declare var $: any;
 
@@ -48,6 +48,12 @@ export class ViewClearanceRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.populateClearances();
+  }
+
+  init_modals(): void {
+    $(document).ready(function() {
+      $('.modal').modal();
+    });
   }
 
   populateClearances(): void {
