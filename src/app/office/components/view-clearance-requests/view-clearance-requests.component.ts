@@ -1,15 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { ApiService } from '../../../services/api.service';
-import {Request} from "../../../models/request";
-import {ClearanceService} from "../../../services/clearance.service";
+import {Request} from '../../../models/request';
+import {ClearanceService} from '../../../services/clearance.service';
+import {NotificationService} from '../../../services/notification.service';
+import {appConfig} from '../../../app.config';
+
 declare var $: any;
+
 @Component({
   selector: 'app-view-clearance-requests',
   templateUrl: './view-clearance-requests.component.html',
   styleUrls: ['./view-clearance-requests.component.css']
 })
 export class ViewClearanceRequestsComponent implements OnInit {
+
+  searchOptions = [
+    {
+      optValue: 'studentId',
+      optDisplay: 'By student id'
+    },
+    {
+      optValue: 'departmentId',
+      optDisplay: 'By department'
+    }
+  ];
+
+  isSearching = false;
+
+  searchMessage = 'Searching...';
+
+  loadMessage = 'Loading requests list...';
 
   constructor(private authService: AuthService,
               private clearanceService: ClearanceService,
@@ -53,5 +74,18 @@ export class ViewClearanceRequestsComponent implements OnInit {
           this.notifService.success('Review sent', null);
         }
       );
+  }
+
+  //search for specific or group of clearance requests
+  doSearch(event) {
+    if (event.hasTerm) {
+      this.isSearching = true;
+      console.log(event);
+
+      //api call
+    } else {
+      this.isSearching = false;
+      console.log(event);
+    }
   }
 }

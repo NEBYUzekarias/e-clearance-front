@@ -9,62 +9,99 @@
 
   <div class="col s12">
     <div class="card-panel z-depth-2">
-      <app-search></app-search>
-      <table>
-        <tr>
-          <th>
-            Student Id
-          </th>
-          <th>
-            Student full name
-          </th>
-          <th>
-            Requested for AC Year-Semester
-          </th>
-          <th>
-            Date of request
-          </th>
-          <th>
-            Action
-          </th>
-        </tr>
 
-        <tr *ngFor="let request of requests;let i = index">
-          <td>
-            {{request.clearance.student.username}}
-          </td>
-          <td>
-            {{request.clearance.student.first_name}}
-          </td>
-          <td>
-            {{request.clearance.academic_year}}-{{request.clearance.semester}}
-          </td>
-          <td>
-            {{request.clearance.created_at}}
-          </td>
-          <td>
-            <div class="input-field">
-              <button class="btn" (click)="approveRequest(request.id, i)">
-                Approve
-              </button>
-              <button class="btn">Review</button>
-            </div>
-          </td>
-        </tr>
+      <app-search
+        [options]="searchOptions"
+        (filterSelectedAndInputDone)="doSearch($event)">
+      </app-search>
 
-        <tr *ngIf="requests && requests.length === 0">
-          <td colspan="5">No Pending Requests Found</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
+      <div *ngIf="isSearching">
+        <table>
+          <tr>
+            <th>
+              Student Id
+            </th>
+            <th>
+              Student full name
+            </th>
+            <th>
+              Requested for AC Year-Semester
+            </th>
+            <th>
+              Date of request
+            </th>
+            <th>
+              Action
+            </th>
+          </tr>
 
+        </table>
+        <app-loading
+          [loadMessage]="searchMessage">
+        </app-loading>
+      </div>
+
+      <div *ngIf="!isSearching">
+
+        <table>
+          <tr>
+            <th>
+              Student Id
+            </th>
+            <th>
+              Student full name
+            </th>
+            <th>
+              Requested for AC Year-Semester
+            </th>
+            <th>
+              Date of request
+            </th>
+            <th>
+              Action
+            </th>
+          </tr>
+
+          <tr *ngFor="let request of requests;let i = index">
+            <td>
+              {{request.clearance.student.username}}
+            </td>
+            <td>
+              {{request.clearance.student.first_name}}
+            </td>
+            <td>
+              {{request.clearance.academic_year}}-{{request.clearance.semester}}
+            </td>
+            <td>
+              {{request.clearance.created_at}}
+            </td>
+            <td>
+              <div class="input-field">
+                <button class="btn" (click)="approveRequest(request.id, i)">
+                  Approve
+                </button>
+                <button class="btn">Review</button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="requests && requests.length === 0">
+            <td colspan="5">No Pending Requests Found</td>
+          </tr>
+        </table>
+
+        <app-loading
+          *ngIf="!requests"
+          [loadMessage]="loadMessage">
+        </app-loading>
+
+      </div>
 
       <app-pagination
         [request_url]="pagination_url"
         (reload)="populateClearances()" class="center">
       </app-pagination>
+
     </div>
   </div>
 </div>

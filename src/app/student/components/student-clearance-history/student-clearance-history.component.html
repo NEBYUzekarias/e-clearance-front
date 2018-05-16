@@ -37,6 +37,11 @@
 
       </table>
 
+      <app-loading
+        *ngIf="!clearances"
+       [loadMessage]="onLoadMessage" >
+      </app-loading>
+
       <app-pagination
         [request_url]="pagination_url"
         (reload)="populateClearances()" class="center">

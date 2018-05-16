@@ -1,61 +1,112 @@
 <div class="row">
   <div class="col s12">
+
     <div class="card-panel z-depth-2">
+
+      <div class="card-content">
+
       <span class="card-title flow-text">
         <i class="material-icons left">notifications</i> Cleared requests
       </span>
-    </div>
+
+      </div>
+
   </div>
 
+
+
+</div>
   <div class="col s12">
+
     <div class="card-panel z-depth-2">
-      <table>
-        <tr>
-          <th>
-            Student Id
-          </th>
-          <th>
-            Student full name
-          </th>
-          <th>
-            Requested Year
-          </th>
-          <th>
-            Requested Semester
-          </th>
-          <th>
-            Date of request
-          </th>
-        </tr>
 
-        <tr *ngFor="let request of requests">
-          <td>
-            {{request.clearance.student.username}}
-          </td>
-          <td>
-            {{request.clearance.student.first_name}}
-          </td>
-          <td>
-            {{request.clearance.academic_year}}
-          </td>
-          <td>
-            {{request.clearance.semester}}
-          </td>
-          <td>
-            {{request.clearance.created_at}}
-          </td>
-        </tr>
+      <app-search
+        [options]="searchOptions"
+        (filterSelectedAndInputDone)="doSearch($event)">
+      </app-search>
 
-        <tr *ngIf="requests && requests.length === 0">
-          <td colspan="5">No Cleared Requests Found</td>
-        </tr>
+      <div *ngIf="isSearching">
+        <table>
+          <tr>
+            <th>
+              Student Id
+            </th>
+            <th>
+              Student full name
+            </th>
+            <th>
+              Requested Year
+            </th>
+            <th>
+              Requested Semester
+            </th>
+            <th>
+              Date of request
+            </th>
+          </tr>
 
-      </table>
+        </table>
 
-      <app-pagination
-        [request_url]="pagination_url"
-        (reload)="populateClearances()" class="center">
-      </app-pagination>
+        <app-loading
+          [loadMessage]="searchMessage">
+        </app-loading>
+
+      </div>
+      <div *ngIf="!isSearching">
+        <table>
+          <tr>
+            <th>
+              Student Id
+            </th>
+            <th>
+              Student full name
+            </th>
+            <th>
+              Requested Year
+            </th>
+            <th>
+              Requested Semester
+            </th>
+            <th>
+              Date of request
+            </th>
+          </tr>
+
+          <tr *ngFor="let request of requests">
+            <td>
+              {{request.clearance.student.username}}
+            </td>
+            <td>
+              {{request.clearance.student.first_name}}
+            </td>
+            <td>
+              {{request.clearance.academic_year}}
+            </td>
+            <td>
+              {{request.clearance.semester}}
+            </td>
+            <td>
+              {{request.clearance.created_at}}
+            </td>
+          </tr>
+
+          <tr *ngIf="requests && requests.length === 0">
+            <td colspan="5">No Cleared Requests Found</td>
+          </tr>
+
+        </table>
+        <app-loading
+          *ngIf="!requests"
+          [loadMessage]="loadMessage">
+        </app-loading>
+      </div>
     </div>
+
+
+    <app-pagination
+      [request_url]="pagination_url"
+      (reload)="populateClearances()" class="center">
+    </app-pagination>
+
   </div>
 </div>

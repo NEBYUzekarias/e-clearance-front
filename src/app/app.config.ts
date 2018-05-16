@@ -24,4 +24,8 @@ export const appConfig = {
 
   // total items shown per page
   items_per_page: 2,
+
+  searchOptionSetForOffices: [],
+
+  searchOptionSetForStudentUser:[]
 }

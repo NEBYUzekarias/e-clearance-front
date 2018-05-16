@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import {ClearanceService} from "../../../services/clearance.service";
-import {Request} from "../../../models/request";
-import {appConfig} from "../../../app.config";
+import {ClearanceService} from '../../../services/clearance.service';
+import {Request} from '../../../models/request';
+import {appConfig} from '../../../app.config';
 
 @Component({
   selector: 'app-view-cleared-requests',
@@ -10,6 +10,23 @@ import {appConfig} from "../../../app.config";
   styleUrls: ['./view-cleared-requests.component.css']
 })
 export class ViewClearedRequestsComponent implements OnInit {
+
+  searchOptions = [
+    {
+      optValue: 'studentId',
+      optDisplay: 'By student id'
+    },
+    {
+      optValue: 'departmentId',
+      optDisplay: 'By department'
+    }
+  ];
+
+  loadMessage = 'Loading list...';
+
+  searchMessage = 'Searching...';
+
+  isSearching = false;
 
   constructor(private authService: AuthService,
               private clearanceService: ClearanceService) {
@@ -34,6 +51,19 @@ export class ViewClearedRequestsComponent implements OnInit {
         this.requests = resp;
       }
     );
+  }
+
+  // do search
+  doSearch(event) {
+    if (event.hasTerm) {
+      this.isSearching = true;
+      console.log(event);
+
+      //api call
+    } else {
+      this.isSearching = false;
+      console.log(event);
+    }
   }
 
 }

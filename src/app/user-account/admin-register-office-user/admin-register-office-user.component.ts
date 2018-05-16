@@ -12,15 +12,15 @@ export class AdminRegisterOfficeUserComponent implements OnInit {
   offices_list: any[] = [{name: "test"}];
   constructor(private api_service: ApiService,
               private authService: AuthService) {
-                
+
                }
 
   ngOnInit() {
-    this.api_service.getOfficesList().subscribe(resp=>{
-      this.offices_list = resp.json();
-    })
+    // this.api_service.getOfficesList().subscribe(resp=>{
+    //   this.offices_list = resp.json();
+    // })
     $('select').material_select();
-    
+
   }
 
 }

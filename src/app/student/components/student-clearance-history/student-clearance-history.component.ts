@@ -11,6 +11,7 @@ import {appConfig} from "../../../app.config";
 })
 export class StudentClearanceHistoryComponent implements OnInit {
   clearances: Clearance[];
+  onLoadMessage = 'Loading clearance history...'
   pagination_url: string;
 
   constructor(private clearanceService: ClearanceService,

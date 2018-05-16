@@ -5,6 +5,7 @@ import {NavbarComponent} from "./components/navbar/navbar.component";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import {RouterModule} from "@angular/router";
 import { SearchComponent } from './components/search/search.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -15,11 +16,13 @@ import { SearchComponent } from './components/search/search.component';
     NavbarComponent,
     PaginationComponent,
     SearchComponent,
+    LoadingComponent,
   ],
   exports: [
     NavbarComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }
