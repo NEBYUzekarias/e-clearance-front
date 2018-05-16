@@ -144,6 +144,10 @@ export class AuthService {
     }
   }
 
+  changePassword(changeInformation){
+    return this.http.post(appConfig.apiUrl + '/accounts/change-password?access_token=' + this.access_token, changeInformation );
+  }
+
   userType(){
 
   }

@@ -15,6 +15,7 @@ declare var Materialize: any;
 export class StudentViewClearanceProgressComponent implements OnInit {
   clearances: Clearance[];
 
+  onLoadMessage = 'Loading list...';
   states = appConfig.states;
   pagination_url: string;
 

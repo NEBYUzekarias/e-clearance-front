@@ -15,6 +15,23 @@ declare var $: any;
 })
 export class ViewClearanceRequestsComponent implements OnInit {
 
+  searchOptions = [
+    {
+      optValue: 'studentId',
+      optDisplay: 'By student id'
+    },
+    {
+      optValue: 'departmentId',
+      optDisplay: 'By department'
+    }
+  ];
+
+  isSearching = false;
+
+  searchMessage = 'Searching...';
+
+  loadMessage = 'Loading requests list...';
+
   constructor(private authService: AuthService,
               private clearanceService: ClearanceService,
               private notifService: NotificationService) {
@@ -33,19 +50,6 @@ export class ViewClearanceRequestsComponent implements OnInit {
     this.populateClearances();
   }
 
-  /**
-   * initialize materialize modals
-   */
-  init_modals(): void {
-    $(document).ready(function() {
-      $('.modal').modal();
-    });
-  }
-
-  /**
-   * populate clearances, actually in this case populates
-   * requests of an office
-   */
   populateClearances(): void {
     this.clearanceService.getPendingRequests().subscribe(
       resp => {
@@ -95,6 +99,22 @@ export class ViewClearanceRequestsComponent implements OnInit {
             this.notifService.error('Sending review failed', null, err);
           }
         );
+    }
+  }
+
+  /**
+   * search for specific or group of clearance requests
+   * @param event
+   */
+  doSearch(event): void {
+    if (event.hasTerm) {
+      this.isSearching = true;
+      console.log(event);
+
+      //api call
+    } else {
+      this.isSearching = false;
+      console.log(event);
     }
   }
 }

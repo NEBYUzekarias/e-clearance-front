@@ -1,21 +1,61 @@
 <div class="row">
-  <div *ngFor="let office of officesList" class="col l6">
-    <div class="card custom-card hoverable">
-      <div class="card-image">
-        <img src="{{office.picture}}" alt="">
-        <span class="card-title" style="color: white">
-                <div class="custom-card-title">
-                  <b>{{office.name}}</b>
-                </div>
-              </span>
-      </div>
-      <div class="card-content">
-        {{office.description}}
-      </div>
-      <div class="card-action">
-        <a href="">{{office.name}}</a>
-      </div>
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+        <span class="card-title flow-text">
+          <i class="material-icons">home</i> Welcome - AAiT e-clearance system
+        </span>
+    </div>
+  </div>
 
+  <div *ngIf="!departments || !studentAccount" class="row">
+    <app-loading [loadMessage]="onLoadMessage"></app-loading>
+  </div>
+
+  <div *ngIf="departments && studentAccount" class="row">
+    <div class="col s12">
+      <div class="card-panel z-depth-2">
+        <h2 class="flow-text">
+          Common offices
+        </h2>
+        <hr>
+        <div class="row">
+          <div *ngFor="let department of departments" class="col s12 m12 l6">
+            <div class="card z-depth-2 hoverable">
+              <div class="card-image">
+                <img src="{{department.picture}}">
+                <b><span class="card-title">{{department.description}}</span></b>
+              </div>
+              <div class="card-content">
+
+              </div>
+              <!--<div class="card-action">-->
+                <!--<a href="#">This is a link</a>-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+        <h2 class="flow-text">
+          Your department
+        </h2>
+        <hr>
+        <div class="row">
+          <div class="col s12 m12 l6">
+            <div class="card z-depth-2 hoverable">
+              <div class="card-image">
+                <!--<img src="{{studentAccount.department.picture}}">-->
+                <b><span class="card-title">{{studentAccount.department.name}}</span></b>
+              </div>
+              <div class="card-content">
+
+              </div>
+              <!--<div class="card-action">-->
+              <!--<a href="#">This is a link</a>-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

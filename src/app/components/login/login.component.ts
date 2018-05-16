@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   // waiting for api response
   waiting = false;
 
+  waitingMessage = 'Authenticating...';
   // url to be redirected when login successful
   nextUrl: string;
 

@@ -5,5 +5,7 @@ export class Office {
   description: string;
   student_department: boolean;
 
+  picture: string;
+
   preconditions: object[];
 }

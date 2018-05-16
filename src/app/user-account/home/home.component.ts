@@ -20,30 +20,30 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    var refresh_flag = localStorage.getItem('refresh');
-
-    if(refresh_flag == null){
-      location.reload();
-      localStorage.setItem('refresh', "yes");
-    }
-    else{
-
-
-    }
-
-    if(this.authService.account.user_role == "student"){
-      this.api_service.getOfficesList().subscribe(resp => {
-        this.officesList = resp.json();
-      });
-    }
-    else if(this.authService.account.user_role == "office"){
-      this.api_service.getUserOffice().subscribe(resp =>{
-        this.office_of_user = resp.json();
-
-       // console.log("office found "+JSON.stringify());
-      });
-    }
-
+    // var refresh_flag = localStorage.getItem('refresh');
+    //
+    // if(refresh_flag == null){
+    //   location.reload();
+    //   localStorage.setItem('refresh', "yes");
+    // }
+    // else{
+    //
+    //
+    // }
+    //
+    // if(this.authService.account.user_role == "student"){
+    //   this.api_service.getOfficesList().subscribe(resp => {
+    //     this.officesList = resp.json();
+    //   });
+    // }
+    // else if(this.authService.account.user_role == "office"){
+    //   this.api_service.getUserOffice().subscribe(resp =>{
+    //     this.office_of_user = resp.json();
+    //
+    //    // console.log("office found "+JSON.stringify());
+    //   });
+    // }
+    //
 
   }
 

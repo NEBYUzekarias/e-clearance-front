@@ -1,9 +1,13 @@
 <ul id="nav-side" class="sidenav sidenav-fixed z-depth-3">
-  <li>
-    <div class="user-view">
-      <h4>Navigation</h4>
+  <li><div class="user-view">
+    <div class="background">
+      <img class="responsive-img" src="../../../../assets/images/background.jpg">
     </div>
-  </li>
+    <a > <img class="responsive-img circle" src="../../../../assets/images/default-account-image.png" alt=""> </a>
+    <a ><span class="white-text name">{{userAccount.first_name}} {{userAccount.last_name}}</span></a>
+    <a ><span class="white-text name"></span></a>
+
+  </div></li>
   <li routerLinkActive="active">
     <a routerLink="home">
       <i class="material-icons left">home</i>
@@ -28,6 +32,11 @@
       Clearance history
     </a>
   </li>
+  <li routerLinkActive="active">
+    <a routerLink="change_password">
+      <i class="material-icons left">lock</i>
+      Change password
+    </a></li>
   <li>
     <a [routerLink]="" (click)="authService.logout()">
       <i class="material-icons left">power_settings_new</i>

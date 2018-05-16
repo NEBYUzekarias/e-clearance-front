@@ -1,22 +1,19 @@
-<div class="row">
-  <div class="col s12 m4 l4">
-    <div class="input-field">
-      <select name="" id="">
-        <option value="" disabled selected>Search by</option>
-        <optgroup>
-          <option value="">By Student Id</option>
-          <option value="">By department</option>
-          <option value="">By semester</option>
-        </optgroup>
+ <div class="row">
+    <div class="col s12 m4 l4">
+      <div class="input-field">
+        <select id="selectFilter" >
+        </select>
+      </div>
 
-      </select>
     </div>
-  </div>
-  <div class="col s12 m4 l4">
-    <div class="input-field">
-      <input type="text" placeholder="Search">
-    </div>
+
+   <div class="col s12 m4 l4">
+     <div class="input-field">
+       <input type="text" (keyup)="emitChange($event)" placeholder="Search">
+     </div>
+   </div>
+
+
   </div>
 
 
-</div>
