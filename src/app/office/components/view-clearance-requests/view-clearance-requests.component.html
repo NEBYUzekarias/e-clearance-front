@@ -12,10 +12,10 @@
 
       <app-search
         [options]="searchOptions"
-        (filterSelectedAndInputDone)="doSearch($event)">
+        (search)="doSearch($event)">
       </app-search>
 
-      <div *ngIf="isSearching">
+      <div *ngIf="searching.state">
         <table>
           <tr>
             <th>
@@ -37,11 +37,11 @@
 
         </table>
         <app-loading
-          [loadMessage]="searchMessage">
+          [loadMessage]="searching.message">
         </app-loading>
       </div>
 
-      <div *ngIf="!isSearching">
+      <div *ngIf="!searching.state">
 
         <table>
           <tr>
@@ -67,7 +67,7 @@
               {{request.clearance.student.username}}
             </td>
             <td>
-              {{request.clearance.student.first_name}}
+              {{request.clearance.student.first_name}} {{request.clearance.student.last_name}}
             </td>
             <td>
               {{request.clearance.academic_year}} - {{request.clearance.semester}}
@@ -178,15 +178,15 @@
         </table>
 
         <app-loading
-          *ngIf="!requests"
-          [loadMessage]="loadMessage">
+          *ngIf="loading.state"
+          [loadMessage]="loading.message">
         </app-loading>
 
       </div>
 
       <app-pagination
         [request_url]="pagination_url"
-        (reload)="populateClearances()" class="center">
+        (reload)="populateItems()" class="center">
       </app-pagination>
 
     </div>

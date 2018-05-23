@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PaginationService} from "../../../services/pagination.service";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
 
   current_page = 1;
   pages = [1];
@@ -18,7 +19,8 @@ export class PaginationComponent implements OnInit {
   @Output() reload = new EventEmitter();
 
   constructor(private route: ActivatedRoute,
-              private paginationService: PaginationService) {}
+              private paginationService: PaginationService,
+              private notifService: NotificationService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(
@@ -37,6 +39,12 @@ export class PaginationComponent implements OnInit {
     );
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.request_url) {
+      this.setPages();  // reload item list component
+    }
+  }
+
   setPages(): void {
     this.paginationService.get_pages(this.request_url, this.current_page)
       .subscribe(
@@ -47,7 +55,7 @@ export class PaginationComponent implements OnInit {
           this.reload.emit();
         },
         err => {
-          console.log('pagination service failed', err);
+          this.notifService.error('Pagination failed', null, err);
         }
       );
   }

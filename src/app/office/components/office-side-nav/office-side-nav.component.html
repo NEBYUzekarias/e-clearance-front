@@ -1,12 +1,23 @@
 <ul id="nav-side" class="sidenav sidenav-fixed z-depth-3">
   <li>
-      <div class="user-view">
+    <div class="user-view">
       <div class="background">
         <img class="responsive-img" src="../../../../assets/images/background.jpg">
       </div>
-      <a > <img class="responsive-img circle" src="../../../../assets/images/default-account-image.png" alt=""> </a>
-      <a ><span class="white-text name">{{account.first_name}} {{account.last_name}}</span></a>
-      <a ><span class="white-text name"></span></a>
+      
+      <a>
+        <img class="responsive-img circle" src="../../../../assets/images/default-account-image.png" alt="">
+      </a>
+      <a>
+        <span class="white-text name">
+          {{account.first_name}} {{account.last_name}}
+        </span>
+      </a>
+      <a>
+        <span class="white-text name" style="margin-top: 0;">
+          {{account.departmentId | titlecase}}
+        </span>
+      </a>
 
     </div>
   </li>

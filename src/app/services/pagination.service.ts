@@ -19,6 +19,7 @@ export class PaginationService {
         let total_pages: number;
         let pages: number[] = [];
         let total_items = resp['count'];
+        console.log('count', resp['count']);
 
         // get number of total pages from total items
         if (total_items === 0) {

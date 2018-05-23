@@ -15,9 +15,10 @@ declare var $: any;
 })
 export class ViewClearanceRequestsComponent implements OnInit {
 
+  // values must be backend model properties
   searchOptions = [
     {
-      optValue: 'studentId',
+      optValue: 'username',
       optDisplay: 'By student id'
     },
     {
@@ -26,28 +27,35 @@ export class ViewClearanceRequestsComponent implements OnInit {
     }
   ];
 
-  isSearching = false;
+  searching = {
+    state: false,
+    message: 'Searching...',
+  };
 
-  searchMessage = 'Searching...';
-
-  loadMessage = 'Loading requests list...';
+  loading = {
+    state: false,
+    message: 'Loading...',
+  };
 
   constructor(private authService: AuthService,
               private clearanceService: ClearanceService,
               private notifService: NotificationService) {
-
-    const base_filter = this.clearanceService.getPendingRequestsBaseFilter();
-
-    this.pagination_url =
-      `/requests/count?where=` + JSON.stringify(base_filter);
   }
+
+  // search filter object that can be used
+  // in creating of loopback API filter json
+  search_filter: object = null;
+
+  // pagination url that will be transferred to
+  // a pagination component that inturn calls emits
+  // reloading this component
+  pagination_url: string;
 
   states = appConfig.states;  // states constants for template
   requests: Request[];
-  pagination_url: string;
 
   ngOnInit() {
-    this.populateClearances();
+    this.invokePagination();  // populates clearances or requests
   }
 
   init_modals(): void {
@@ -56,16 +64,42 @@ export class ViewClearanceRequestsComponent implements OnInit {
     });
   }
 
-  populateClearances(): void {
-    this.clearanceService.getPendingRequests().subscribe(
+  invokePagination(): void {
+    const base_filter = this.clearanceService.getPendingRequestsBaseFilter();
+
+    if (this.search_filter) {
+      const rest_filter = {
+        where: base_filter,
+        search: this.search_filter['search'],
+      };
+      this.pagination_url = this.clearanceService.requests_search_rest_url +
+        '/count?filter=' + JSON.stringify(rest_filter);
+    } else {
+      this.pagination_url = this.clearanceService.requests_rest_url +
+        '/count?where=' + JSON.stringify(base_filter);
+    }
+
+    console.log('page url', this.pagination_url);
+  }
+
+  /**
+   * populate requests appropriately from an API
+   * should be invoked by pagination
+   */
+  populateItems(): void {
+    this.set_loading_state(true);
+
+    this.clearanceService.getPendingRequests(this.search_filter).subscribe(
       resp => {
+        this.set_loading_state(false);
         this.requests = resp;
         console.log('resp', resp);
 
         this.init_modals();
       },
       err => {
-        this.notifService.error(null, null, err);
+        this.set_loading_state(false);
+        this.notifService.error('Something went wrong', null, err);
       }
     );
   }
@@ -81,6 +115,9 @@ export class ViewClearanceRequestsComponent implements OnInit {
         resp => {
           this.notifService.success('Request Approved', null);
           this.requests.splice(request_index, 1);
+        },
+        err => {
+          this.notifService.error('Approving Request Failed', null, err);
         }
       );
   }
@@ -114,13 +151,37 @@ export class ViewClearanceRequestsComponent implements OnInit {
    */
   doSearch(event): void {
     if (event.hasTerm) {
-      this.isSearching = true;
-      console.log(event);
+      this.searching.state = true;
 
-      //api call
-    } else {
-      this.isSearching = false;
+      // create search filter object
+      let search_filter = {
+        search: {
+          student: {}
+        }
+      };
+      search_filter.search.student[event.attribute] = {regexp: event.term};
+      this.search_filter = search_filter;
       console.log(event);
+      console.log('search_filter', search_filter);
+
+      this.invokePagination();  // populates clearances or requests
+    } else {
+      this.searching.state = false;
+      this.search_filter = null;
+
+      this.invokePagination();  // populates clearances or requests
+    }
+  }
+
+  /**
+   * set loading state of the component
+   * @param {boolean} value: the boolean value to be set
+   */
+  set_loading_state(value: boolean): void {
+    if (this.search_filter) {
+      this.searching.state = value;
+    } else {
+      this.loading.state = value;
     }
   }
 }
