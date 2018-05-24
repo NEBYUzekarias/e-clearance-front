@@ -23,11 +23,15 @@ export class ViewClearedRequestsComponent implements OnInit {
     }
   ];
 
-  loadMessage = 'Loading list...';
+  loading = {
+    state: false,
+    message: 'Loading...',
+  };
 
-  searchMessage = 'Searching...';
-
-  isSearching = false;
+  searching = {
+    state: false,
+    message: 'Searching...',
+  };
 
   constructor(private authService: AuthService,
               private clearanceService: ClearanceService,
@@ -61,12 +65,12 @@ export class ViewClearedRequestsComponent implements OnInit {
   // do search
   doSearch(event) {
     if (event.hasTerm) {
-      this.isSearching = true;
+      this.searching.state = true;
       console.log(event);
 
       //api call
     } else {
-      this.isSearching = false;
+      this.searching.state = false;
       console.log(event);
     }
   }

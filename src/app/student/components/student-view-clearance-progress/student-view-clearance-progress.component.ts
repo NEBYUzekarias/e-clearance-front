@@ -5,7 +5,7 @@ import { Clearance } from '../../../models/clearance';
 import {NotificationService} from "../../../services/notification.service";
 import {appConfig} from "../../../app.config";
 
-declare var $, Materialize: any;
+declare var $: any;
 
 @Component({
   selector: 'app-student-view-clearance-progress',
@@ -29,9 +29,12 @@ export class StudentViewClearanceProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('.collapsible').collapsible();
+    this.init_collapsibles();
   }
 
+  init_collapsibles(): void {
+    $('.collapsible').collapsible();
+  }
 
   populateClearances() {
     this.clearanceService.getActiveClearances()

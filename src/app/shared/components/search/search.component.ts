@@ -13,15 +13,17 @@ declare var $: any;
 export class SearchComponent implements OnInit {
 
   @Input() options: any[];
-  @Output() filterSelectedAndInputDone = new EventEmitter<Object>();
+  @Output() search = new EventEmitter<object>();
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    let optionsForSelect = ` <option value="" disabled selected>Search by</option>`;
-
+    // create options in hard way to please materialize
+    let optionsForSelect =
+      `<option value="" disabled selected>Search by</option>`;
     for (let i = 0; i < this.options.length; i++) {
-      optionsForSelect += `<option value="${this.options[i].optValue}">${this.options[i].optDisplay}</option>`;
+      optionsForSelect +=
+        `<option value="${this.options[i].optValue}">${this.options[i].optDisplay}</option>`;
     }
 
     $('#selectFilter').html(optionsForSelect);
@@ -29,23 +31,19 @@ export class SearchComponent implements OnInit {
     $('select').formSelect();
   }
 
-  //fire the search filter and term.
+  /**
+   * fire the search filter and term.
+   * @param event
+   */
   emitChange(event) {
-    var filter = $('#selectFilter').val() != null ? $('#selectFilter').val() : 'studentId';
-    var term = event.target.value;
+    const attribute = $('#selectFilter').val() != null ? $('#selectFilter').val() : 'id';
+    const term = event.target.value.trim();
+    console.log('term', term);
 
     if (term) {
-      this.filterSelectedAndInputDone.emit({hasTerm: true, filter, term});
+      this.search.emit({hasTerm: true, attribute: attribute, term: term});
+    } else if (term === '') {
+      this.search.emit({hasTerm: false});
     }
-    else if(term == ''){
-
-      this.filterSelectedAndInputDone.emit({hasTerm: false});
-
-    }
-
   }
-
-
-
-
 }

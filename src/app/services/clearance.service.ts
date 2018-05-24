@@ -11,6 +11,8 @@ import {Account} from "../models/account";
 
 @Injectable()
 export class ClearanceService {
+  requests_rest_url = '/requests';
+  requests_search_rest_url = '/requests/search';
 
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
@@ -111,17 +113,10 @@ export class ClearanceService {
     const departmentId = this.authService.account.department.name;
 
     const where_filter = {
-      and: [
-        {
-          or: [
+        or: [
             {state: appConfig.states.PENDING},
             {state: appConfig.states.NEED_REVIEW},
-          ]
-        },
-        {
-          departmentId: departmentId,
-        },
-      ]
+        ],
     };
 
     return where_filter;
@@ -131,7 +126,7 @@ export class ClearanceService {
    * get pending clearance requests sent to an office
    * @returns {Observable<Request[]>}
    */
-  getPendingRequests(): Observable<Request[]> {
+  getPendingRequests(search_filter?: object): Observable<Request[]> {
     // get loopback REST filter partial json string
     const page_filter = this.paginationService.get_page_filter();
     const base_filter = this.getPendingRequestsBaseFilter();
@@ -141,14 +136,40 @@ export class ClearanceService {
       },
     };
 
-    // concatenate all filter objects
-    const rest_filter = this.concat({where: base_filter}, page_filter, include_filter);
+    const where_filter = {
+      where: base_filter,
+    };
+
+    let rest_url;
+    let rest_filter;
+    console.log('search_filter', search_filter);
+    if (search_filter) {
+      // concatenate all filter objects
+      rest_filter =
+        this.concat(where_filter, page_filter, include_filter, search_filter);
+
+      rest_url = this.requests_search_rest_url;
+    } else {
+      // concatenate all filter objects
+      rest_filter =
+        this.concat(where_filter, page_filter, include_filter);
+
+      rest_url = this.requests_rest_url;
+    }
+
+    console.log('rest filter', JSON.stringify(rest_filter));
 
     return this.httpClient.get(
-      appConfig.apiUrl +
-      `/requests?filter=` + JSON.stringify(rest_filter))
+      appConfig.apiUrl + rest_url +
+      `?filter=` + JSON.stringify(rest_filter))
       .map(resp => {
-        let requests = resp as object[];
+        console.log('resp', resp);
+        let requests;
+        if (search_filter) {
+          requests = resp['results'] as object[];
+        } else {
+          requests = resp as object[];
+        }
 
         const length = requests.length;
         for (let i = 0; i < length; i++) {
