@@ -1,13 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {HttpClient} from "@angular/common/http";
-import {Account} from "../models/account";
-import {Observable} from "rxjs/Observable";
-import {appConfig} from "../app.config";
-import "rxjs/add/operator/map";
-import {NotificationService} from "./notification.service";
-import {AccountService} from "./account.service";
-import {Subject} from "rxjs/Subject";
+import {HttpClient} from '@angular/common/http';
+import {Account} from '../models/account';
+import {Observable} from 'rxjs/Observable';
+import {appConfig} from '../app.config';
+import 'rxjs/add/operator/map';
+import {NotificationService} from './notification.service';
+import {AccountService} from './account.service';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class AuthService {
@@ -114,6 +114,15 @@ export class AuthService {
       });
   }
 
+  findUserAccount(username): Observable<Account> {
+   return this.http.get(appConfig.apiUrl + `/accounts?filter={"where":{"username":"` + {username} + `"}}`)
+     .map(
+       resp => {
+         return resp as Account;
+       }
+     );
+  }
+
   isSelfRole(user_role: string): Observable<boolean> {
     if (this.account) {
       if (this.account.user_role === user_role) {
@@ -144,11 +153,15 @@ export class AuthService {
     }
   }
 
-  changePassword(changeInformation){
+  changePassword(changeInformation) {
     return this.http.post(appConfig.apiUrl + '/accounts/change-password?access_token=' + this.access_token, changeInformation );
   }
 
-  userType(){
+  addUserAccount(account: Account): Observable<any>{
+    return this.http.post(appConfig.apiUrl + '/accounts', account);
+  }
+
+  userType() {
 
   }
 

@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NotificationService} from "../../services/notification.service";
-import {Account} from "../../models/account";
+import {NotificationService} from '../../services/notification.service';
+import {Account} from '../../models/account';
+
+declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    $('.parallax').parallax();
     // get next url from route parameters or use default url
     this.nextUrl = this.route.snapshot.queryParams['nextUrl'];
   }
@@ -81,6 +84,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/student/home']);
     } else if (account.user_role === 'office') {
       this.router.navigate(['/office/home']);
+    } else if (account.user_role === 'admin') {
+      this.router.navigate(['/admin/home']);
     }
   }
 }

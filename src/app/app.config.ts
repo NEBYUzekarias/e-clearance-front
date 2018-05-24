@@ -23,7 +23,7 @@ export const appConfig = {
   page_links_num: 5,
 
   // total items shown per page
-  items_per_page: 2,
+  items_per_page: 3,
 
   searchOptionSetForOffices: [],
 

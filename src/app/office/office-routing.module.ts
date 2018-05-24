@@ -6,6 +6,7 @@ import {OfficeHomeComponent} from "./components/office-home/office-home.componen
 import {ViewClearanceRequestsComponent} from "./components/view-clearance-requests/view-clearance-requests.component";
 import {ViewClearedRequestsComponent} from "./components/view-cleared-requests/view-cleared-requests.component";
 import {OfficeGuard} from "../guards/office.guard";
+import {ChangePasswordComponent} from '../shared/components/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'cleared_requests',
         component: ViewClearedRequestsComponent,
+      },
+      {
+        path: 'change_password',
+        component: ChangePasswordComponent
       }
     ]
   }

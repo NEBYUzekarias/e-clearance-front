@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {Account} from '../../../models/account';
 
 @Component({
   selector: 'app-office-home',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfficeHomeComponent implements OnInit {
 
-  constructor() { }
+  account: Account = new Account();
+  constructor(private authService: AuthService) {
+
+  }
 
   ngOnInit() {
+    this.authService.getSelfAccount()
+      .subscribe(
+        resp =>{
+          this.account = resp;
+        }
+      );
   }
 
 }

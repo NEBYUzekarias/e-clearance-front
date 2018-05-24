@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
     this.authService.changePassword(this.form.value)
       .subscribe(
         resp =>{
-          this.notificationService.info('Successfully changed the password', null)
+          this.notificationService.success('Successfully changed the password', null)
         },
         err =>{
           this.notificationService.error('Error: password not changed', null)

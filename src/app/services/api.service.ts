@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {appConfig} from '../app.config';
 import {Office} from '../models/office';
+import {Info} from '../models/Info';
 
 @Injectable()
 export class ApiService {
@@ -21,6 +22,15 @@ export class ApiService {
           return resp as Office[];
         }
       );
+  }
+
+  getInfo(): Observable<Info>{
+    return this.httpClient.get(appConfig.apiUrl+`/infos?filter=`)
+      .map(
+        resp =>{
+          return resp as Info;
+        }
+      )
   }
 
 }

@@ -16,4 +16,13 @@ export class OfficeService {
       return resp as Office[];
     });
   }
+
+  getDepartments(): Observable<Office[]> {
+    return this.httpClient.get(appConfig.apiUrl + '/departments?filter={"where": {"student_department": true}}')
+      .map(
+        resp =>{
+          return resp as Office[];
+        }
+      )
+  }
 }

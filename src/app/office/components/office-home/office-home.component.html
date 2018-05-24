@@ -1,3 +1,35 @@
-<p>
-  office-home works!
-</p>
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+        <span class="card-title flow-text">
+          <i class="material-icons">home</i> Welcome - AAiT e-clearance system
+        </span>
+    </div>
+  </div>
+
+
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+      <h2 class="flow-text">
+        {{account.department.name}}
+      </h2>
+      <div class="row">
+        <div class="col s12 ">
+          <div class="card z-depth-2 hoverable">
+            <div class="card-image">
+              <img src="{{account.department.picture}}">
+              <b><span class="card-title">{{account.department.name}}</span></b>
+            </div>
+            <div class="card-content">
+
+            </div>
+            <!--<div class="card-action">-->
+            <!--<a href="#">This is a link</a>-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

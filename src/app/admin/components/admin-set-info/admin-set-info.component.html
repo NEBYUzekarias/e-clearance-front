@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+      <span class="card-title flow-text">
+        <i class="material-icons left">home</i>Set important informations
+      </span>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col s6">
+            <h2 class="flow-text">Current year</h2>
+          </div>
+          <div class="col s6">
+            <h2 class="flow-text">
+              Current semester
+            </h2>
+          </div>
+          <div class="col s6 input-field">
+            <input [value]="infos.academic_year" formControlName="academic_year" type="text">
+          </div>
+
+          <div class="col s6 input-field">
+            <input [value]="infos.semester" formControlName="semester" type="text">
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <button class="btn">Update</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

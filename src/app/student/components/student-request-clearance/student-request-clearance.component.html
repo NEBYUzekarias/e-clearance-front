@@ -9,7 +9,7 @@
 
   <div class="col s12">
     <div class="card z-depth-2">
-      <form #f="ngForm" (ngSubmit)="processSubmit(f)">
+      <form [formGroup]="form">
         <div class="card-content">
           <div class="row">
             <div class="col s12">
@@ -35,15 +35,42 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col m6 s12">
-            <textarea ngModel name="reason" id="reason" cols="30" rows="40" class="materialize-textarea">
+            <h6>Reason for clearance</h6>
+          </div>
 
-            </textarea>
-              <label for="reason">Reason for clearance</label>
+          <div class="row">
+
+            <div class="col s2">
+              <label>
+                <input (click)="otherReasonNotSelected($event)" class="with-gap" name="group1" type="radio" checked />
+                <span>Class end</span>
+              </label>
+            </div>
+            <div class="col s2">
+              <label>
+                <input (click)="otherReasonNotSelected($event)" class="with-gap" value="Withdrawal" name="group1" type="radio"  />
+                <span>Withdrawal</span>
+              </label>
             </div>
 
+            <div class="col s2">
+              <label>
+                <input (click)="otherReasonSelected()" class="with-gap"  name="group1" type="radio"  />
+                <span>Other</span>
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="otherReasonRequired" class="row">
+            <div class="col s12 m6 input-field">
+              <textarea formControlName="reason" id="otherReason" class="materialize-textarea"></textarea>
+              <label for="otherReason">Specify reason</label>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="input-field col s12">
-              <button class="btn" type="submit">
+              <button [disabled]="otherReasonRequired && !form.get('reason').valid" class="btn" (click)="processSubmit()" >
                 <i class="material-icons right">send</i>Submit
               </button>
             </div>

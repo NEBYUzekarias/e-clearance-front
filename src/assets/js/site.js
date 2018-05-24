@@ -3,6 +3,6 @@ $(document).ready(function(){
   $('.sidenav').sidenav();
 
 // initialize collapsible
-  $('.collapsible').collapsible();
+
 });
 

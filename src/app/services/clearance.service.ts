@@ -283,6 +283,10 @@ export class ClearanceService {
       });
   }
 
+  setCurrentInfos(info: Info): any {
+    return this.httpClient.patch(appConfig.apiUrl + '/infos', info);
+  }
+
   /**
    * concatenate given objects
    * @param {Object} objects

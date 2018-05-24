@@ -1,9 +1,13 @@
 <ul id="nav-side" class="sidenav sidenav-fixed z-depth-3">
-  <li>
-    <div class="user-view">
-      <h4>Navigation</h4>
+  <li><div class="user-view">
+    <div class="background">
+      <img class="responsive-img" src="../../../../assets/images/background.jpg">
     </div>
-  </li>
+    <a > <img class="responsive-img circle" src="../../../../assets/images/default-account-image.png" alt=""> </a>
+    <a ><span class="white-text name">{{userAccount.first_name}} {{userAccount.last_name}}</span></a>
+    <a ><span class="white-text name"></span></a>
+
+  </div></li>
   <li routerLinkActive="active">
     <a routerLink="home">
       <i class="material-icons left">home</i>
@@ -11,17 +15,46 @@
     </a>
   </li>
   <li routerLinkActive="active">
-    <a routerLink="">
+    <a routerLink="import_student_data">
       <i class="material-icons left">create</i>
       Import Student Data
     </a>
   </li>
   <li routerLinkActive="active">
-    <a routerLink="">
-      <i class="material-icons left">create</i>
+    <a routerLink="register_office_user">
+      <i class="material-icons left">add</i>
       Register Office User
     </a>
   </li>
+  <li routerLinkActive="active">
+    <a routerLink="register_student_user">
+      <i class="material-icons left">add</i>
+      Register Student
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a routerLink="set_informations">
+      <i class="material-icons left">create</i>
+      Set informations
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a routerLink="reset_password">
+      <i class="material-icons left">lock_open</i>
+      Reset forgotten password
+    </a>
+  </li>
+
+
+  <li routerLinkActive="active">
+    <a routerLink="change_self_password">
+      <i class="material-icons left">lock</i>
+      change self password
+    </a>
+  </li>
+
   <li>
     <a [routerLink]="" (click)="authService.logout()">
       <i class="material-icons left">power_settings_new</i>
