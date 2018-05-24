@@ -55,7 +55,7 @@ export class PaginationComponent implements OnInit, OnChanges {
           this.reload.emit();
         },
         err => {
-          this.notifService.error('Pagination failed', null, err);
+          this.notifService.error('Loading pages failed', null, err);
         }
       );
   }

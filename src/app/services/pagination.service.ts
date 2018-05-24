@@ -36,8 +36,14 @@ export class PaginationService {
           start_index = 1;
         } else if ((total_pages - current_page) > page_links_num_half) { // can be in the middle
           start_index = current_page - page_links_num_half;
-        } else { // can only on the second side of the half
-          start_index = total_pages - appConfig.page_links_num;
+        } else { // can only be on the second side of the half
+          if (total_pages > appConfig.page_links_num) {
+            start_index = total_pages - appConfig.page_links_num;
+          } else {
+            // if total_pages is less than number of page links
+            // just make the start of the page as 1
+            start_index = 1;
+          }
         }
 
         // find the end index in pages[]
