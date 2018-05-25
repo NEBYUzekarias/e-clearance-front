@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import {Account} from "../models/account";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/of";
+import {appConfig} from "../app.config";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class AccountService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  getSelfAccount(): Observable<Account> {
-    let account = new Account();
-    account.username = "atr/0593/07";
-    account.first_name = "yared";
-    account.last_name = "tadde";
-    account.user_role = 'student';
+  changePassword(changeInformation: object): Observable<any> {
+    return this.httpClient.post(
+      appConfig.apiUrl + '/accounts/change-password', changeInformation);
+  }
 
-    return Observable.of(account);
+  addUserAccount(account: Account): Observable<any> {
+    return this.httpClient.post(appConfig.apiUrl + '/accounts', account);
   }
 
 }

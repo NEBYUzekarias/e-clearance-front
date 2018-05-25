@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Account} from '../../../models/account';
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../services/notification.service';
+import {AccountService} from "../../../services/account.service";
 declare var $: any;
 @Component({
   selector: 'app-admin-register-student',
@@ -20,6 +21,7 @@ export class AdminRegisterStudentComponent implements OnInit {
   constructor(
     private officesService: OfficeService,
     private authService: AuthService,
+    private accountService: AccountService,
     private notifier: NotificationService
   ) { }
 
@@ -47,7 +49,7 @@ export class AdminRegisterStudentComponent implements OnInit {
     account.year = $('#year').val();
     account.password = 'jkl;';
 
-    this.authService.addUserAccount(account)
+    this.accountService.addUserAccount(account)
       .subscribe(
         resp => {
           this.notifier.success('Succesfully registered', null);

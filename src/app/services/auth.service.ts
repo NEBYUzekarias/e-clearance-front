@@ -145,24 +145,11 @@ export class AuthService {
           },
           err => {
             subject.next(false);
-            this.notifService.error('could not get user info', null, err);
+            this.notifService.error('Could not get user info', null, err);
           }
         );
 
       return subject.asObservable();
     }
   }
-
-  changePassword(changeInformation) {
-    return this.http.post(appConfig.apiUrl + '/accounts/change-password?access_token=' + this.access_token, changeInformation );
-  }
-
-  addUserAccount(account: Account): Observable<any>{
-    return this.http.post(appConfig.apiUrl + '/accounts', account);
-  }
-
-  userType() {
-
-  }
-
 }
