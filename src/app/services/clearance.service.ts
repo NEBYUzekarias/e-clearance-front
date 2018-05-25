@@ -158,7 +158,6 @@ export class ClearanceService {
     }
 
     console.log('rest filter', JSON.stringify(rest_filter));
-
     return this.httpClient.get(
       appConfig.apiUrl + rest_url +
       `?filter=` + JSON.stringify(rest_filter))
@@ -223,10 +222,7 @@ export class ClearanceService {
 
     // create where filter object
     const where_filter = {
-      and: [
-        {state: appConfig.states.APPROVED},
-        {departmentId: departmentId},
-      ]
+      state: appConfig.states.APPROVED,
     };
 
     return where_filter;
@@ -236,7 +232,7 @@ export class ClearanceService {
    * get successfuly cleared clearance requests of an office
    * @returns {Observable<Request[]>}
    */
-  getClearedRequests(): Observable<Request[]> {
+  getClearedRequests(search_filter?: object): Observable<Request[]> {
     // get loopback REST filter objects
     const page_filter = this.paginationService.get_page_filter();
     const base_filter = this.getClearedRequestsBaseFilter();
@@ -246,14 +242,40 @@ export class ClearanceService {
       },
     };
 
-    // concatenate all filter objects
-    const rest_filter = this.concat({where: base_filter}, page_filter, include_filter);
+    const where_filter = {
+      where: base_filter,
+    };
 
+    let rest_url;
+    let rest_filter;
+    if (search_filter) {
+      // concatenate all filter objects
+      rest_filter =
+        this.concat(where_filter, page_filter, include_filter, search_filter);
+
+      rest_url = this.requests_search_rest_url;
+    } else {
+      // concatenate all filter objects
+      rest_filter =
+        this.concat(where_filter, page_filter, include_filter);
+
+      rest_url = this.requests_rest_url;
+    }
+
+    console.log('rest filter', JSON.stringify(rest_filter));
     return this.httpClient.get(
-      appConfig.apiUrl +
-      `/requests?filter=` + JSON.stringify(rest_filter))
+      appConfig.apiUrl + rest_url +
+      `?filter=` + JSON.stringify(rest_filter))
       .map(resp => {
-        return resp as Request[];
+        console.log('resp', resp);
+        let requests;
+        if (search_filter) {
+          requests = resp['results'] as Request[];
+        } else {
+          requests = resp as Request[];
+        }
+
+        return requests;
       });
   }
 

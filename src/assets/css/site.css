@@ -24,6 +24,13 @@ main, footer {
   display: block;
 }
 
+/* give bottom space for tables to accommodate app-loading component under it
+   to not let get so much near it
+ */
+table {
+  margin-bottom: 1em;
+}
+
 /*****************************************************
   Experimental css
  *****************************************************/

@@ -15,7 +15,8 @@
         (search)="doSearch($event)">
       </app-search>
 
-      <div *ngIf="searching.state">
+      <!-- table unpopulated with items for sole purpose of showing waiting state-->
+      <div *ngIf="searching.state || loading.state">
         <table>
           <tr>
             <th>
@@ -36,13 +37,21 @@
           </tr>
 
         </table>
+
         <app-loading
+          *ngIf="loading.state"
+          [loadMessage]="loading.message">
+        </app-loading>
+
+        <app-loading
+          *ngIf="searching.state"
           [loadMessage]="searching.message">
         </app-loading>
+
       </div>
 
-      <div *ngIf="!searching.state">
-
+      <!-- table populated with real items -->
+      <div *ngIf="!searching.state || !loading.state">
         <table>
           <tr>
             <th>
@@ -176,11 +185,6 @@
             <td colspan="5">No Pending Requests Found</td>
           </tr>
         </table>
-
-        <app-loading
-          *ngIf="loading.state"
-          [loadMessage]="loading.message">
-        </app-loading>
 
       </div>
 
