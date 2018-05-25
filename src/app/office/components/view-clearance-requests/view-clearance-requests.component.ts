@@ -58,6 +58,10 @@ export class ViewClearanceRequestsComponent implements OnInit {
     this.invokePagination();  // populates clearances or requests
   }
 
+  /**
+   * initialize materialize modals component
+   * should be called whenever items are repopulated
+   */
   init_modals(): void {
     $(document).ready(function() {
       $('.modal').modal();

@@ -42,20 +42,29 @@
 
             <div class="col s2">
               <label>
-                <input (click)="otherReasonNotSelected($event)" class="with-gap" name="group1" type="radio" checked />
+                <input (click)="otherReasonNotSelected($event)" class="with-gap"
+                       value="Class end" name="group1" type="radio" checked/>
                 <span>Class end</span>
               </label>
             </div>
             <div class="col s2">
               <label>
-                <input (click)="otherReasonNotSelected($event)" class="with-gap" value="Withdrawal" name="group1" type="radio"  />
+                <input (click)="otherReasonNotSelected($event)" class="with-gap"
+                       value="Withdrawal" name="group1" type="radio"/>
                 <span>Withdrawal</span>
+              </label>
+            </div>
+            <div class="col s2">
+              <label>
+                <input (click)="otherReasonNotSelected($event)" class="with-gap"
+                       value="Transfer" name="group1" type="radio"/>
+                <span>Transfer</span>
               </label>
             </div>
 
             <div class="col s2">
               <label>
-                <input (click)="otherReasonSelected()" class="with-gap"  name="group1" type="radio"  />
+                <input (click)="otherReasonSelected()" class="with-gap" name="group1" type="radio"/>
                 <span>Other</span>
               </label>
             </div>
@@ -63,14 +72,17 @@
 
           <div *ngIf="otherReasonRequired" class="row">
             <div class="col s12 m6 input-field">
-              <textarea formControlName="reason" id="otherReason" class="materialize-textarea"></textarea>
+              <textarea formControlName="reason" id="otherReason" class="materialize-textarea">
+
+              </textarea>
               <label for="otherReason">Specify reason</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
-              <button [disabled]="otherReasonRequired && !form.get('reason').valid" class="btn" (click)="processSubmit()" >
+              <button [disabled]="otherReasonRequired && !form.get('reason').valid"
+                      (click)="processSubmit()" class="btn">
                 <i class="material-icons right">send</i>Submit
               </button>
             </div>

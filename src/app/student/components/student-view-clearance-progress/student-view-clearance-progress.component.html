@@ -9,25 +9,25 @@
 
   <div class="col s12">
     <ul class="collapsible expandable z-depth-2">
-      <li *ngIf="!clearances">
+      <li *ngIf="loading.state">
         <div class="collapsible-header">
           <div class="row">
             <div class="col s12">
               <app-loading
-                [loadMessage]="onLoadMessage">
+                [loadMessage]="loading.message">
               </app-loading>
             </div>
           </div>
         </div>
       </li>
-      <li *ngFor="let clearance of clearances">
+      <li *ngFor="let clearance of clearances;let i = index">
         <div class="collapsible-header" style="display: block;">
           <div class="row">
             <div class="col s12 m6">{{clearance.academic_year}} semester {{clearance.semester}} clearance</div>
             <div class="col s12 m6">Reason: {{clearance.reason}}</div>
           </div>
         </div>
-        <div class="collapsible-body">
+        <div class="collapsible-body show-always">
           <div class="row">
             <div class="col m2 center" *ngFor="let request of clearance.requests">
               <div class="col s12">
@@ -48,6 +48,30 @@
                 {{request.state | uppercase}}
               </div>
 
+              <!-- button to show reason of review-->
+              <button *ngIf="request.state == states.NEED_REVIEW" class="btn orange modal-trigger"
+                      [attr.data-target]="'modal-' + request.id">
+                Reason
+              </button>
+
+              <!-- modal to show reason info for a request -->
+              <div *ngIf="request.state == states.NEED_REVIEW"
+                   id="modal-{{request.id}}" class="modal">
+                <div class="modal-content">
+                  <div class="row">
+                    <h4>
+                      Reason for review
+                    </h4>
+                    <p>{{request.reason}}</p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="modal-close waves-effect waves-green btn-flat">
+                    OK
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -63,7 +87,7 @@
 
     <app-pagination
       [request_url]="pagination_url"
-      (reload)="populateClearances()" class="center">
+      (reload)="populateClearances()">
     </app-pagination>
 
   </div>
