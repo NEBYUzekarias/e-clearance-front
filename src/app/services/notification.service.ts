@@ -25,12 +25,12 @@ export class NotificationService {
       // from err object info
       let handled_from_err = true;
 
+      // weird loopback error object we need of
+      const error = err.error.error;
+
       if (err.status === 0) {
         M.toast({html: 'Unable to connect', classes: this.error_classes});
       } else if (err.status === 400) {
-        // weird loopback error object we need of
-        const error = err.error.error;
-
         if (error.message === 'Clearance_Already_Submitted') {
           // in case of when trying to sumbit a clearance while
           // a clearance is submtitted for the current year and semeter
@@ -50,9 +50,24 @@ export class NotificationService {
             }
           );
         } else {
-          // couldnot handle error notification from err object info
+          // could not handle error notification from err object info
           handled_from_err = false;
         }
+      } else if (err.status === 401) {
+        if (error.message === 'login failed') {
+          // login failed with bad credentials most probably
+          M.toast(
+            {
+              html: 'Username or password incorrect',
+              classes: this.error_classes,
+            }
+          );
+        } else {
+          handled_from_err = false;
+        }
+      } else {
+        // could not handle error notification from err object info
+        handled_from_err = false;
       }
 
       if (!handled_from_err) {
