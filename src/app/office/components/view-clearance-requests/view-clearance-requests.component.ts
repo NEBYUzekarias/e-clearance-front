@@ -60,7 +60,7 @@ export class ViewClearanceRequestsComponent implements OnInit {
 
   /**
    * initialize materialize modals component
-   * should be called whenever items are repopulated
+   * should be called whenever modal items are repopulated
    */
   init_modals(): void {
     $(document).ready(function() {

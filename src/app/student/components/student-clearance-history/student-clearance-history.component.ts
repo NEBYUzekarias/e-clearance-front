@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Clearance} from "../../../models/clearance";
-import {ClearanceService} from "../../../services/clearance.service";
-import {NotificationService} from "../../../services/notification.service";
-import {appConfig} from "../../../app.config";
+import {Clearance} from '../../../models/clearance';
+import {ClearanceService} from '../../../services/clearance.service';
+import {NotificationService} from '../../../services/notification.service';
+import {appConfig} from '../../../app.config';
+
+declare var $: any;
 
 @Component({
   selector: 'app-student-clearance-history',
@@ -11,7 +13,13 @@ import {appConfig} from "../../../app.config";
 })
 export class StudentClearanceHistoryComponent implements OnInit {
   clearances: Clearance[];
-  onLoadMessage = 'Loading clearance history...'
+
+  states = appConfig.states;
+  loading = {
+    state: false,
+    message: 'Loading clearance history...',
+  };
+
   pagination_url: string;
 
   constructor(private clearanceService: ClearanceService,
@@ -26,14 +34,32 @@ export class StudentClearanceHistoryComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * initialize materialize modals component
+   * should be called whenever modal items are repopulated
+   */
+  init_modals(): void {
+    $(document).ready(function() {
+      $('.modal').modal();
+    });
+  }
+
   populateClearances() {
+    this.loading.state = true;
+
     this.clearanceService.getClearanceHistory()
       .subscribe(
         resp => {
+          this.loading.state = false;
+
           this.clearances = resp;
+          this.init_modals();
         },
         err => {
-          this.notifService.error('error getting clearance history', null, err);
+          this.loading.state = false;
+
+          this.notifService.error(
+            'Something went wrong getting clearance history', null, err);
         }
       );
   }
