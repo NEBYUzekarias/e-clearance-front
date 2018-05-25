@@ -20,6 +20,7 @@ export class StudentRequestClearanceComponent implements OnInit {
 
   offices: Office[];
   infos: object = {academic_year: 'Fetching...', semester: 'Fetching...'};
+
   reasonForClearance = 'Class end';
   otherReasonRequired = false;
 
@@ -60,7 +61,7 @@ export class StudentRequestClearanceComponent implements OnInit {
   }
 
   processSubmit() {
-   if(this.otherReasonRequired) {
+   if (this.otherReasonRequired) {
      this.reasonForClearance = this.form.value.reason;
    }
    // console.log(this.reasonForClearance)
@@ -68,6 +69,9 @@ export class StudentRequestClearanceComponent implements OnInit {
       .subscribe(
         resp => {
           this.notifService.success('Clearance submitted successfully', null);
+        },
+        err => {
+          this.notifService.error(null, null, err);
         }
       );
   }
@@ -80,7 +84,6 @@ export class StudentRequestClearanceComponent implements OnInit {
   otherReasonNotSelected(event) {
     this.reasonForClearance = event.target.value;
     this.otherReasonRequired = false;
-
   }
 
 }
