@@ -83,9 +83,9 @@ export class LoginComponent implements OnInit {
     if (account.user_role === 'student') {
       this.router.navigate(['/student/home']);
     } else if (account.user_role === 'office') {
-      this.router.navigate(['/office/home']);
+      this.router.navigate(['/office/pending_requests']);
     } else if (account.user_role === 'admin') {
-      this.router.navigate(['/admin/home']);
+      this.router.navigate(['/admin/register_office_user']);
     }
   }
 }
