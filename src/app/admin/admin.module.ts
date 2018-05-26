@@ -8,7 +8,6 @@ import { AdminRegisterOfficeUserComponent } from './components/admin-register-of
 import { AdminRegisterStudentComponent } from './components/admin-register-student/admin-register-student.component';
 import { AdminSetInfoComponent } from './components/admin-set-info/admin-set-info.component';
 import { ResetForgottenPasswordComponent } from './components/reset-forgotten-password/reset-forgotten-password.component';
-import { ChangeSelfPasswordComponent } from './components/change-self-password/change-self-password.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -26,7 +25,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AdminRegisterStudentComponent,
     AdminSetInfoComponent,
     ResetForgottenPasswordComponent,
-    ChangeSelfPasswordComponent
   ],
   exports: [
     AdminSideNavComponent

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CustomerComponent} from "../components/customer/customer.component";
-import {LoginGuard} from "../guards/login.guard";
-import {AdminHomeComponent} from "./components/admin-home/admin-home.component";
-import {AdminGuard} from "../guards/admin.guard";
+import {CustomerComponent} from '../components/customer/customer.component';
+import {LoginGuard} from '../guards/login.guard';
+import {AdminHomeComponent} from './components/admin-home/admin-home.component';
+import {AdminGuard} from '../guards/admin.guard';
 import {AdminImportStudentDataComponent} from './components/admin-import-student-data/admin-import-student-data.component';
 import {AdminRegisterOfficeUserComponent} from './components/admin-register-office-user/admin-register-office-user.component';
 import {AdminSetInfoComponent} from './components/admin-set-info/admin-set-info.component';
