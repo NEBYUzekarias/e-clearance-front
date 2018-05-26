@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import {log} from 'util';
 
 declare var $: any;
 
@@ -19,11 +18,14 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     // create options in hard way to please materialize
-    let optionsForSelect =
-      `<option value="" disabled selected>Search by</option>`;
+    let optionsForSelect = '';
+      // `<option value="" disabled selected>Search by</option>`;
     for (let i = 0; i < this.options.length; i++) {
+      // will make the first one selected
       optionsForSelect +=
-        `<option value="${this.options[i].optValue}">${this.options[i].optDisplay}</option>`;
+        `<option value="${this.options[i].optValue}" ${(i === 0) ? 'selected' : ''}>` +
+          `${this.options[i].optDisplay}` +
+        `</option>`;
     }
 
     $('#selectFilter').html(optionsForSelect);
