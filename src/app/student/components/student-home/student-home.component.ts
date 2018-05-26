@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {AccountService} from '../../../services/account.service';
-import {ApiService} from '../../../services/api.service';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {Office} from '../../../models/office';
+import {OfficeService} from '../../../services/office.service';
 
 @Component({
   selector: 'app-student-home',
@@ -15,26 +14,20 @@ export class StudentHomeComponent implements OnInit {
 
   studentAccount: Account;
 
-  onLoadMessage = 'Loading list of departments...'
+  onLoadMessage = 'Loading list of departments...';
 
-  constructor(
-    private accountService: AccountService,
-    private  apiService: ApiService,
-    private authService: AuthService
-  ) { }
+  constructor(private authService: AuthService,
+              private officeService: OfficeService) {
+  }
 
   ngOnInit() {
-    this.apiService.getListOfDepartments()
+    this.officeService.getOffices()
       .subscribe(
-        resp =>{
+        resp => {
           this.departments = resp;
           console.log(resp);
-          this.authService.getSelfAccount()
-            .subscribe(
-              resp =>{
-                this.studentAccount = resp;
-              }
-            );
+
+          this.studentAccount = this.authService.account;
         }
       );
   }

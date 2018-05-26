@@ -11,7 +11,6 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { OfficeDetailsComponent } from './user-account/office-details/office-details.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from './services/api.service';
 import { AdminImportStudentDataComponent } from './user-account/admin-import-student-data/admin-import-student-data.component';
 import { AdminRegisterOfficeUserComponent } from './user-account/admin-register-office-user/admin-register-office-user.component';
 import { AdminRegisterStudentComponent } from './user-account/admin-register-student/admin-register-student.component';
@@ -74,7 +73,6 @@ import {AdminGuard} from "./guards/admin.guard";
     ClearanceService,
     OfficeService,
     PaginationService,
-    ApiService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessTokenAuthInterceptor,
