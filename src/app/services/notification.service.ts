@@ -65,6 +65,18 @@ export class NotificationService {
         } else {
           handled_from_err = false;
         }
+      } else if (err.status === 422) {
+        let codes = error.details.codes;
+        if (codes.username && codes.username.indexOf('uniqueness') !== -1) {
+          M.toast(
+            {
+              html: 'A user with the same username already exists',
+              classes: this.error_classes,
+            }
+          );
+        } else {
+          handled_from_err = false;
+        }
       } else {
         // could not handle error notification from err object info
         handled_from_err = false;

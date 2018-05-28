@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Account} from '../models/account';
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import {NotificationService} from './notification.service';
 import {AccountService} from './account.service';
 import {Subject} from 'rxjs/Subject';
+import "rxjs/add/observable/of";
 
 @Injectable()
 export class AuthService {

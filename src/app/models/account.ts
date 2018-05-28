@@ -12,9 +12,8 @@ export class Account {
   department: Office;
   first_name: string;
   last_name: string;
-  email: string
+  email: string;
 
   // student user additional details
   year: string;
-  semester: number;
 }
