@@ -22,16 +22,26 @@
           </div>
           <div class="col s6 input-field">
             <input [value]="infos.academic_year" formControlName="academic_year" type="text">
+            <span *ngIf="form.controls.academic_year.errors?.pattern"
+                  class="helper-text red-text">Year Format should be 20xx/xx</span>
+            <span *ngIf="form.controls.academic_year.errors?.required"
+                  class="helper-text red-text">Year is required</span>
           </div>
 
           <div class="col s6 input-field">
             <input [value]="infos.semester" formControlName="semester" type="text">
+            <span *ngIf="form.controls.semester.errors?.pattern"
+                  class="helper-text red-text">Possible values are I, II or III</span>
+            <span *ngIf="form.controls.semester.errors?.required"
+                  class="helper-text red-text">Semester is required</span>
           </div>
 
         </div>
         <div class="row">
           <div class="col s12">
-            <button class="btn">Update</button>
+            <button class="btn" [disabled]="form.invalid" (click)="doUpdateInfos()">
+              Update
+            </button>
           </div>
         </div>
 

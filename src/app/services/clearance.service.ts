@@ -326,8 +326,20 @@ export class ClearanceService {
       });
   }
 
-  setCurrentInfos(info: Info): any {
-    return this.httpClient.patch(appConfig.apiUrl + '/infos', info);
+  /**
+   * set current infos to specified values
+   * @returns {any}
+   * @param info
+   */
+  setCurrentInfo(info: Info): Observable<any> {
+    // set up where filter to select the info we want to change
+    // at the backend
+    let where_filter = {name: info.name};
+
+    return this.httpClient.post(
+      appConfig.apiUrl + '/infos/update?where=' + JSON.stringify(where_filter),
+      {value: info.value}
+    );
   }
 
   /**

@@ -31,6 +31,26 @@ table {
   margin-bottom: 1em;
 }
 
+/* label color */
+/*.input-field label {*/
+  /*color: #000;*/
+/*}*/
+
+/* label focus color */
+.input-field input[type=text]:focus.ng-invalid + label {
+  color: red;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus.ng-invalid {
+  border-bottom: 1px solid red;
+  box-shadow: 0 1px 0 0 red;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: red;
+}
+
 /*****************************************************
   Experimental css
  *****************************************************/
