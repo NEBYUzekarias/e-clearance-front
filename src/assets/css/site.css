@@ -47,7 +47,7 @@ table {
 }
 
 /* icon prefix focus color */
-.input-field .prefix.active {
+.input-field .prefix.active.ng-invalid {
   color: red;
 }
 
