@@ -35,8 +35,8 @@ export class AdminRegisterOfficeUserComponent implements OnInit {
       ]),
     });
 
-    // setup office choices to be selected in form
-    this.officeService.getOffices()
+    // setup office choices to be selected in form including student department
+    this.officeService.getAllOffices()
       .subscribe(
         resp => {
 

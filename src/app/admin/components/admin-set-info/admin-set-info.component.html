@@ -23,7 +23,7 @@
           <div class="col s6 input-field">
             <input [value]="infos.academic_year" formControlName="academic_year" type="text">
             <span *ngIf="form.controls.academic_year.errors?.pattern"
-                  class="helper-text red-text">Year Format should be 20xx/xx</span>
+                  class="helper-text red-text">Year Format should be 20xx/xx where x is digit</span>
             <span *ngIf="form.controls.academic_year.errors?.required"
                   class="helper-text red-text">Year is required</span>
           </div>

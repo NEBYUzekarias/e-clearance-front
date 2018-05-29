@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {OfficeService} from '../../../services/office.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Account} from '../../../models/account';
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../services/notification.service';
 import {AccountService} from "../../../services/account.service";
+
 declare var $: any;
+
 @Component({
   selector: 'app-admin-register-student',
   templateUrl: './admin-register-student.component.html',
   styleUrls: ['./admin-register-student.component.css']
 })
 export class AdminRegisterStudentComponent implements OnInit {
-  form = new FormGroup({
-    username: new FormControl(),
-    first_name: new FormControl(),
-    last_name: new FormControl(),
-    email: new FormControl()
-  });
+  form: FormGroup;
+
   constructor(
     private officesService: OfficeService,
     private authService: AuthService,
@@ -26,6 +24,21 @@ export class AdminRegisterStudentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // setup form text input controls
+    this.form = new FormGroup({
+      username: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^atr\/\d{4}\/\d{2}/),
+      ]),
+      first_name: new FormControl('', Validators.required),
+      last_name: new FormControl('', Validators.required),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+    });
+
+    // setup student departments for selecting choices
     this.officesService.getDepartments()
       .subscribe(
         resp => {
@@ -39,23 +52,27 @@ export class AdminRegisterStudentComponent implements OnInit {
           $('select').formSelect();
         }
       );
-
   }
 
+  /**
+   * resgister a new student
+   */
   doRegisterStudent() {
+    // setup account to be sent to backend
     const account: Account = this.form.value;
     account.user_role = 'student';
     account.departmentId = $('#departments').val();
     account.year = $('#year').val();
-    account.password = 'jkl;';
+    account.password = this.accountService.generatePassword(account);
 
     this.accountService.addUserAccount(account)
       .subscribe(
         resp => {
-          this.notifier.success('Succesfully registered', null);
+          this.notifier.success('Successfully registered student', null);
         },
         err => {
-          this.notifier.error('Error while registering student', err);
+          this.notifier.error(
+            'Something went wrong trying to register student', null, err);
         }
       );
 

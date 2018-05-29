@@ -12,7 +12,13 @@
       <form [formGroup]="form">
         <div class="input-field">
           <input formControlName="username" type="text" id="student_id">
-          <label for="student_id">Student id</label>
+          <label for="student_id">Student ID</label>
+          <span *ngIf="form.controls.username.touched && form.controls.username.errors?.required"
+                class="helper-text red-text">Student ID is required</span>
+          <span *ngIf="form.controls.username.errors?.pattern"
+                class="helper-text red-text">
+            Student ID Format should be atr/xxxx/xx where x is digit
+          </span>
         </div>
         <div class="input-field">
           <select id="departments">
@@ -31,19 +37,29 @@
           <label for="year">year</label>
         </div>
         <div class="input-field">
-          <input formControlName="first_name" type="text" id="firstname" >
-          <label for="firstname">First Name</label>
+          <input formControlName="first_name" type="text" id="first_name" >
+          <label for="first_name">First Name</label>
+          <span *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.required"
+                class="helper-text red-text">First name is required</span>
         </div>
         <div class="input-field">
-          <input formControlName="last_name" type="text" id="lastname">
-          <label for="lastname">Last name</label>
+          <input formControlName="last_name" type="text" id="last_name">
+          <label for="last_name">Last name</label>
+          <span *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.required"
+                class="helper-text red-text">Last name is required</span>
         </div>
         <div class="input-field">
-          <input formControlName="email" type="text"  id="email" ngModel name="email">
+          <input formControlName="email" type="text" id="email">
           <label for="email">Email</label>
+          <span *ngIf="form.controls.email.touched && form.controls.email.errors?.required"
+                class="helper-text red-text">Email is required</span>
+          <span *ngIf="form.controls.email.touched && form.controls.email.errors?.email"
+                class="helper-text red-text">This should be in email format</span>
         </div>
         <div class="input-field">
-          <button type="submit" (click)="doRegisterStudent()" class="btn"><i class="material-icons left">done</i>Register</button>
+          <button (click)="doRegisterStudent()" class="btn" [disabled]="form.invalid">
+            <i class="material-icons left">done</i>Register
+          </button>
         </div>
 
       </form>
