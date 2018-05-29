@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-reset-forgotten-password',
@@ -15,19 +15,21 @@ export class ResetForgottenPasswordComponent implements OnInit {
     username: new FormControl('', Validators.required)
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(private accountService: AccountService) {
+  }
 
   ngOnInit() {
   }
 
-  doFinduser() {
-    this.authService.findUserAccount(this.form.value)
+  findAccount() {
+    this.accountService.findUserAccount(this.form.value)
       .subscribe(
         resp => {
-            this.account = resp;
+          console.log('resp', resp);
+          this.account = resp;
         },
         err => {
-
+          console.log('err', err);
         }
       );
   }

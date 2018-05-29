@@ -38,4 +38,19 @@ export class AccountService {
     return 'jkl;';
   }
 
+  /**
+   * find user account for an office user or student
+   * @param username: student id or office username
+   * @returns {Observable<Account>}
+   */
+  findUserAccount(username): Observable<Account> {
+    return this.httpClient
+      .get(appConfig.apiUrl + `/accounts?filter={"where":{"username":"${username}"}}`)
+      .map(
+        resp => {
+          return resp as Account;
+        }
+      );
+  }
+
 }

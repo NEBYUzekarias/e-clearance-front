@@ -115,15 +115,6 @@ export class AuthService {
       });
   }
 
-  findUserAccount(username): Observable<Account> {
-   return this.http.get(appConfig.apiUrl + `/accounts?filter={"where":{"username":"` + {username} + `"}}`)
-     .map(
-       resp => {
-         return resp as Account;
-       }
-     );
-  }
-
   isSelfRole(user_role: string): Observable<boolean> {
     if (this.account) {
       if (this.account.user_role === user_role) {

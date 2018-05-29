@@ -73,7 +73,6 @@ export class AdminRegisterOfficeUserComponent implements OnInit {
           this.notifService.success('Successfully registered user', null);
         },
         err => {
-          console.log('err', err);
           this.notifService.error(
             'Something went wrong trying to register user', null, err);
         }
