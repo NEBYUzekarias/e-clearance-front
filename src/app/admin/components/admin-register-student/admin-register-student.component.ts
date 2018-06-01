@@ -5,6 +5,7 @@ import {Account} from '../../../models/account';
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../services/notification.service';
 import {AccountService} from "../../../services/account.service";
+import { appConfig } from '../../../app.config';
 
 declare var $: any;
 
@@ -60,7 +61,7 @@ export class AdminRegisterStudentComponent implements OnInit {
   doRegisterStudent() {
     // setup account to be sent to backend
     const account: Account = this.form.value;
-    account.user_role = 'student';
+    account.user_role = appConfig.roles.STUDENT;
     account.departmentId = $('#departments').val();
     account.year = $('#year').val();
     account.password = this.accountService.generatePassword(account);

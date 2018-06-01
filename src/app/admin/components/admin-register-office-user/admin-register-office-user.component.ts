@@ -5,6 +5,7 @@ import {Account} from '../../../models/account';
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../services/notification.service';
 import {AccountService} from "../../../services/account.service";
+import { appConfig } from '../../../app.config';
 
 declare var $;
 
@@ -64,7 +65,7 @@ export class AdminRegisterOfficeUserComponent implements OnInit {
     // set up account to be send to backend
     const account: Account = this.form.value;
     account.departmentId = $('#offices').val();
-    account.user_role = 'office';
+    account.user_role = appConfig.roles.OFFICE;
     account.password = this.accountService.generatePassword(account);
 
     this.accountService.addUserAccount(account)

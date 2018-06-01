@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 export class AccountService {
 
   constructor(private httpClient: HttpClient) { }
-
+  
   /**
    * change password of an account
    * @param {Object} changeInformation: old and new password with necessary change info
@@ -43,14 +43,32 @@ export class AccountService {
    * @param username: student id or office username
    * @returns {Observable<Account>}
    */
-  findUserAccount(username): Observable<Account> {
+  findUserAccount(username): Observable<Account[]> {
     return this.httpClient
       .get(appConfig.apiUrl + `/accounts?filter={"where":{"username":"${username}"}}`)
       .map(
         resp => {
-          return resp as Account;
+          return resp as Account[];
         }
       );
+  }
+
+  /**
+   * update the password on an account
+   * @param {Account} account
+   * @param {string} newPassword
+   * @returns {Observable<any>}
+   */
+  updatePassword(account: Account, newPassword: string): Observable<any> {
+    // create appropriate request body
+    let body = {
+      accountId: account.id,
+      password: newPassword,
+    };
+    console.log('body', body);
+
+    return this.httpClient
+      .put(appConfig.apiUrl + `/accounts/update_password`, body);
   }
 
 }

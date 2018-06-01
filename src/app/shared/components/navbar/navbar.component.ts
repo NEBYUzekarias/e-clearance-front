@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Account} from '../../../models/account';
+import { appConfig } from '../../../app.config';
 
 
 @Component({
@@ -16,11 +17,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.account) {
-      if (this.account.user_role === 'student') {
+      if (this.account.user_role === appConfig.roles.STUDENT) {
         this.home_url = '/student/home';
-      } else if (this.account.user_role === 'office') {
+      } else if (this.account.user_role === appConfig.roles.OFFICE) {
         this.home_url = '/office/pending_requests';
-      } else if (this.account.user_role === 'admin') {
+      } else if (this.account.user_role === appConfig.roles.ADMIN) {
         this.home_url = '/admin/register_office_user';
       }
     }

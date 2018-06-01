@@ -30,7 +30,7 @@ export class ChangePasswordComponent implements OnInit {
           this.notificationService.success('Successfully changed the password', null);
         },
         err => {
-          this.notificationService.error('Error: Password not changed', null, err);
+          this.notificationService.error('Something went wrong trying to change password', null, err);
         }
       );
   }
