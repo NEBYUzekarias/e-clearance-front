@@ -65,7 +65,6 @@ export class AccountService {
       accountId: account.id,
       password: newPassword,
     };
-    console.log('body', body);
 
     return this.httpClient
       .put(appConfig.apiUrl + `/accounts/update_password`, body);

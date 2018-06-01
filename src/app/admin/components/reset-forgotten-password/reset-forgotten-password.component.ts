@@ -16,6 +16,9 @@ export class ResetForgottenPasswordComponent implements OnInit {
   // checks if user is found or not, nothing to say if this is null
   userFound: boolean = null;
 
+  // new successfully generated password
+  generatedPassword: string = null;
+
   form = new FormGroup({
     username: new FormControl('', Validators.required)
   });
@@ -65,11 +68,14 @@ export class ResetForgottenPasswordComponent implements OnInit {
         resp => {
           if (resp['success']) {
             this.notifService.success('Password updated successfully');
+            this.generatedPassword = newPassword;
           } else {
+            this.generatedPassword = null;            
             this.notifService.error('Something went wrong trying to update password');
           }
         },
         err => {
+          this.generatedPassword = null;
           this.notifService.error(
             'Something went wrong trying to update password', null, err);
         }
