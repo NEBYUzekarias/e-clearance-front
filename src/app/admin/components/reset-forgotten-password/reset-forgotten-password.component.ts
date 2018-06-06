@@ -43,6 +43,8 @@ export class ResetForgottenPasswordComponent implements OnInit {
               this.userFound = true;
               this.account = resp[0];
             } else {
+              this.userFound = null;
+              this.account = null;
               this.notifService.error(
                 'More than one account match the username', null, null);
             }

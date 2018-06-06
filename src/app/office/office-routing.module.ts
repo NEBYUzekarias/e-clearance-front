@@ -7,6 +7,7 @@ import {ViewClearanceRequestsComponent} from "./components/view-clearance-reques
 import {ViewClearedRequestsComponent} from "./components/view-cleared-requests/view-cleared-requests.component";
 import {OfficeGuard} from "../guards/office.guard";
 import {ChangePasswordComponent} from '../shared/components/change-password/change-password.component';
+import {OfficeSetDbComponent} from "./components/office-set-db/office-set-db.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'change_password',
         component: ChangePasswordComponent
+      },
+      {
+        path: 'set_db_config',
+        component: OfficeSetDbComponent,
       }
     ]
   }

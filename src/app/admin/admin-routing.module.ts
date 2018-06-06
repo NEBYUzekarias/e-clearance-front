@@ -20,37 +20,30 @@ const routes: Routes = [
       {
         path: 'home',
         component: AdminHomeComponent,
-        canActivate: [LoginGuard, AdminGuard]
       },
       {
         path: 'import_student_data',
         component: AdminImportStudentDataComponent,
-        canActivate: [LoginGuard, AdminGuard]
       },
       {
         path: 'register_office_user',
         component: AdminRegisterOfficeUserComponent,
-        canActivate: [LoginGuard, AdminGuard]
       },
       {
         path: 'register_student_user',
         component: AdminRegisterStudentComponent,
-        canActivate: [LoginGuard, AdminGuard]
       },
       {
         path: 'set_informations',
         component: AdminSetInfoComponent,
-        canActivate: [LoginGuard, AdminGuard]
       },
       {
         path: 'reset_password',
         component: ResetForgottenPasswordComponent,
-        canActivate: [LoginGuard, AdminGuard]
       },
       {
         path: 'change_self_password',
         component: ChangePasswordComponent,
-        canActivate: [LoginGuard, AdminGuard]
       }
     ]
   }

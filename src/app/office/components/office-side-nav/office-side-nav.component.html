@@ -29,18 +29,29 @@
       Clearance requests
     </a>
   </li>
+
   <li routerLinkActive="active">
     <a routerLink="cleared_requests">
       <i class="material-icons left">done_all</i>
       Cleared requests
     </a>
   </li>
+
   <li  routerLinkActive="active">
     <a routerLink="change_password">
       <i class="material-icons left">lock</i>
       Change password
     </a>
   </li>
+
+
+  <li routerLinkActive="active">
+    <a routerLink="set_db_config">
+      <i class="material-icons left">lock</i>
+      Database Setting
+    </a>
+  </li>
+
   <li>
     <a [routerLink]="" (click)="authService.logout()">
       <i class="material-icons left">power_settings_new</i>
