@@ -42,7 +42,7 @@ export class NotificationService {
             }
           );
         } else if (error.code === 'INVALID_ACCOUNT_DEPARTMENT') {
-          // when invalid department or office is specified when 
+          // when invalid department or office is specified when
           // creating new account
           M.toast(
             {
@@ -101,7 +101,7 @@ export class NotificationService {
 
           err_handled_here = true;
         }
-        
+
         if (codes.email && codes.email.indexOf('uniqueness') !== -1) {
           M.toast(
             {
@@ -113,7 +113,40 @@ export class NotificationService {
           err_handled_here = true;
         }
 
+        if (error.code === 'NO_SOURCE') {
+          // no database setting is set, but tryied to connect anyway
+          M.toast(
+            {
+              html: error.message,
+              classes: this.warn_classes,
+            }
+          );
+
+          err_handled_here = true;
+        }
+
         if (!err_handled_here) {
+          handled_from_err = false;
+        }
+      } else if (err.status === 500) {
+        if (error.code === 'ECONNREFUSED') {
+          // database connection refused
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else if (error.code === 'DB_ERROR') {
+          // any database error(not sure if all errors will lead here)
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else {
+          // could not handle error notification from err object info
           handled_from_err = false;
         }
       } else {

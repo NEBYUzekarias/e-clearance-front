@@ -14,7 +14,7 @@ export class SourceService {
     let where_filter = {departmentId: this.authService.account.departmentId};
     console.log('where', where_filter);
     return this.httpClient.get(
-      appConfig.apiUrl + '/sources?where=' + JSON.stringify(where_filter)
+      appConfig.apiUrl + '/DbConfigs?where=' + JSON.stringify(where_filter)
     );
   }
 
@@ -22,7 +22,7 @@ export class SourceService {
     source.departmentId = this.authService.account.departmentId;
 
     return this.httpClient.post(
-      appConfig.apiUrl + '/sources', source
+      appConfig.apiUrl + '/DbConfigs', source
     );
   }
 
@@ -35,8 +35,18 @@ export class SourceService {
     let where_filter = {departmentId: this.authService.account.departmentId};
 
     return this.httpClient.post(
-      appConfig.apiUrl + '/sources/update?where=' + JSON.stringify(where_filter),
+      appConfig.apiUrl + '/DbConfigs/update?where=' + JSON.stringify(where_filter),
       source,
+    );
+  }
+
+  testSource(source): Observable<any> {
+    let filter = {
+      source: source,
+    };
+
+    return this.httpClient.get(
+      appConfig.apiUrl + '/DbConfigs/conntest?filter=' + JSON.stringify(filter)
     );
   }
 }

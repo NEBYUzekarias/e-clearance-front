@@ -69,9 +69,9 @@ import {SourceService} from "./services/source.service";
     NotificationService,
     AccountService,
     ClearanceService,
+    SourceService,
     OfficeService,
     PaginationService,
-    SourceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessTokenAuthInterceptor,

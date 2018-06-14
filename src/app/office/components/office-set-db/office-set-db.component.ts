@@ -85,24 +85,44 @@ export class OfficeSetDbComponent implements OnInit {
   }
 
   /**
+   * Get source(database config) from html inputs
+   * @returns {any}
+   */
+  getSourceFromInputs(): any {
+    let source = this.form.value;
+    source.client = $('#clients').val();
+
+    return source;
+  }
+
+  /**
    * populate settings appropriately
    * @param settings
    */
   populateSetting(settings) {
     this.setting = settings;
 
+    // port should join if specified
     if (settings.port) {
       this.form.setControl('port', this.port);
       this.portEnabled = true;
+    } else {
+      this.form.removeControl('port');
+      this.portEnabled = false;
     }
 
-    let form_values = {};
-    Object.assign(settings, form_values);
-    // delete departmentId if specified
+    // copy settings to filter form values only
+    let form_values: any = {};
+    Object.assign(form_values, settings);
+
+    // delete unnecessary properties if specified
     delete form_values.departmentId;
     delete form_values.client;
+    delete form_values.id;
 
-    this.form.setValue(settings);
+    // set up form input values
+    this.form.setValue(form_values);
+    $('#clients').val(settings.client);
     this.settingFound = true;
 
     this.init_select();
@@ -125,8 +145,7 @@ export class OfficeSetDbComponent implements OnInit {
    * Update database configurations based on settings
    */
   updateDbConfig() {
-    let source = this.form.value;
-    source.client = $('#clients').val();
+    let source = this.getSourceFromInputs();
 
     this.sourceService.updateSource(source)
       .subscribe(
@@ -150,8 +169,7 @@ export class OfficeSetDbComponent implements OnInit {
    * create new db config in backend
    */
   createDbConfig() {
-    let source = this.form.value;
-    source.client = $('#clients').val();
+    let source = this.getSourceFromInputs();
 
     this.sourceService.createSource(source)
       .subscribe(
@@ -162,6 +180,26 @@ export class OfficeSetDbComponent implements OnInit {
         },
         err => {
           console.log('c err:', err);
+        }
+      );
+  }
+
+  testDbConfig() {
+    let source = this.getSourceFromInputs();
+
+    this.sourceService.testSource(source)
+      .subscribe(
+        resp => {
+          if (resp['success'] === true) {
+            this.notifService.success('Database connection successful');
+          } else {
+            this.notifService.error('Database connection failed');
+          }
+          console.log('tresp', resp);
+        },
+        err => {
+          this.notifService.error('Database connection test failed.', null, err);
+          console.log('terr', err);
         }
       );
   }
