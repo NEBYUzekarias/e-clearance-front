@@ -34,6 +34,10 @@ const routes: Routes = [
       {
         path: 'set_db_config',
         component: OfficeSetDbComponent,
+      },
+      {
+        path: 'set_or_update_debt_list',
+        component: OfficeHomeComponent
       }
     ]
   }

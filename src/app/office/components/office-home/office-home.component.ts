@@ -71,6 +71,7 @@ export class OfficeHomeComponent implements OnInit {
         .subscribe(
           resp => {
             this.debtList = resp;
+            this.account.department.debt_list = true;
            this.notifier.success('Successfuly updated office debt list', null);
           },
           err => {

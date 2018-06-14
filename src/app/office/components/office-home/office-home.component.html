@@ -2,7 +2,7 @@
   <div class="col s12">
     <div class="card-panel z-depth-2">
         <span class="card-title flow-text">
-          <i class="material-icons">home</i> Welcome - AAiT e-clearance system
+          <i class="material-icons">home</i> Syncronize local debt list
         </span>
     </div>
   </div>
@@ -10,16 +10,19 @@
   <div class="col s12">
     <div class="card-panel z-depth-2">
       <div class="row">
-       <div class="col s6">
-         <h2 *ngIf="account.department" class="flow-text">
-           {{account.department.name}}
-         </h2>
-       </div>
+       <!--<div class="col s3">-->
+         <!--<h2 *ngIf="account.department" class="flow-text">-->
+           <!--{{account.department.name | titlecase}}-->
+         <!--</h2>-->
+       <!--</div>-->
         <div class="file-field input-field col s12 m6">
          <h2 class="flow-text">
-           <div class="btn yellow grey-text">
-              <span>
+           <div class="btn {{account.department.debt_list ? 'blue' : 'green '}} white-text">
+              <span *ngIf="account.department.debt_list">
                 <i class="material-icons left" >error_outline</i> update debt list</span>
+
+             <span *ngIf="!account.department.debt_list">
+                <i class="material-icons left" >add</i>Create debt list</span>
              <input type="file" (change)="setDebtListFile($event)">
            </div>
            <div class="file-path-wrapper">
@@ -31,7 +34,7 @@
       <div class="row" *ngIf="!debtList">
 
       </div>
-      <div *ngIf="debtList" class="row">
+      <div *ngIf="account.department.debt_list" class="row">
         <div *ngIf="debtList.length > 0" class="col s12">
           <table>
             <tr>
@@ -48,6 +51,12 @@
             </tr>
 
           </table>
+        </div>
+      </div>
+
+      <div *ngIf="!account.department.debt_list" class="row">
+        <div class="col s12">
+          <h2 class="flow-text"> <i class="material-icons left">error_outline</i> You did not set the office debt list</h2>
         </div>
       </div>
 
