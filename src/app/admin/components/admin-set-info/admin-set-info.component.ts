@@ -22,10 +22,10 @@ export class AdminSetInfoComponent implements OnInit {
   ngOnInit() {
     this.clearanceService.getCurrentInfos()
       .subscribe(
-        resp =>{
+        resp => {
           this.infos = resp;
         }
-      )
+      );
   }
 
   doUpdateInfos(){

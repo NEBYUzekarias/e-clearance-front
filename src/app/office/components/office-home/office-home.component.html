@@ -7,28 +7,50 @@
     </div>
   </div>
 
-
   <div class="col s12">
     <div class="card-panel z-depth-2">
-      <h2 class="flow-text">
-        {{account.department.name}}
-      </h2>
       <div class="row">
-        <div class="col s12 ">
-          <div class="card z-depth-2 hoverable">
-            <div class="card-image">
-              <img src="{{account.department.picture}}">
-              <b><span class="card-title">{{account.department.name}}</span></b>
-            </div>
-            <div class="card-content">
-
-            </div>
-            <!--<div class="card-action">-->
-            <!--<a href="#">This is a link</a>-->
-            <!--</div>-->
-          </div>
+       <div class="col s6">
+         <h2 *ngIf="account.department" class="flow-text">
+           {{account.department.name}}
+         </h2>
+       </div>
+        <div class="file-field input-field col s12 m6">
+         <h2 class="flow-text">
+           <div class="btn yellow grey-text">
+              <span>
+                <i class="material-icons left" >error_outline</i> update debt list</span>
+             <input type="file" (change)="setDebtListFile($event)">
+           </div>
+           <div class="file-path-wrapper">
+             <input class="file-path validate" type="text">
+           </div>
+         </h2>
         </div>
       </div>
+      <div class="row" *ngIf="!debtList">
+
+      </div>
+      <div *ngIf="debtList" class="row">
+        <div *ngIf="debtList.length > 0" class="col s12">
+          <table>
+            <tr>
+              <th>Student id</th>
+              <th>Full Name</th>
+              <th>Department</th>
+              <th>Reason</th>
+            </tr>
+            <tr *ngFor="let debt of debtList">
+              <td>{{debt.student_id}}</td>
+              <td>{{debt.full_name}}</td>
+              <td>{{debt.department}}</td>
+              <td>{{debt.reason}}</td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 

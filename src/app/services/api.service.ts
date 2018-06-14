@@ -25,7 +25,7 @@ export class ApiService {
   }
 
   getInfo(): Observable<Info>{
-    return this.httpClient.get(appConfig.apiUrl+`/infos?filter=`)
+    return this.httpClient.get(appConfig.apiUrl+`/infos`)
       .map(
         resp =>{
           return resp as Info;
