@@ -61,7 +61,7 @@
               Student full name
             </th>
             <th>
-              Requested for AC Year-Semester
+              Academic Year-Semester
             </th>
             <th>
               Date of request
@@ -92,8 +92,8 @@
                 </button>
 
                 <button *ngIf="request.can_approve === false"
-                        class="btn modal-trigger" [attr.data-target]="'approve-modal' + i">
-                  Approve
+                        class="btn modal-trigger orange" [attr.data-target]="'approve-modal' + i">
+                  <i class="material-icons left">warning</i>Approve
                 </button>
 
                 <button *ngIf="request.state == this.states.PENDING"
@@ -109,18 +109,31 @@
 
             <!-- modal to show that student cannot be approved cos of prerequistes -->
             <div *ngIf="request.can_approve === false"
-                 id="approve-modal{{i}}" class="modal">
+                 id="approve-modal{{i}}" class="modal modal-fixed-footer">
               <div class="modal-content">
-                <div class="row">
-                  <h4>
-                    Pre-required offices not addressed
-                  </h4>
-                  <ul>
-                    <li *ngFor="let departmentId of request.preconditions.departmentIds;let j = index">
-                      <span>{{departmentId | uppercase}}</span>:
-                      {{request.preconditions.states[j] | uppercase}}
-                    </li>
-                  </ul>
+                <h4 class="center">
+                  Pre-required Offices Not Addressed
+                </h4>
+                <div *ngFor="let departmentId of request.preconditions.departmentIds;let j = index"
+                     class="row">
+                  <div class="col m2 offset-m4">
+                    {{departmentId | titlecase}}
+                  </div>
+                  <div class="col m2">
+                    <i *ngIf="request.preconditions.states[j] == states.APPROVED"
+                       class="material-icons green-text left">
+                      assignment_turned_in
+                    </i>
+                    <i *ngIf="request.preconditions.states[j] == states.PENDING"
+                       class="material-icons green-text">
+                      autorenew
+                    </i>
+                    <i *ngIf="request.preconditions.states[j] == states.NEED_REVIEW"
+                       class="material-icons green-text">
+                      assignment_late
+                    </i>
+                    <span>{{request.preconditions.states[j] | titlecase}}</span>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -190,7 +203,7 @@
 
       <app-pagination
         [request_url]="pagination_url"
-        (reload)="populateItems()" class="center">
+        (reload)="populateItems()">
       </app-pagination>
 
     </div>

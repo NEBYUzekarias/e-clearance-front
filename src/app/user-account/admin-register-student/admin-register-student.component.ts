@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { PARAMETERS } from '@angular/core/src/util/decorators';
 import {Http , Response} from '@angular/http';
 declare var $: any;
 declare var Materialize: any;
@@ -11,7 +9,7 @@ declare var Materialize: any;
 })
 export class AdminRegisterStudentComponent implements OnInit {
 
-  constructor(private api_service: ApiService, private http:Http) { }
+  constructor(private http:Http) { }
 
   ngOnInit() {
     $('select').material_select();
@@ -55,7 +53,7 @@ export class AdminRegisterStudentComponent implements OnInit {
   // this.api_service.adminRegisterStudent(JSON.stringify(data)).subscribe(resp =>{
   //   console.log(resp);
   // });
-  
+
   }
 
 }

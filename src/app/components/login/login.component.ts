@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../services/notification.service';
 import {Account} from '../../models/account';
+import { appConfig } from '../../app.config';
 
 declare var $: any;
 
@@ -80,12 +81,12 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToHome(account: Account): void {
-    if (account.user_role === 'student') {
+    if (account.user_role === appConfig.roles.STUDENT) {
       this.router.navigate(['/student/home']);
-    } else if (account.user_role === 'office') {
-      this.router.navigate(['/office/home']);
-    } else if (account.user_role === 'admin') {
-      this.router.navigate(['/admin/home']);
+    } else if (account.user_role === appConfig.roles.OFFICE) {
+      this.router.navigate(['/office/pending_requests']);
+    } else if (account.user_role === appConfig.roles.ADMIN) {
+      this.router.navigate(['/admin/register_office_user']);
     }
   }
 }

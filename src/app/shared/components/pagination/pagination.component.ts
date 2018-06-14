@@ -1,12 +1,16 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {PaginationService} from "../../../services/pagination.service";
-import {NotificationService} from "../../../services/notification.service";
+import {ActivatedRoute} from '@angular/router';
+import {PaginationService} from '../../../services/pagination.service';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.css']
+  styleUrls: ['./pagination.component.css'],
+  host: {
+    'class': 'center',
+    '[class.hide]': 'total_pages == 1',
+  }
 })
 export class PaginationComponent implements OnInit, OnChanges {
 
@@ -34,13 +38,15 @@ export class PaginationComponent implements OnInit, OnChanges {
         this.setPages();
       },
       err => {
-        console.log('route params subscription error', err);
+        console.log('route params subscription error:', err);
       }
     );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.request_url) {
+    // if request_url was not already set i.e it is first time
+    // so ngOnInit will handle setting the pages for now
+    if (changes.request_url && changes.request_url.previousValue !== undefined) {
       this.setPages();  // reload item list component
     }
   }

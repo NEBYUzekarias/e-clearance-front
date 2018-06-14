@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +11,7 @@ export class HomeComponent implements OnInit {
   officesList: any[];
   office_of_user: Object = {name:"", description: "",picture:"", id:""};
 
-  constructor(private authService: AuthService,
-              private api_service: ApiService) {
+  constructor(private authService: AuthService) {
     console.log(authService.access_token);
 
 

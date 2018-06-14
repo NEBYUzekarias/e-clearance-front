@@ -1,6 +1,6 @@
-<app-student-side-nav *ngIf="account.user_role == 'student'"></app-student-side-nav>
-<app-office-side-nav *ngIf="account.user_role == 'office'"></app-office-side-nav>
-<app-admin-side-nav *ngIf="account.user_role == 'admin'"></app-admin-side-nav>
+<app-student-side-nav *ngIf="account.user_role == roles.STUDENT"></app-student-side-nav>
+<app-office-side-nav *ngIf="account.user_role == roles.OFFICE"></app-office-side-nav>
+<app-admin-side-nav *ngIf="account.user_role == roles.ADMIN"></app-admin-side-nav>
  
 <header>
   <app-navbar [account]="account"></app-navbar>

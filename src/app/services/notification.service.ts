@@ -13,7 +13,7 @@ export class NotificationService {
   }
 
   // success level notification
-  success(message: string, options: object): void {
+  success(message: string, options?: object): void {
     M.toast({html: message, classes: this.success_classes});
     console.log('success:', message);
   }
@@ -31,14 +31,37 @@ export class NotificationService {
       if (err.status === 0) {
         M.toast({html: 'Unable to connect', classes: this.error_classes});
       } else if (err.status === 400) {
-        if (error.message === 'Clearance_Already_Submitted') {
+        if (error.code === 'CLEARANCE_ALREADY_SUBMITTED') {
           // in case of when trying to sumbit a clearance while
           // a clearance is submtitted for the current year and semeter
           // by a student
           M.toast(
             {
-              html: 'You have already submitted clearance for current semester',
+              html: error.message,
               classes: this.warn_classes,
+            }
+          );
+        } else if (error.code === 'INVALID_ACCOUNT_DEPARTMENT') {
+          // when invalid department or office is specified when
+          // creating new account
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else if (error.code === 'INVALID_STUDENT_ID') {
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else if (error.code === 'INVALID_ACCOUNT_ROLE') {
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
             }
           );
         } else if (error.message === 'Invalid current password') {
@@ -65,6 +88,67 @@ export class NotificationService {
         } else {
           handled_from_err = false;
         }
+      } else if (err.status === 422) {
+        let codes = error.details.codes;
+        let err_handled_here = false;
+        if (codes.username && codes.username.indexOf('uniqueness') !== -1) {
+          M.toast(
+            {
+              html: 'A user with the same username(id) already exists',
+              classes: this.error_classes,
+            }
+          );
+
+          err_handled_here = true;
+        }
+
+        if (codes.email && codes.email.indexOf('uniqueness') !== -1) {
+          M.toast(
+            {
+              html: 'A user with the same email already exists',
+              classes: this.error_classes,
+            }
+          );
+
+          err_handled_here = true;
+        }
+
+        if (error.code === 'NO_SOURCE') {
+          // no database setting is set, but tryied to connect anyway
+          M.toast(
+            {
+              html: error.message,
+              classes: this.warn_classes,
+            }
+          );
+
+          err_handled_here = true;
+        }
+
+        if (!err_handled_here) {
+          handled_from_err = false;
+        }
+      } else if (err.status === 500) {
+        if (error.code === 'ECONNREFUSED') {
+          // database connection refused
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else if (error.code === 'DB_ERROR') {
+          // any database error(not sure if all errors will lead here)
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else {
+          // could not handle error notification from err object info
+          handled_from_err = false;
+        }
       } else {
         // could not handle error notification from err object info
         handled_from_err = false;
@@ -79,10 +163,12 @@ export class NotificationService {
         }
       }
     }
+
+    console.log('err: ', err);
   }
 
   // information level notification
-  info(message: string, options: object): void {
+  info(message: string, options?: object): void {
     M.toast({html: message, classes: this.info_classes});
     console.log('info:', message);
   }

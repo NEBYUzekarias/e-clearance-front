@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
+import { Account } from '../../../models/account';
 
 declare var $: any;
 
@@ -9,17 +10,14 @@ declare var $: any;
   styleUrls: ['./admin-side-nav.component.css']
 })
 export class AdminSideNavComponent implements OnInit {
-  userAccount: Account;
-  constructor(private authService: AuthService) { }
+  account: Account;
+
+  constructor(private authService: AuthService) {
+    this.account = this.authService.account;
+  }
 
   ngOnInit() {
     $('.sidenav').sidenav();
-    this.authService.getSelfAccount()
-      .subscribe(
-        resp =>{
-          this.userAccount = resp;
-        }
-      )
   }
 
 }

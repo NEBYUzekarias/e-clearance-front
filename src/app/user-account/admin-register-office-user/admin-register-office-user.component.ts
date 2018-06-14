@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 declare var $: any;
 declare var Materialize: any;
@@ -10,8 +9,7 @@ declare var Materialize: any;
 })
 export class AdminRegisterOfficeUserComponent implements OnInit {
   offices_list: any[] = [{name: "test"}];
-  constructor(private api_service: ApiService,
-              private authService: AuthService) {
+  constructor(private authService: AuthService) {
 
                }
 

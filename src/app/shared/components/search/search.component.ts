@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import {log} from 'util';
+import {FormControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 declare var $: any;
 
@@ -12,38 +14,47 @@ declare var $: any;
 
 export class SearchComponent implements OnInit {
 
+  searchInput: FormControl;
+
   @Input() options: any[];
   @Output() search = new EventEmitter<object>();
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {  }
 
   ngOnInit() {
     // create options in hard way to please materialize
-    let optionsForSelect =
-      `<option value="" disabled selected>Search by</option>`;
+    let optionsForSelect = '';
+      // `<option value="" disabled selected>Search by</option>`;
     for (let i = 0; i < this.options.length; i++) {
+      // will make the first one selected
       optionsForSelect +=
-        `<option value="${this.options[i].optValue}">${this.options[i].optDisplay}</option>`;
+        `<option value="${this.options[i].optValue}" ${(i === 0) ? 'selected' : ''}>` +
+          `${this.options[i].optDisplay}` +
+        `</option>`;
     }
 
     $('#selectFilter').html(optionsForSelect);
 
     $('select').formSelect();
-  }
 
-  /**
-   * fire the search filter and term.
-   * @param event
-   */
-  emitChange(event) {
-    const attribute = $('#selectFilter').val() != null ? $('#selectFilter').val() : 'id';
-    const term = event.target.value.trim();
-    console.log('term', term);
+    // handle the search text input
+    this.searchInput = new FormControl();
 
-    if (term) {
-      this.search.emit({hasTerm: true, attribute: attribute, term: term});
-    } else if (term === '') {
-      this.search.emit({hasTerm: false});
-    }
+    this.searchInput.valueChanges
+      .debounceTime(400)
+      .distinctUntilChanged()
+      .subscribe(
+        value => {
+          // get attribute by which the search is being made
+          const attribute = $('#selectFilter').val() != null ? $('#selectFilter').val() : 'id';
+          const term = value.trim();
+
+          if (term) {
+            this.search.emit({hasTerm: true, attribute: attribute, term: term});
+          } else if (term === '') {
+            this.search.emit({hasTerm: false});
+          }
+        }
+      );
   }
 }

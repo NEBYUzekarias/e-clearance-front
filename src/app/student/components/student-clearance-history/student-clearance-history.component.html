@@ -22,13 +22,42 @@
           <td>{{clearance.academic_year}}</td>
           <td>{{clearance.semester}}</td>
 
-          <td>{{clearance.state}}</td>
-          <td>{{clearance.reason}}</td>
+          <td>{{clearance.state | titlecase}}</td>
+          <td>{{clearance.reason | titlecase}}</td>
           <td>
-            <ul>
-              <li *ngFor="let request of clearance.requests"> {{request.departmentId}} {{request.state}}</li>
-            </ul>
+            <button class="btn modal-trigger" [attr.data-target]="'modal-' + clearance.id">
+              Show Requested Offices
+            </button>
           </td>
+
+          <!-- modal to show requested offices for clearance -->
+          <div id="modal-{{clearance.id}}" class="modal modal-fixed-footer">
+            <div class="modal-content">
+              <h4 class="center">Requested Offices</h4>
+              <div *ngFor="let request of clearance.requests" class="row">
+                <div class="col m2 offset-m4">
+                  {{request.departmentId | titlecase}}
+                </div>
+                <div class="col m2">
+                  <i *ngIf="request.state == states.APPROVED" class="material-icons green-text">
+                    assignment_turned_in
+                  </i>
+                  <i *ngIf="request.state == states.PENDING" class="material-icons green-text">
+                    autorenew
+                  </i>
+                  <i *ngIf="request.state == states.NEED_REVIEW" class="material-icons green-text">
+                    assignment_late
+                  </i>
+                  <span>{{request.state | titlecase}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="modal-close waves-effect waves-green btn-flat">
+                OK
+              </button>
+            </div>
+          </div>
         </tr>
 
         <tr *ngIf="clearances && clearances.length === 0">
@@ -38,13 +67,13 @@
       </table>
 
       <app-loading
-        *ngIf="!clearances"
-       [loadMessage]="onLoadMessage" >
+        *ngIf="loading.state"
+        [loadMessage]="loading.message">
       </app-loading>
 
       <app-pagination
         [request_url]="pagination_url"
-        (reload)="populateClearances()" class="center">
+        (reload)="populateClearances()">
       </app-pagination>
 
     </div>

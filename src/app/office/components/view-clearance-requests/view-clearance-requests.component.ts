@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { ApiService } from '../../../services/api.service';
 import {Request} from '../../../models/request';
 import {ClearanceService} from '../../../services/clearance.service';
 import {NotificationService} from '../../../services/notification.service';
@@ -58,6 +57,10 @@ export class ViewClearanceRequestsComponent implements OnInit {
     this.invokePagination();  // populates clearances or requests
   }
 
+  /**
+   * initialize materialize modals component
+   * should be called whenever modal items are repopulated
+   */
   init_modals(): void {
     $(document).ready(function() {
       $('.modal').modal();
@@ -137,6 +140,8 @@ export class ViewClearanceRequestsComponent implements OnInit {
           resp => {
             this.requests[request_index].state = appConfig.states.NEED_REVIEW;
             this.notifService.success('Review sent successfully', null);
+
+            this.populateItems();
           },
           err => {
             this.notifService.error('Sending review failed', null, err);

@@ -1,15 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
-import {ApiService} from '../../../services/api.service';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Office} from '../../../models/office';
 import {OfficeService} from '../../../services/office.service';
 import {ClearanceService} from '../../../services/clearance.service';
 import {NotificationService} from '../../../services/notification.service';
-import {Info} from '../../../models/Info';
 
-declare var $: any;
-declare var Materialize: any;
 
 @Component({
   selector: 'app-student-request-clearance',
@@ -19,9 +15,9 @@ declare var Materialize: any;
 export class StudentRequestClearanceComponent implements OnInit {
 
   offices: Office[];
-  infos: object = {academic_year: 'Fetching...', semester: 'Fetching...'};
+  infos: object = {academic_year: '', semester: ''};
 
-  reasonForClearance = 'Class end';
+  reasonForClearance = 'Class end'; // default selected reason
   otherReasonRequired = false;
 
   form = new FormGroup({
@@ -53,18 +49,17 @@ export class StudentRequestClearanceComponent implements OnInit {
         this.infos = resp;
         console.log('fetched infos:', this.infos);
       }, err => {
-        this.notifService.error('couldnt fetch current infos', null, err);
+        this.notifService.error('Could not fetch year and semester information', null, err);
       }
     );
-
-    // $('select').material_select();
   }
 
   processSubmit() {
-   if (this.otherReasonRequired) {
-     this.reasonForClearance = this.form.value.reason;
-   }
-   // console.log(this.reasonForClearance)
+    if (this.otherReasonRequired) {
+      this.reasonForClearance = this.form.value.reason;
+    }
+
+    // console.log('reason to be sent', this.reasonForClearance);
     this.clearanceService.submitClearanceRequest(this.reasonForClearance)
       .subscribe(
         resp => {

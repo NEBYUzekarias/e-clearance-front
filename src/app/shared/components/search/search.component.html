@@ -1,15 +1,14 @@
 <div class="row">
+
+    <div class="input-field col s12 m4 l4">
+      <i class="material-icons prefix">search</i>
+      <input type="text" [formControl]="searchInput" placeholder="Search">
+    </div>
+
   <div class="col s12 m4 l4">
     <div class="input-field">
       <select id="selectFilter">
       </select>
-    </div>
-
-  </div>
-
-  <div class="col s12 m4 l4">
-    <div class="input-field">
-      <input type="text" (keyup)="emitChange($event)" placeholder="Search">
     </div>
   </div>
 

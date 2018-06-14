@@ -31,6 +31,37 @@ table {
   margin-bottom: 1em;
 }
 
+/* label color */
+/*.input-field label {*/
+  /*color: #000;*/
+/*}*/
+
+/* label focus color */
+.input-field input[type=text]:focus.ng-invalid.ng-dirty + label {
+  color: red;
+}
+
+/* label without-focus color */
+.input-field input[type=text].ng-invalid.ng-touched + label {
+  color: red;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus.ng-invalid.ng-dirty {
+  border-bottom: 1px solid red;
+  box-shadow: 0 1px 0 0 red;
+}
+
+/* label underline without-focus color */
+.input-field input[type=text].ng-invalid.ng-touched {
+  border-bottom: 1px solid red;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active.ng-invalid.ng-touched {
+  color: red;
+}
+
 /*****************************************************
   Experimental css
  *****************************************************/

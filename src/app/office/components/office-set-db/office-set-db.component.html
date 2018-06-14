@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+      <span class="card-title flow-text">
+        <i class="material-icons left">home</i>Set Database Settings
+      </span>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <div class="card-panel z-depth-2">
+      <form *ngIf="settingFound !== null" [formGroup]="form">
+        <div class="row">
+          <div class="input-field col m6">
+            <select id="clients">
+              <option value="mysql">MySQL</option>
+              <option value="pg">PostgreSQL</option>
+            </select>
+          </div>
+
+          <div class="input-field col m6">
+            <input formControlName="host" type="text" id="host">
+            <label for="host" [ngClass]="{'active': settingFound}">Host Address</label>
+            <span *ngIf="form.controls.host.touched && form.controls.host.errors?.required"
+                  class="helper-text red-text">Host Address is required</span>
+            <span *ngIf="form.controls.host.errors?.pattern"
+                  class="helper-text red-text">
+              Host Format should be an IP address or domain address.
+            </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col m6">
+            <input formControlName="user" type="text" id="user">
+            <label for="user" [ngClass]="{'active': settingFound}">Database User Name</label>
+            <span *ngIf="form.controls.user.touched && form.controls.user.errors?.required"
+                  class="helper-text red-text">User Name is required</span>
+          </div>
+          <div class="input-field col m6">
+            <input formControlName="password" type="text" id="password">
+            <label for="password" [ngClass]="{'active': settingFound}">Database User Password</label>
+            <span *ngIf="form.controls.password.touched && form.controls.password.errors?.required"
+                  class="helper-text red-text">Password is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col m6">
+            <input formControlName="database" type="text" id="database">
+            <label for="database" [ngClass]="{'active': settingFound}">Database Name</label>
+            <span *ngIf="form.controls.database.touched && form.controls.database.errors?.required"
+                  class="helper-text red-text">Database Name is required</span>
+          </div>
+          <div class="input-field col m6">
+            <input formControlName="table" type="text" id="table">
+            <label for="table" [ngClass]="{'active': settingFound}">Table Name</label>
+            <span *ngIf="form.controls.table.touched && form.controls.table.errors?.required"
+                  class="helper-text red-text">Table Name is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col m6">
+            <input formControlName="studentId" type="text" id="studentId">
+            <label for="studentId" [ngClass]="{'active': settingFound}">Student ID Column Name</label>
+            <span *ngIf="form.controls.studentId.touched && form.controls.studentId.errors?.required"
+                  class="helper-text red-text">Student ID column name is required</span>
+          </div>
+          <div class="input-field col m6">
+            <input formControlName="reason" type="text" id="reason">
+            <label for="reason" [ngClass]="{'active': settingFound}">Reason Column Name</label>
+            <span *ngIf="form.controls.reason.touched && form.controls.reason.errors?.required"
+                  class="helper-text red-text">Reason column name is required</span>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div *ngIf="portEnabled" class="input-field col m6">
+            <input formControlName="port" type="text" id="port">
+            <label for="port" [ngClass]="{'active': settingFound}">Port Number</label>
+            <span *ngIf="form.controls.port?.touched && form.controls.port?.errors?.required"
+                  class="helper-text red-text">Port is required</span>
+            <span *ngIf="form.controls.port?.errors?.min"
+                  class="helper-text red-text">
+              Port number less than the minimum range.
+            </span>
+            <span *ngIf="form.controls.port?.errors?.max"
+                  class="helper-text red-text">
+              Port number greater than the maximum range.
+            </span>
+          </div>
+
+          <div class="input-field col m6">
+            <button *ngIf="portEnabled" (click)="togglePortSetting()" class="btn">
+              <i class="material-icons left">done</i>Use Default Port Number
+            </button>
+            <button *ngIf="!portEnabled" (click)="togglePortSetting()" class="btn">
+              <i class="material-icons left">done</i>Set Custom Port Number
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col m6">
+            <button *ngIf="settingFound === true" (click)="updateDbConfig()"
+                    class="btn" [disabled]="form.invalid">
+              <i class="material-icons left">done</i>Update Database Settings
+            </button>
+            <button *ngIf="settingFound === false" (click)="createDbConfig()"
+                    class="btn" [disabled]="form.invalid">
+              <i class="material-icons left">done</i>Create New Database Settings
+            </button>
+          </div>
+
+          <div class="input-field col m6">
+            <button (click)="testDbConfig()"
+                    class="btn" [disabled]="form.invalid">
+              <i class="material-icons left">done</i>Test Database Settings
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

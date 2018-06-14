@@ -19,6 +19,13 @@ export const appConfig = {
     NEED_REVIEW: 'need_review',
   },
 
+  // possible account roles
+  roles: {
+    STUDENT: 'student',
+    OFFICE: 'office',
+    ADMIN: 'admin',
+  },
+
   // number of pagination links on a single page
   page_links_num: 5,
 

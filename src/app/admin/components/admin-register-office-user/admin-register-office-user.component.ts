@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {OfficeService} from '../../../services/office.service';
 import {Account} from '../../../models/account';
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../services/notification.service';
 import {AccountService} from "../../../services/account.service";
+import { appConfig } from '../../../app.config';
+
 declare var $;
+
 @Component({
   selector: 'app-admin-register-office-user',
   templateUrl: './admin-register-office-user.component.html',
@@ -13,20 +16,28 @@ declare var $;
 })
 export class AdminRegisterOfficeUserComponent implements OnInit {
 
-  form = new FormGroup({
-    first_name : new FormControl(),
-    last_name : new FormControl(),
-    username: new FormControl(),
-  });
+  form: FormGroup;
 
   constructor(
     private officeService: OfficeService,
     private authService: AuthService,
     private accountService: AccountService,
-    private notifier: NotificationService) { }
+    private notifService: NotificationService) { }
 
   ngOnInit() {
-    this.officeService.getOffices()
+    // setup form text input controls
+    this.form = new FormGroup({
+      first_name : new FormControl('', Validators.required),
+      last_name : new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+    });
+
+    // setup office choices to be selected in form including student department
+    this.officeService.getAllOffices()
       .subscribe(
         resp => {
 
@@ -41,28 +52,31 @@ export class AdminRegisterOfficeUserComponent implements OnInit {
           $('select').formSelect();
         },
         err => {
-
+          this.notifService.error(
+            'Something went wrong while fetching offices', null, err);
         }
       );
   }
 
+  /**
+   * register a new office user account
+   */
   doRegisterOfficeUser() {
+    // set up account to be send to backend
     const account: Account = this.form.value;
     account.departmentId = $('#offices').val();
-    account.email = this.form.value.username;
-    account.user_role = 'office';
-    account.password = 'jkl;';
+    account.user_role = appConfig.roles.OFFICE;
+    account.password = this.accountService.generatePassword(account);
 
     this.accountService.addUserAccount(account)
       .subscribe(
         resp => {
-          this.notifier.success('succesfully registered user', null);
+          this.notifService.success('Successfully registered user', null);
         },
         err => {
-          this.notifier.error('Error while registering user', null, err);
+          this.notifService.error(
+            'Something went wrong trying to register user', null, err);
         }
       );
-    // console.log(account);
   }
-
 }
