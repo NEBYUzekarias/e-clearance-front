@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {Account} from '../../../models/account';
 import {OfficeService} from '../../../services/office.service';
 import {DebtList} from '../../../models/debt-list';
 import {FileResolver} from 'codelyzer/angular/fileResolver/fileResolver';
 import {NotificationService} from '../../../services/notification.service';
+
 declare var $, XLSX: any;
+
 @Component({
   selector: 'app-office-home',
   templateUrl: './office-home.component.html',
@@ -13,29 +15,23 @@ declare var $, XLSX: any;
 })
 export class OfficeHomeComponent implements OnInit {
 
-  account: Account = new Account();
+  account: Account = null;
   debtList: DebtList[];
-  constructor(
-    private authService: AuthService,
-    private officeService: OfficeService,
-    private notifier: NotificationService
-  ) {
 
+  constructor(private authService: AuthService,
+              private officeService: OfficeService,
+              private notifier: NotificationService) {
+    this.account = this.authService.account;
   }
 
   ngOnInit() {
-    this.authService.getSelfAccount()
+    this.officeService.getOfficeDebtList()
       .subscribe(
         resp => {
-          this.account = resp;
-            this.officeService.getOfficeDebtList(this.account.department.name)
-              .subscribe(
-                respl => {
-                  this.debtList = respl;
-                },
-                err => {
-                }
-              );
+          this.debtList = resp;
+        },
+        err => {
+          this.notifier.error('Could not load debt lists', null, err);
         }
       );
   }
@@ -65,14 +61,20 @@ export class OfficeHomeComponent implements OnInit {
     excelReadPromise.then((output: any) => {
       const debtList: DebtList[] = new Array();
       for (let i = 0; i < output.length; i++) {
-        debtList.push({student_id: output[i].student_id.trim().toLowerCase(), office_name: this.account.department.name, full_name: output[i].full_name, department: output[i].department, reason: output[i].reason});
+        debtList.push({
+          student_id: output[i].student_id.trim().toLowerCase(),
+          office_name: this.authService.account.department.name,
+          full_name: output[i].full_name,
+          department: output[i].department,
+          reason: output[i].reason
+        });
       }
       this.officeService.updateDebtList(debtList)
         .subscribe(
           resp => {
             this.debtList = resp;
-            this.account.department.debt_list = true;
-           this.notifier.success('Successfuly updated office debt list', null);
+            this.authService.account.department.debt_list = true;
+            this.notifier.success('Successfuly updated office debt list', null);
           },
           err => {
             this.notifier.error('Error while updating debt list', null, err);
