@@ -66,14 +66,13 @@ export class OfficeHomeComponent implements OnInit {
           office_name: this.account.department.name,
           full_name: output[i].full_name,
           department: output[i].department,
-          reason: output[i].reason
+          reason: output[i].reason,
         });
       }
       this.officeService.updateDebtList(debtList)
         .subscribe(
           resp => {
             this.debtList = resp;
-            this.authService.account.department.debt_list = true;
             this.notifier.success('Successfuly updated office debt list', null);
           },
           err => {

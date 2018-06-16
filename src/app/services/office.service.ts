@@ -63,13 +63,15 @@ export class OfficeService {
     return this.httpClient.post(appConfig.apiUrl + `/debtlists`, list)
       .map(
         resp => {
+          console.log('account dep: ', this.authService.account.department.name);
           // update that the department debt_list is true now
           this.httpClient.patch(
-            appConfig.apiUrl + `departments/${this.authService.account.department.name}`, {debt_list: true})
+            appConfig.apiUrl + `/departments/${this.authService.account.department.name}`, {debt_list: true})
             .subscribe(
               inner_resp => {
                 this.authService.account.department.debt_list = true;
                 console.log('Account debt_list update successful');
+                console.log('inner resp', inner_resp);
               },
               err => {
                 console.log('Account debt_list update failed');

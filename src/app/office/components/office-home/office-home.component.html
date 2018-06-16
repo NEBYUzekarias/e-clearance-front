@@ -42,7 +42,7 @@
 
       </div>
       <div *ngIf="account.department.debt_list" class="row">
-        <div *ngIf="debtList.length > 0" class="col s12">
+        <div *ngIf="debtList && debtList.length > 0" class="col s12">
           <table>
             <tr>
               <th>Student id</th>

@@ -73,15 +73,14 @@ export class AuthService {
 
   logout(): void {
     const access_token: string = localStorage.getItem(appConfig.local_keys.token);
+    // remove everything from local storage including access token
+    localStorage.clear();
 
     // if there is access token, logout from the server
     if (access_token) {
       this.http.post(appConfig.apiUrl + '/accounts/logout', null)
         .subscribe(
           resp => {
-            // remove everything from local storage including access token
-            localStorage.clear();
-
             // clear auth service properties
             this._access_token = null;
             this._account = null;
@@ -95,9 +94,6 @@ export class AuthService {
     } else {
       // if no access token is found, can't logout from server
       // just do what you can on the client
-
-      // remove everything from local storage including access token
-      localStorage.clear();
 
       this.router.navigate(['/login']);
     }
