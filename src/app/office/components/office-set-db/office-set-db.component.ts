@@ -132,13 +132,15 @@ export class OfficeSetDbComponent implements OnInit {
    * Enable or disable to set port number
    */
   togglePortSetting(): void {
-    if (this.portEnabled) {
-      this.form.setControl('port', this.port);
-    } else {
-      this.form.removeControl('port');
-    }
+    if (this.portEnabled !== null){
+      this.portEnabled = !this.portEnabled;
 
-    this.portEnabled = !this.portEnabled;
+      if (this.portEnabled) {
+        this.form.setControl('port', this.port);
+      } else {
+        this.form.removeControl('port');
+      }
+    }
   }
 
   /**
@@ -200,6 +202,23 @@ export class OfficeSetDbComponent implements OnInit {
         err => {
           this.notifService.error('Database connection test failed.', null, err);
           console.log('terr', err);
+        }
+      );
+  }
+
+  removeDbConfig(){
+    this.sourceService.removeSource(this.setting)
+      .subscribe(
+        resp => {
+          this.form.reset();
+          this.settingFound = false;
+          this.setting = null;
+
+          this.notifService.success('Database setting successfully removed');
+        },
+        err => {
+          this.notifService.error(
+            'Something went wrong trying to remove database setting', null, err);
         }
       );
   }

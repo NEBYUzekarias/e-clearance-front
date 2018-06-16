@@ -11,10 +11,14 @@ export class SourceService {
               private authService: AuthService) { }
 
   getSource(): Observable<any> {
-    let where_filter = {departmentId: this.authService.account.departmentId};
-    console.log('where', where_filter);
+    let where_filter = {
+      where: {
+        departmentId: this.authService.account.departmentId
+      }
+    };
+    console.log('where for source', where_filter);
     return this.httpClient.get(
-      appConfig.apiUrl + '/DbConfigs?where=' + JSON.stringify(where_filter)
+      appConfig.apiUrl + '/DbConfigs?filter=' + JSON.stringify(where_filter)
     );
   }
 
@@ -48,5 +52,9 @@ export class SourceService {
     return this.httpClient.get(
       appConfig.apiUrl + '/DbConfigs/conntest?filter=' + JSON.stringify(filter)
     );
+  }
+
+  removeSource(source): Observable<any> {
+    return this.httpClient.delete(appConfig.apiUrl + `/DbConfigs/${source.id}`);
   }
 }

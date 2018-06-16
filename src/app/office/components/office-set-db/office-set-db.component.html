@@ -2,7 +2,7 @@
   <div class="col s12">
     <div class="card-panel z-depth-2">
       <span class="card-title flow-text">
-        <i class="material-icons left">home</i>Set Database Settings
+        <i class="material-icons left">settings</i>Set Database Settings
       </span>
     </div>
   </div>
@@ -38,7 +38,7 @@
                   class="helper-text red-text">User Name is required</span>
           </div>
           <div class="input-field col m6">
-            <input formControlName="password" type="text" id="password">
+            <input formControlName="password" type="password" id="password">
             <label for="password" [ngClass]="{'active': settingFound}">Database User Password</label>
             <span *ngIf="form.controls.password.touched && form.controls.password.errors?.required"
                   class="helper-text red-text">Password is required</span>
@@ -92,30 +92,37 @@
 
           <div class="input-field col m6">
             <button *ngIf="portEnabled" (click)="togglePortSetting()" class="btn">
-              <i class="material-icons left">done</i>Use Default Port Number
+              <i class="material-icons left">settings_input_antenna</i>Use Default Port Number
             </button>
             <button *ngIf="!portEnabled" (click)="togglePortSetting()" class="btn">
-              <i class="material-icons left">done</i>Set Custom Port Number
+              <i class="material-icons left">settings_input_antenna</i>Set Custom Port Number
             </button>
           </div>
         </div>
 
         <div class="row">
-          <div class="input-field col m6">
+          <div class="input-field col m4">
             <button *ngIf="settingFound === true" (click)="updateDbConfig()"
                     class="btn" [disabled]="form.invalid">
-              <i class="material-icons left">done</i>Update Database Settings
+              <i class="material-icons left">arrow_upward</i>Update Database Settings
             </button>
             <button *ngIf="settingFound === false" (click)="createDbConfig()"
                     class="btn" [disabled]="form.invalid">
-              <i class="material-icons left">done</i>Create New Database Settings
+              <i class="material-icons left">playlist_add</i>Create New Database Settings
             </button>
           </div>
 
-          <div class="input-field col m6">
+          <div class="input-field col m4">
             <button (click)="testDbConfig()"
-                    class="btn" [disabled]="form.invalid">
-              <i class="material-icons left">done</i>Test Database Settings
+                    class="btn blue darken-1" [disabled]="form.invalid">
+              <i class="material-icons left">rss_feed</i>Test Database Settings
+            </button>
+          </div>
+
+          <div class="input-field col m4">
+            <button (click)="removeDbConfig()"
+                    class="btn red darken-1" [disabled]="!settingFound">
+              <i class="material-icons left">delete</i>Remove Database Settings
             </button>
           </div>
         </div>
