@@ -65,7 +65,13 @@ export class OfficeHomeComponent implements OnInit {
     excelReadPromise.then((output: any) => {
       const debtList: DebtList[] = new Array();
       for (let i = 0; i < output.length; i++) {
-        debtList.push({student_id: output[i].student_id.trim().toLowerCase(), office_name: this.account.department.name, full_name: output[i].full_name, department: output[i].department, reason: output[i].reason});
+        debtList.push(<DebtList>{
+          student_id: output[i].student_id.trim().toLowerCase(),
+          office_name: this.account.department.name,
+          full_name: output[i].full_name,
+          department: output[i].department,
+          reason: output[i].reason
+        });
       }
       this.officeService.updateDebtList(debtList)
         .subscribe(
@@ -79,6 +85,43 @@ export class OfficeHomeComponent implements OnInit {
           }
         );
     });
+  }
+
+  updateSingleEntry(index, debtList: DebtList, debt_id) {
+    const update = [];
+    // console.log($(`#${index}1`).val());
+    for (let i = 1; i <= 4; i++) {
+      update.push($(`#${index}${i}`).val());
+    }
+    debtList.id = debt_id
+    debtList.student_id = update[0];
+    debtList.full_name = update[1];
+    debtList.department = update[2];
+    debtList.office_name = this.account.department.name;
+    debtList.reason = update[3];
+
+    this.officeService.updateSingleDebtList(debtList)
+      .subscribe(
+        resp =>{
+          this.notifier.success('Successfully updated', null);
+        },
+        err =>{
+          this.notifier.error('Error while updating debt', null, err);
+        }
+      );
+  }
+
+  deletDebt(index, id: string) {
+    this.officeService.deleteSingleDebtList(id)
+      .subscribe(
+        resp => {
+          this.debtList.splice(index, 1);
+          this.notifier.success('Successfully deleted', null);
+        },
+        err => {
+          this.notifier.error('Error while deleting debt list', null, err);
+        }
+      );
   }
 
 

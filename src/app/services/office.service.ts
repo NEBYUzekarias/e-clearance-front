@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs/Observable";
-import {Office} from "../models/office";
-import {HttpClient} from "@angular/common/http";
-import {appConfig} from "../app.config";
+import {Observable} from 'rxjs/Observable';
+import {Office} from '../models/office';
+import {HttpClient} from '@angular/common/http';
+import {appConfig} from '../app.config';
 import {DebtList} from '../models/debt-list';
 
 @Injectable()
@@ -58,6 +58,9 @@ export class OfficeService {
         }
     );
   }
+  removeDebtList(list) {
+
+  }
   getOfficeDebtList(officeName): Observable<DebtList[]> {
     return this.httpClient.get(appConfig.apiUrl + `/debtlists?filter={"where":{"office_name":"${officeName}"}}`)
       .map(
@@ -65,6 +68,14 @@ export class OfficeService {
           return resp as DebtList[];
         }
       );
+  }
+
+  updateSingleDebtList(debtList: DebtList) {
+      return this.httpClient.patch(appConfig.apiUrl + `/debtlists`, debtList);
+  }
+
+  deleteSingleDebtList(id: string) {
+      return this.httpClient.delete(appConfig.apiUrl + `/debtlists/${id}`);
   }
 
 

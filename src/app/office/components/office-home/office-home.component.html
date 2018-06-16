@@ -15,7 +15,7 @@
            <!--{{account.department.name | titlecase}}-->
          <!--</h2>-->
        <!--</div>-->
-        <div class="file-field input-field col s12 m6">
+        <div class="file-field input-field col">
          <h2 class="flow-text">
            <div class="btn {{account.department.debt_list ? 'blue' : 'green '}} white-text">
               <span *ngIf="account.department.debt_list">
@@ -25,10 +25,17 @@
                 <i class="material-icons left" >add</i>Create debt list</span>
              <input type="file" (change)="setDebtListFile($event)">
            </div>
-           <div class="file-path-wrapper">
-             <input class="file-path validate" type="text">
-           </div>
          </h2>
+        </div>
+        <div *ngIf="account.department.debt_list" class="file-field input-field col">
+          <h2 class="flow-text">
+            <button class="btn red">
+              <i class="material-icons left">
+                close
+              </i>
+              Remove debt list
+            </button>
+          </h2>
         </div>
       </div>
       <div class="row" *ngIf="!debtList">
@@ -42,13 +49,27 @@
               <th>Full Name</th>
               <th>Department</th>
               <th>Reason</th>
+              <th>Action</th>
             </tr>
-            <tr *ngFor="let debt of debtList">
-              <td>{{debt.student_id}}</td>
-              <td>{{debt.full_name}}</td>
-              <td>{{debt.department}}</td>
-              <td>{{debt.reason}}</td>
+            <tr *ngFor="let debt of debtList; let i = index">
+              <td><input id="{{i}}1" type="text" value="{{debt.student_id}}"></td>
+              <td><input id="{{i}}2" type="text" value="{{debt.full_name}}"></td>
+              <td><input id="{{i}}3" type="text" value="{{debt.department}}"></td>
+              <td><input id="{{i}}4" type="text" value="{{debt.reason}}"></td>
+              <td>
+                <button (click)="updateSingleEntry(i, debt, debt.id)" class="btn lighten-1">
+                  <i class="material-icons left">sync</i>
+                  update
+                </button>
+                <button (click)="deletDebt(i, debt.id)" class="btn red lighten-1">
+                  <i class="material-icons left">
+                    delete
+                  </i>
+                  delete
+                </button>
+              </td>
             </tr>
+
 
           </table>
         </div>

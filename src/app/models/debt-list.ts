@@ -4,4 +4,5 @@ export class DebtList {
   office_name: string;
   department: string;
   reason: string;
+  id?: string;
 }
