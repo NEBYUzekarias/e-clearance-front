@@ -119,5 +119,19 @@ export class OfficeHomeComponent implements OnInit {
       );
   }
 
+  removeDebtList() {
+    this.officeService.removeDebtList(this.authService.account.departmentId)
+      .subscribe(
+        resp => {
+          this.authService.account.department.debt_list = false;
+          this.account = this.authService.account;
+          this.notifier.success('Successfully removed office debt list', null);
+        },
+        err => {
+          this.notifier.error('Error while removing office debt list', null, err);
+        }
+      );
+  }
+
 
 }
