@@ -69,7 +69,11 @@ export class OfficeService {
             appConfig.apiUrl + `/departments/${this.authService.account.department.name}`, {debt_list: true})
             .subscribe(
               inner_resp => {
-                this.authService.account.department.debt_list = true;
+                // update the local account
+                let updated_account = this.authService.account;
+                updated_account.department.debt_list = true;
+                this.authService.account = updated_account;
+
                 console.log('Account debt_list update successful');
                 console.log('inner resp', inner_resp);
               },
