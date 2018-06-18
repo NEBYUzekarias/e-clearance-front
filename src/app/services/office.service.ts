@@ -4,7 +4,7 @@ import {Office} from '../models/office';
 import {HttpClient} from '@angular/common/http';
 import {appConfig} from '../app.config';
 import {DebtList} from '../models/debt-list';
-import {AuthService} from "./auth.service";
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class OfficeService {
@@ -86,8 +86,9 @@ export class OfficeService {
         }
     );
   }
-  removeDebtList(list) {
+  removeDebtList(officeId) {
 
+    return this.httpClient.post(appConfig.apiUrl + `/departments/removeDebtList`, {id: officeId});
   }
 
   getOfficeDebtList(): Observable<DebtList[]> {

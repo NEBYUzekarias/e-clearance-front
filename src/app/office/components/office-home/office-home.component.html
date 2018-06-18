@@ -29,7 +29,7 @@
         </div>
         <div *ngIf="account.department.debt_list" class="file-field input-field col">
           <h2 class="flow-text">
-            <button class="btn red">
+            <button class="btn red" (click)="removeDebtList()">
               <i class="material-icons left">
                 close
               </i>
