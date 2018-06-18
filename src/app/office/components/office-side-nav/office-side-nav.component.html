@@ -42,7 +42,7 @@
       <i class="material-icons left">settings_remote</i>
       Database Setting
       <i *ngIf="account.department.db_config" class="material-icons right green-text">check_circle</i>
-      <i *ngIf="!account.department.db_config" class="material-icons right blue-text">info_outline</i>
+
     </a>
   </li>
 
@@ -52,7 +52,7 @@
       <i class="material-icons left">sync</i>
       {{account.department.debt_list ? 'Sync local list' : 'Set Local list'}}
       <i *ngIf="account.department.debt_list" class="material-icons right green-text">check_circle</i>
-      <i *ngIf="!account.department.debt_list" class="material-icons right blue-text">info_outline</i>
+
     </a>
   </li>
 
