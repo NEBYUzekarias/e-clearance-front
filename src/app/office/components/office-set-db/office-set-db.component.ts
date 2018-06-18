@@ -77,7 +77,8 @@ export class OfficeSetDbComponent implements OnInit {
           this.init_select();
         },
         err => {
-          console.log('err: ', err);
+          this.notifService.error(
+            'Something went wrong tring to fetch database settings', null, err);
         }
       );
   }

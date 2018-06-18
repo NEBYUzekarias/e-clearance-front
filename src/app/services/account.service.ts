@@ -35,7 +35,7 @@ export class AccountService {
    * @returns {string}: generated password
    */
   generatePassword(account: Account): string {
-    return 'jkl;';
+    return Math.floor(1000 + Math.random() * 9000).toString();
   }
 
   /**
