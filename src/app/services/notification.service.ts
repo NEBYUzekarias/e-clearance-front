@@ -26,6 +26,9 @@ export class NotificationService {
       let handled_from_err = true;
 
       // weird loopback error object we need of
+      if (!err.error || !err.error.error){
+        console.log('Non-loopback error happened, dont know what to do');
+      }
       const error = err.error.error;
 
       if (err.status === 0) {
@@ -139,6 +142,14 @@ export class NotificationService {
           );
         } else if (error.code === 'DB_ERROR') {
           // any database error(not sure if all errors will lead here)
+          M.toast(
+            {
+              html: error.message,
+              classes: this.error_classes,
+            }
+          );
+        } else if (error.code === 'MANY_DB') {
+          // many database settings(not sure if all errors will lead here)
           M.toast(
             {
               html: error.message,
