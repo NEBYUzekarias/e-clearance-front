@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 export class AccountService {
 
   constructor(private httpClient: HttpClient) { }
-  
+
   /**
    * change password of an account
    * @param {Object} changeInformation: old and new password with necessary change info
@@ -35,7 +35,7 @@ export class AccountService {
    * @returns {string}: generated password
    */
   generatePassword(account: Account): string {
-    return 'jkl;';
+    return Math.floor(1000 + Math.random() * 9000).toString();
   }
 
   /**
