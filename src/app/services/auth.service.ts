@@ -49,6 +49,12 @@ export class AuthService {
       return null;
     }
   }
+  set account(new_account) {
+    // store account on local storage
+    localStorage.setItem(appConfig.local_keys.account, JSON.stringify(new_account));
+
+    this._account = new_account;
+  }
 
   constructor(private http: HttpClient,
               private router: Router,
