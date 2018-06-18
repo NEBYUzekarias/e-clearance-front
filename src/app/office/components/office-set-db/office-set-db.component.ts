@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {SourceService} from "../../../services/source.service";
-import {NotificationService} from "../../../services/notification.service";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SourceService} from '../../../services/source.service';
+import {NotificationService} from '../../../services/notification.service';
+import {AuthService} from '../../../services/auth.service';
+import {Account} from '../../../models/account';
 
 declare var $: any;
 
@@ -25,8 +27,11 @@ export class OfficeSetDbComponent implements OnInit {
 
   setting: any = null;
 
+  account: Account = null;
+
   constructor(private sourceService: SourceService,
-              private notifService: NotificationService) { }
+              private notifService: NotificationService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     // setup form text input controls
@@ -47,6 +52,8 @@ export class OfficeSetDbComponent implements OnInit {
       Validators.min(1),
       Validators.max(65535),
     ]);
+
+    this.account = this.authService.account;
 
     // fetch any database settings that is already setup
     this.sourceService.getSource()
@@ -89,7 +96,7 @@ export class OfficeSetDbComponent implements OnInit {
    * @returns {any}
    */
   getSourceFromInputs(): any {
-    let source = this.form.value;
+    const source = this.form.value;
     source.client = $('#clients').val();
 
     return source;
@@ -112,7 +119,7 @@ export class OfficeSetDbComponent implements OnInit {
     }
 
     // copy settings to filter form values only
-    let form_values: any = {};
+    const form_values: any = {};
     Object.assign(form_values, settings);
 
     // delete unnecessary properties if specified
@@ -132,7 +139,7 @@ export class OfficeSetDbComponent implements OnInit {
    * Enable or disable to set port number
    */
   togglePortSetting(): void {
-    if (this.portEnabled !== null){
+    if (this.portEnabled !== null) {
       this.portEnabled = !this.portEnabled;
 
       if (this.portEnabled) {
@@ -147,7 +154,7 @@ export class OfficeSetDbComponent implements OnInit {
    * Update database configurations based on settings
    */
   updateDbConfig() {
-    let source = this.getSourceFromInputs();
+    const source = this.getSourceFromInputs();
 
     this.sourceService.updateSource(source)
       .subscribe(
@@ -171,13 +178,13 @@ export class OfficeSetDbComponent implements OnInit {
    * create new db config in backend
    */
   createDbConfig() {
-    let source = this.getSourceFromInputs();
+    const source = this.getSourceFromInputs();
 
     this.sourceService.createSource(source)
       .subscribe(
         resp => {
           this.notifService.success('Successfully created database settings');
-
+          this.authService.account.department.db_config = true;
           this.populateSetting(resp);
         },
         err => {
@@ -187,7 +194,7 @@ export class OfficeSetDbComponent implements OnInit {
   }
 
   testDbConfig() {
-    let source = this.getSourceFromInputs();
+    const source = this.getSourceFromInputs();
 
     this.sourceService.testSource(source)
       .subscribe(
@@ -206,14 +213,14 @@ export class OfficeSetDbComponent implements OnInit {
       );
   }
 
-  removeDbConfig(){
+  removeDbConfig() {
     this.sourceService.removeSource(this.setting)
       .subscribe(
         resp => {
           this.form.reset();
           this.settingFound = false;
           this.setting = null;
-
+          this.authService.account.department.db_config = false;
           this.notifService.success('Database setting successfully removed');
         },
         err => {

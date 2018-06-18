@@ -36,6 +36,7 @@ export class ResetForgottenPasswordComponent implements OnInit {
       this.accountService.findUserAccount(username)
         .subscribe(
           resp => {
+            this.generatedPassword = '';
             if (resp.length === 0) {
               this.userFound = false;
               this.account = null;
@@ -72,7 +73,7 @@ export class ResetForgottenPasswordComponent implements OnInit {
             this.notifService.success('Password updated successfully');
             this.generatedPassword = newPassword;
           } else {
-            this.generatedPassword = null;            
+            this.generatedPassword = null;
             this.notifService.error('Something went wrong trying to update password');
           }
         },

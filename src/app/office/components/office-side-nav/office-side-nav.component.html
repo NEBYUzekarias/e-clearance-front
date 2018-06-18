@@ -16,7 +16,7 @@
       </a>
       <a>
         <span class="white-text name" style="margin-top: 0;">
-          {{account.departmentId | titlecase}}
+          {{account.department.description}}
         </span>
       </a>
 
@@ -37,18 +37,12 @@
     </a>
   </li>
 
-  <li  routerLinkActive="active">
-    <a routerLink="change_password">
-      <i class="material-icons left">lock</i>
-      Change password
-    </a>
-  </li>
-
-
   <li routerLinkActive="active">
     <a routerLink="set_db_config">
       <i class="material-icons left">settings_remote</i>
       Database Setting
+      <i *ngIf="account.department.db_config" class="material-icons right green-text">check_circle</i>
+      <i *ngIf="!account.department.db_config" class="material-icons right blue-text">info_outline</i>
     </a>
   </li>
 
@@ -56,7 +50,17 @@
   <li routerLinkActive="active">
     <a routerLink="set_or_update_debt_list">
       <i class="material-icons left">sync</i>
-      Sync local list
+      {{account.department.debt_list ? 'Sync local list' : 'Set Local list'}}
+      <i *ngIf="account.department.debt_list" class="material-icons right green-text">check_circle</i>
+      <i *ngIf="!account.department.debt_list" class="material-icons right blue-text">info_outline</i>
+    </a>
+  </li>
+
+
+  <li  routerLinkActive="active">
+    <a routerLink="change_password">
+      <i class="material-icons left">lock</i>
+      Change password
     </a>
   </li>
 

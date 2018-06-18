@@ -19,14 +19,17 @@
         </h2>
         <hr>
         <div class="row">
-          <div *ngFor="let department of departments" class="col s12 m12 l6">
+          <div *ngFor="let department of departments" class="col s12 m3">
             <div class="card z-depth-2 hoverable">
               <div class="card-image">
-                <img src="{{department.picture}}">
-                <b><span class="card-title">{{department.description}}</span></b>
+                <img style="height: 180px" src="{{department.picture}}">
+                <b><span style="color: whitesmoke; background-color: rgba(10,10,10, 0.4);" class="card-title">{{department.description}}</span></b>
               </div>
               <div class="card-content">
-
+                <b>Location</b><br>
+                {{department.location}}<br>
+                <b>Open hours</b> <br>
+                {{department.openHours}}
               </div>
               <!--<div class="card-action">-->
                 <!--<a href="#">This is a link</a>-->
@@ -42,11 +45,14 @@
           <div class="col s12 m12 l6">
             <div class="card z-depth-2 hoverable">
               <div class="card-image">
-                <!--<img src="{{studentAccount.department.picture}}">-->
-                <b><span class="card-title">{{studentAccount.department.name}}</span></b>
+                <img src="{{studentAccount.department.picture}}">
+                <b><span style="color: whitesmoke; background-color: rgba(10,10,10, 0.4);"  class="card-title">{{studentAccount.department.name}}</span></b>
               </div>
               <div class="card-content">
-
+                <b>Location</b><br>
+                {{studentAccount.department.location}}<br>
+                <b>Open hours</b> <br>
+                {{studentAccount.department.openHours}}
               </div>
               <!--<div class="card-action">-->
               <!--<a href="#">This is a link</a>-->
