@@ -140,7 +140,6 @@ export class OfficeSetDbComponent implements OnInit {
    * Enable or disable to set port number
    */
   togglePortSetting(): void {
-    if (this.portEnabled !== null) {
       this.portEnabled = !this.portEnabled;
 
       if (this.portEnabled) {
@@ -148,7 +147,6 @@ export class OfficeSetDbComponent implements OnInit {
       } else {
         this.form.removeControl('port');
       }
-    }
   }
 
   /**

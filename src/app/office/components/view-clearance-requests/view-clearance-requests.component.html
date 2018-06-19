@@ -67,7 +67,7 @@
               Date of request
             </th>
             <th>
-              Action 
+              Action
             </th>
           </tr>
 
@@ -148,11 +148,11 @@
                  id="modal{{i}}" class="modal">
               <div class="modal-content">
                 <div class="row">
-                  <h4>
+                  <h4  class="center">
                     Reason for review of
                     {{request.clearance.student.first_name}} - {{request.clearance.student.username}}
                   </h4>
-                  <p>{{request.reason}}</p>
+                  <p class="center">{{request.reason}}</p>
                 </div>
               </div>
               <div class="modal-footer">
@@ -168,11 +168,11 @@
               <div id="modal{{i}}" class="modal">
                 <div class="modal-content">
                   <div class="row">
-                    <h4>
+                    <h4 class="center">
                       Review for
                       {{request.clearance.student.first_name}} - {{request.clearance.student.username}}
                     </h4>
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 center">
                   <textarea ngModel name="reason" class="materialize-textarea"
                             id="textarea{{i}}" rows="5" required>
 

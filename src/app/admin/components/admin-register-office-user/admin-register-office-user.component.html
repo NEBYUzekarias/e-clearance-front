@@ -11,48 +11,53 @@
     <div class="card-panel z-depth-2">
       <form [formGroup]="form">
         <div class="row">
-          <div class="col s12 m6">
-            <div class="input-field">
-              <select id="offices">
 
-              </select>
-            </div>
-            <div class="input-field">
-              <input formControlName="first_name" type="text" id="first_name">
-              <label for="first_name">First Name</label>
-              <span *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.required"
-                    class="helper-text red-text">First name is required</span>
-            </div>
+          <div class="input-field col s12 m6">
+            <select id="offices">
 
-            <div class="input-field">
-              <input formControlName="last_name" type="text" id="last_name">
-              <label for="last_name">Last Name</label>
-              <span *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.required"
-                    class="helper-text red-text">Last name is required</span>
-            </div>
-
-            <div class="input-field">
-              <button (click)="doRegisterOfficeUser()" class="btn" [disabled]="form.invalid">
-                <i class="material-icons left">done</i>Register
-              </button>
-            </div>
+            </select>
           </div>
-          <div class="col s12 m6">
-            <div class="input-field">
-              <input formControlName="username" type="text" id="username">
-              <label for="username">Username</label>
-              <span *ngIf="form.controls.username.touched && form.controls.username.errors?.required"
-                    class="helper-text red-text">Username is required</span>
-            </div>
 
-            <div class="input-field">
-              <input formControlName="email" type="text" id="email">
-              <label for="email">Email</label>
-              <span *ngIf="form.controls.email.touched && form.controls.email.errors?.required"
-                    class="helper-text red-text">Email is required</span>
-              <span *ngIf="form.controls.email.touched && form.controls.email.errors?.email"
-                    class="helper-text red-text">This should be in email format</span>
-            </div>
+          <div class="input-field col s12 m6">
+            <input formControlName="username" type="text" id="username">
+            <label for="username">Username</label>
+            <span *ngIf="form.controls.username.touched && form.controls.username.errors?.required"
+                  class="helper-text red-text">Username is required</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input formControlName="first_name" type="text" id="first_name">
+            <label for="first_name">First Name</label>
+            <span *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.required"
+                  class="helper-text red-text">First name is required</span>
+          </div>
+
+          <div class="input-field col s12 m6">
+            <input formControlName="last_name" type="text" id="last_name">
+            <label for="last_name">Last Name</label>
+            <span *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.required"
+                  class="helper-text red-text">Last name is required</span>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input formControlName="email" type="text" id="email">
+            <label for="email">Email</label>
+            <span *ngIf="form.controls.email.touched && form.controls.email.errors?.required"
+                  class="helper-text red-text">Email is required</span>
+            <span *ngIf="form.controls.email.touched && form.controls.email.errors?.email"
+                  class="helper-text red-text">This should be in email format</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <button (click)="doRegisterOfficeUser()" class="btn" [disabled]="form.invalid">
+              <i class="material-icons left">done</i>Register
+            </button>
           </div>
         </div>
       </form>
