@@ -10,15 +10,12 @@
   <div class="col s12">
     <ul class="collapsible expandable z-depth-2">
       <li *ngIf="loading.state">
-        <div class="collapsible-header">
-          <div class="row">
-            <div class="col s12">
-              <app-loading
-                [loadMessage]="loading.message">
-              </app-loading>
+
+          <div class="card z-depth-2">
+            <div class="card-content">
+              <app-loading></app-loading>
             </div>
           </div>
-        </div>
       </li>
       <li *ngFor="let clearance of clearances;let i = index">
         <div class="collapsible-header" style="display: block;">

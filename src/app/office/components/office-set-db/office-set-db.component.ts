@@ -29,6 +29,8 @@ export class OfficeSetDbComponent implements OnInit {
 
   account: Account = null;
 
+  loadingSettings = true;
+
   constructor(private sourceService: SourceService,
               private notifService: NotificationService,
               private authService: AuthService) { }
@@ -59,6 +61,7 @@ export class OfficeSetDbComponent implements OnInit {
     this.sourceService.getSource()
       .subscribe(
         resp => {
+          this.loadingSettings = false;
           if (resp.length === 1) {
             // found database setting for the department
             this.populateSetting(resp[0]);
@@ -78,7 +81,7 @@ export class OfficeSetDbComponent implements OnInit {
         },
         err => {
           this.notifService.error(
-            'Something went wrong tring to fetch database settings', null, err);
+            'Something went wrong trying to fetch database settings', null, err);
         }
       );
   }

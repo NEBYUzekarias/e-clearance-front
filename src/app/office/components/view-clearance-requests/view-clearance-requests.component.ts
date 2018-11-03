@@ -159,7 +159,7 @@ export class ViewClearanceRequestsComponent implements OnInit {
       this.searching.state = true;
 
       // create search filter object
-      let search_filter = {
+      const search_filter = {
         search: {
           student: {}
         }

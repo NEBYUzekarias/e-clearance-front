@@ -12,7 +12,7 @@ declare var $: any;
 export class StudentSideNavComponent implements OnInit {
   account: Account = new Account();
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.account = this.authService.account;
   }
 

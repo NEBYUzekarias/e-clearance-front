@@ -16,39 +16,7 @@
       </app-search>
 
       <!-- table unpopulated with items for sole purpose of showing waiting state-->
-      <div *ngIf="searching.state || loading.state">
-        <table>
-          <tr>
-            <th>
-              Student Id
-            </th>
-            <th>
-              Student full name
-            </th>
-            <th>
-              Requested Year
-            </th>
-            <th>
-              Requested Semester
-            </th>
-            <th>
-              Date of request
-            </th>
-          </tr>
 
-        </table>
-
-        <app-loading
-          *ngIf="loading.state"
-          [loadMessage]="loading.message">
-        </app-loading>
-
-        <app-loading
-          *ngIf="searching.state"
-          [loadMessage]="searching.message">
-        </app-loading>
-
-      </div>
 
       <!-- table populated with real items -->
       <div *ngIf="!searching.state || !loading.state">
@@ -96,6 +64,19 @@
         </table>
 
       </div>
+      <div *ngIf="searching.state || loading.state">
+
+        <app-loading
+          *ngIf="loading.state"
+          [loadMessage]="loading.message">
+        </app-loading>
+
+        <app-loading
+          *ngIf="searching.state"
+          [loadMessage]="searching.message">
+        </app-loading>
+
+      </div>
 
       <app-pagination
         [request_url]="pagination_url"
@@ -103,6 +84,7 @@
       </app-pagination>
 
     </div>
+
 
   </div>
 </div>

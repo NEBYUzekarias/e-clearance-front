@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
+import { Account } from '../../../models/account';
 
 declare var $: any;
 
@@ -12,7 +13,7 @@ export class OfficeSideNavComponent implements OnInit {
 
   account: Account;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.account = this.authService.account;
   }
 

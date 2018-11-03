@@ -12,7 +12,7 @@ declare var $: any;
 export class AdminSideNavComponent implements OnInit {
   account: Account;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.account = this.authService.account;
   }
 

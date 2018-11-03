@@ -15,7 +15,7 @@ import {NotificationService} from '../../../services/notification.service';
 export class StudentRequestClearanceComponent implements OnInit {
 
   offices: Office[];
-  infos: object = {academic_year: '', semester: ''};
+  infos: any = {academic_year: '', semester: ''};
 
   reasonForClearance = 'Class end'; // default selected reason
   otherReasonRequired = false;

@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   officesList: any[];
   office_of_user: Object = {name:"", description: "",picture:"", id:""};
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     console.log(authService.access_token);
 
 

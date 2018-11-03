@@ -7,8 +7,12 @@
     </div>
   </div>
 
-  <div *ngIf="!departments || !studentAccount" class="row">
-    <app-loading [loadMessage]="onLoadMessage"></app-loading>
+  <div *ngIf="!departments || !studentAccount" class="col s12">
+    <div class="card z-depth-2">
+      <div class="card-content">
+        <app-loading></app-loading>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="departments && studentAccount" class="row">

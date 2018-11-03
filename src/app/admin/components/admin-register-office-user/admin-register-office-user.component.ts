@@ -67,7 +67,7 @@ export class AdminRegisterOfficeUserComponent implements OnInit {
     account.departmentId = $('#offices').val();
     account.user_role = appConfig.roles.OFFICE;
     account.password = this.accountService.generatePassword(account);
-
+    console.log(account);
     this.accountService.addUserAccount(account)
       .subscribe(
         resp => {
